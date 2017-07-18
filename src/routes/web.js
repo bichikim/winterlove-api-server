@@ -1,9 +1,18 @@
-
 export default (server) => {
     return [
         {
             method: 'GET',
-            path: '/file/{param*}',
+            path: '/favicon.ico',
+            config: {
+                auth: false,
+            },
+            handler: {
+                file: 'favicon.ico'
+            },
+        },
+        {
+            method: 'GET',
+            path: '/files/{param*}',
             config: {
                 auth: false,
             },
