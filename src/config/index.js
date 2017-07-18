@@ -13,8 +13,8 @@ const getConfig = () => {
             },
             map: (name, path) => {
                 return path.split('//').pop()
-                .split('.')
-                .shift()
+                    .split('.')
+                    .shift()
             },
         })
     }

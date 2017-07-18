@@ -12,7 +12,6 @@ export const initializeEvent = (myIo) => {
  *
  */
 export default class Event {
-
     /**
      * @param {{}|null} channel
      */

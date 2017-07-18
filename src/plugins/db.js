@@ -2,6 +2,8 @@
 import mongoose from 'mongoose'
 import config from '../config'
 
+const {console} = global
+
 const app = {
     register(server, options, next) {
         let mongooseConnectionAddress

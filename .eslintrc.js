@@ -1,6 +1,6 @@
 module.exports = {
 	parser: "babel-eslint",
-    plugin: ['vue'],
+    plugins: ['vue'],
     env: {
         "browser": true,
         "es6": true,
@@ -12,7 +12,7 @@ module.exports = {
     },
     "rules": {
 	    'vue/jsx-uses-vars': 2,
-        'max-len': ['error', 120],
+        'max-len': ['error', 140],
         'one-var': 'off',
         'no-console': 'off',
         'indent': ['error', 4],

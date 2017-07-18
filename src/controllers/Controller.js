@@ -2,7 +2,6 @@
  *
  */
 export default class Controller {
-
     /**
      *
      * @param {{}} server

@@ -17,10 +17,11 @@ export default () => {
             },
             map: (name, path) => {
                 return path.split('//').pop()
-                .split('.')
-                .shift()
+                    .split('.')
+                    .shift()
             },
         })
     }
     return composers
 }
+

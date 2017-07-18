@@ -85,16 +85,16 @@ export default class AuthController extends Controller {
         const {id, name, email, password} = request.payload
         const newUser = this._user({id, name, password, email})
         newUser.save()
-        .then((documents) => {
-            reply({
-                success: true,
-                data: documents,
+            .then((documents) => {
+                reply({
+                    success: true,
+                    data: documents,
+                })
+            }).catch((error) => {
+                reply({
+                    success: false,
+                    error: error.errmsg,
+                })
             })
-        }).catch((error) => {
-            reply({
-                success: false,
-                error: error.errmsg,
-            })
-        })
     }
 }
