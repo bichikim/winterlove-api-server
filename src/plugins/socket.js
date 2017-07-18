@@ -1,9 +1,8 @@
 import SocketIO from 'socket.io'
-import getConfig from '../config'
+import config from '../config'
 
 const app = {
     register(server, options, next) {
-        const config = getConfig()
         const io = SocketIO.listen(server.select(config.event.labels).listener)
         server.expose({
             io: io,

@@ -1,3 +1,4 @@
+
 export default (server) => {
     return [
         {
@@ -21,7 +22,7 @@ export default (server) => {
                 auth: false,
             },
             handler: (request, reply) => {
-                reply.view('index', {crumb: server.plugins.crumb.generate(request, reply)})
+                reply.view('index.handlebars', {crumb: server.plugins.crumb.generate(request, reply)})
             },
         },
     ]

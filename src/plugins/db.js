@@ -1,11 +1,10 @@
 /* global global*/
 import mongoose from 'mongoose'
-import getConfig from '../config'
+import config from '../config'
 
 const app = {
     register(server, options, next) {
         let mongooseConnectionAddress
-        const config = getConfig()
         server.expose({
             db: mongoose,
         })

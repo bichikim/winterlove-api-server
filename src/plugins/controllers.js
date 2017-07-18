@@ -1,6 +1,6 @@
 /* global __dirname*/
 import _ from 'lodash'
-import getConfig from '../config'
+import config from '../config'
 import getControllers from '../controllers'
 
 /**
@@ -40,7 +40,6 @@ const controllers = (server) => {
 
 const app = {
     register(server, options, next) {
-        const config = getConfig()
         const webServer = server.select(config.server.labels)
         const handler = controllers(webServer)
 

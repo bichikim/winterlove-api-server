@@ -1,11 +1,10 @@
 import webRouteConfig from '../routes/web'
 import authRouteConfig from '../routes/auth'
 import apiRouteConfig from '../routes/api'
-import getConfig from '../config'
+import config from '../config'
 
 const app = {
     register(server, options, next) {
-        const config = getConfig()
         const webServer = server.select(config.server.labels)
         const webRoute = webRouteConfig(webServer)
         const authRoute = authRouteConfig(webServer)

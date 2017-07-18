@@ -3,7 +3,7 @@ import requireAll from 'require-all'
 
 let config
 
-export default () => {
+const getConfig = () => {
     if (!config) {
         config = requireAll({
             dirname: `${__dirname}/`,
@@ -20,3 +20,5 @@ export default () => {
     }
     return config
 }
+
+export default getConfig()

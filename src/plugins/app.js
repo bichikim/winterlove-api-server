@@ -2,11 +2,10 @@
  * Set config and connection according to config
  */
 /* global process*/
-import getConfig from '../config'
+import config from '../config'
 
-const config = getConfig()
 // eslint-disable-next-line no-process-env
-process.env.NODE_ENV = config.app.env
+process.env.NODE_ENV = config.app.APP_ENV
 
 const app = {
     register(server, options, next) {

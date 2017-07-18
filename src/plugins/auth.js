@@ -1,9 +1,8 @@
 import User from '../models/UserModel'
-import getConfig from '../config'
+import config from '../config'
 
 const app = {
     register(server, options, next) {
-        const config = getConfig()
         const webServer = server.select(config.server.labels)
 
         server.expose({

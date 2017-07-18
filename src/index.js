@@ -28,15 +28,20 @@ const register = (server, plugin, options = {}) => {
         })
     },
     server = new Server(),
+
+    // After loading all plugins
     globalSet = (server) => {
-        // Noting to set yet
+        // View setting todo  temporarily being here. it needs to be replaced
         server.views({
             engines: {
-                html: {
+                // This object member name will be name of file type
+                handlebars: {
+                    // Set what kind of module the file type use
                     module: handlebars,
                 }
             },
-            relativeTo: `${__dirname}/../../public`,
+            // Root path for vision(view)
+            relativeTo: `${__dirname}/../public`,
         })
     },
     start = (server) => {

@@ -1,10 +1,9 @@
 import _ from 'lodash'
 import composers from '../composers'
-import getConfig from '../config'
+import config from '../config'
 
 const app = {
     register(server, options, next) {
-        const config = getConfig()
         const errorCode = {
             unauthorized: 401,
             unknownPage: 404,
