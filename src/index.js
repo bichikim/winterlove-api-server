@@ -1,0 +1,88 @@
+/* global global*/
+import {Server} from 'hapi'
+import Inert from 'inert'
+import App from './plugins/app'
+import Controllers from './plugins/controllers'
+import Routes from './plugins/routes'
+import Bell from 'bell'
+import Vision from 'vision'
+import DB from './plugins/db'
+import AuthCookie from 'hapi-auth-cookie'
+import Crumb from 'crumb'
+import Auth from './plugins/auth'
+import Socket from './plugins/socket'
+import Status from './plugins/status'
+import handlebars from 'handlebars'
+
+const register = (server, plugin, options = {}) => {
+        return new Promise(function(resolve, reject) {
+            server.register({
+                register: plugin,
+                options: options
+            }, (error) => {
+                if (error) {
+                    return reject(error)
+                }
+                resolve()
+            })
+        })
+    },
+    server = new Server(),
+    globalSet = (server) => {
+        // Noting to set yet
+        server.views({
+            engines: {
+                html: {
+                    module: handlebars,
+                }
+            },
+            relativeTo: `${__dirname}/../../public`,
+        })
+    },
+    start = (server) => {
+        return new Promise(function(resolve, reject) {
+            server.start((error) => {
+                if (error) {
+                    return reject(error)
+                }
+                resolve()
+            })
+        })
+    }
+const registerPlugins = async function() {
+    await register(server, Inert)
+    await register(server, Vision)
+    // App needs Inert so register it after Inert
+    // App has connection so register before others
+    await register(server, App)
+    await register(server, Controllers)
+    // Routes needs Controllers so register it after Controllers
+    // Routes has routes so register before others
+    await register(server, Bell)
+    await register(server, DB)
+    await register(server, AuthCookie)
+    await register(server, Crumb, {
+        restful: true,
+        cookieOptions: {
+            // When app is using http it needs isSecure being false.
+            isSecure: false
+        }
+        // AddToViewContext: false,
+        // AutoGenerate: false,
+    })
+    // Auth needs connection and config so register it after App
+    // Auth needs AuthCookie, DB and Bell so register it after Bell, DB and AuthCookie
+    await register(server, Auth)
+    // Routes is using auth so it needs Auth
+    await register(server, Routes)
+    await register(server, Status)
+    await register(server, Socket)
+}
+
+registerPlugins().then(() => {
+    globalSet(server)
+    start(server).then(() => {
+        console.log('Server running at:', server.select(server.plugins.app.config.server.labels).info.uri)
+        console.log('Event running at:', server.select(server.plugins.app.config.event.labels).info.uri)
+    })
+})
