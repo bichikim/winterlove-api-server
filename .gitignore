@@ -1,0 +1,15 @@
+/node_modules
+/public/storage
+/public/temp
+/public/app
+/vendor
+/.idea
+/dist
+Homestead.json
+Homestead.yaml
+.env
+.env.json
+npm-debug.log
+.phpstorm.meta.php
+_ide_helper.php
+_ide_helper_models.php
