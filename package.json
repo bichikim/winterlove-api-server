@@ -4,11 +4,9 @@
   "description": "winterlove project",
   "main": "index.js",
   "scripts": {
-    "serve-watch": "nodemon src/server/index.js --delay 1 --exec babel-node --watch src/server",
-    "serve": "babel-node src/server/index.js",
-    "test": "./node_modules/.bin/babel-node --presets stage-2 node_modules/mocha/bin/_mocha --recursive -R spec --check-leaks",
-    "build": "webpack --config ./config/webpack.config.js",
-    "watch": "webpack --config ./config/webpack.config.js --debug --watch"
+    "watch": "nodemon src/index.js --delay 1 --exec babel-node --watch src",
+    "serve": "babel-node src/index.js",
+    "test": "./node_modules/.bin/babel-node --presets stage-2 node_modules/mocha/bin/_mocha --recursive -R spec --check-leaks"
   },
   "keywords": [
     "javascript",
