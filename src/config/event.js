@@ -1,5 +1,5 @@
 export default {
     host: 'localhost',
-    port: '3000',
+    port: '33333',
     labels: 'event',
 }
