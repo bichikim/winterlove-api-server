@@ -1,6 +1,6 @@
 /* global global */
 import path from 'path'
-import env from '../env'
+import env from '../lib/env'
 const root = path.join(__dirname, '../../')
 const {
     CLIENT_BUNDLE_JS_PATH = 'public/bundle.js',

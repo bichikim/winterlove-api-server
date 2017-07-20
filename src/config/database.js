@@ -1,4 +1,4 @@
-import env from '../env'
+import env from '../lib/env'
 const {
     DB_HOST = '127.0.0.1',
     DB_PORT = '27017',
