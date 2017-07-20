@@ -22,7 +22,7 @@ const app = {
         // Plugging in My own Promises Library since deprecation mpromise
         mongoose.Promise = global.Promise
 
-        // to know why using "useMongoClient" visit here: http://mongoosejs.com/docs/connections.html#use-mongo-client
+        // To know why using "useMongoClient" visit here: http://mongoosejs.com/docs/connections.html#use-mongo-client
         mongoose.connect(mongooseConnectionAddress, {useMongoClient: true})
 
         {
