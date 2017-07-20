@@ -48,7 +48,7 @@ const server = new Server()
  */
 const globalSet = (server) => {
     const {path} = config
-    // View setting todo  temporarily being here. it needs to be replaced
+    // View setting todo temporarily being here. it needs to be replaced
     /**
      * @namespace server.views
      */
