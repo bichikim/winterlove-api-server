@@ -54,9 +54,9 @@ const globalSet = (server) => {
      */
     server.views({
         engines: {
-            // This object member name will be name of file type
+            // It will be name of file type
             handlebars: {
-                // Set what kind of module the file type use
+                // Set what kind of module to use for file type
                 module: handlebars,
             },
         },
