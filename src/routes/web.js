@@ -1,3 +1,5 @@
+import config from '../config'
+const {CLIENT_BUNDLE_JS_PATH} = config.app
 export default (server) => {
     return [
         {
@@ -8,6 +10,16 @@ export default (server) => {
             },
             handler: {
                 file: 'favicon.ico'
+            },
+        },
+        {
+            method: 'GET',
+            path: '/bundle.js',
+            config: {
+                auth: false,
+            },
+            handler: {
+                file: `../../${CLIENT_BUNDLE_JS_PATH}`
             },
         },
         {
