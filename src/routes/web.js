@@ -4,7 +4,7 @@ const {path} = config
 /**
  * Web routes serve for http get file request only
  * @param {Server} server
- * @return {[]} returning file routing info
+ * @return {[{method, path, handler: (object|undefined)}]} returning file routing info
  */
 export default (server) => {
     return [

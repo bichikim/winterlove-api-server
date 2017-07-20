@@ -5,7 +5,7 @@
 import config from '../config'
 
 // eslint-disable-next-line no-process-env
-process.env.NODE_ENV = config.app.APP_ENV
+process.env.NODE_ENV = config.app.mode
 
 const app = {
     register(server, options, next) {

@@ -1,7 +1,7 @@
 /**
  *
  * @param {Server} server
- * @return {[]}
+ * @return {[{method, path, handler: (object|undefined)}]}
  */
 export default (server) => {
     return [
