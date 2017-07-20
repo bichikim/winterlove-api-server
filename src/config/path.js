@@ -1,6 +1,6 @@
 /* global global */
 import path from 'path'
-const env = require('../../.env.json')
+import env from '../env'
 const root = path.join(__dirname, '../../')
 const {
     CLIENT_BUNDLE_JS_PATH = 'public/index.js',

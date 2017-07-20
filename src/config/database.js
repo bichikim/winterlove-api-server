@@ -1,10 +1,18 @@
-const env = require('../../.env.json')
+import env from '../env'
+const {
+    DB_HOST = '127.0.0.1',
+    DB_PORT = '27017',
+    DB_DATABASE = 'winterlove',
+    DB_USER = 'admin',
+    DB_PASSWORD = 'password',
+} = env
+
 export default {
     connection: {
-        host: env.DB_HOST || '127.0.0.1',
-        port: env.DB_PORT || '27017',
-        database: env.DB_DATABASE || 'winterlove',
-        user: env.DB_USER || 'admin',
-        password: env.DB_PASSWORD || 'password',
+        host: DB_HOST,
+        port: DB_PORT,
+        database: DB_DATABASE,
+        user: DB_USER,
+        password: DB_PASSWORD,
     },
 }

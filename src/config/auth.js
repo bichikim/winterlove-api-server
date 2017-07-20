@@ -1,7 +1,7 @@
 /* global __dirname*/
-const env = require('../../.env.json')
+import env from '../env'
 const {
-    APP_KEY,
+    APP_KEY = '9JTxCSYh/UnXsH5DhZRtKGlQFw8AwLAliHl/T9ZtQeo=',
 } = env
 
 export default {

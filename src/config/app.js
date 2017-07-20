@@ -1,4 +1,4 @@
-const env = require('../../.env.json')
+import env from '../env'
 
 const {
     APP_NAME = 'WinterLove',
