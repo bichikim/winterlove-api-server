@@ -15,7 +15,7 @@ import Status from './plugins/status'
 import handlebars from 'handlebars'
 
 /**
- *
+ * Make registering Promise
  * @param {Server} server
  * @param {*} plugin
  * @param {object} options
@@ -36,6 +36,7 @@ const register = (server, plugin, options = {}) => {
 }
 
 /**
+ * New server
  * @type {Server}
  */
 const server = new Server()
@@ -63,7 +64,7 @@ const globalSet = (server) => {
 }
 
 /**
- *
+ * Make promise to start server
  * @param {Server} server
  * @return {Promise}
  */
@@ -79,7 +80,7 @@ const start = (server) => {
 }
 
 /**
- *
+ * Register all plugins
  * @return {Promise.<void>}
  */
 const registerPlugins = async function() {
@@ -113,7 +114,7 @@ const registerPlugins = async function() {
 }
 
 /**
- *
+ * Do register all Plugins and then set global setting and start server after loading all
  */
 registerPlugins().then(() => {
     globalSet(server)

@@ -2,9 +2,9 @@ import config from '../config'
 const {CLIENT_BUNDLE_JS_PATH} = config.app
 
 /**
- *
+ * Web routes serve for http get file request only
  * @param {Server} server
- * @return {array}
+ * @return {[]} returning file routing info
  */
 export default (server) => {
     return [

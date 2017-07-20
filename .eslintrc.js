@@ -21,5 +21,6 @@ module.exports = {
         'camelcase': 'off',
         'space-before-function-paren': ["error", "never"],
         'object-curly-spacing': ["error", "never"],
-    }
+        'capitalized-comments': ["error", "always"],
+}
 };
