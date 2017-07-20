@@ -96,6 +96,7 @@ const registerPlugins = async function() {
     await register(server, DB)
     await register(server, AuthCookie)
     await register(server, Crumb, {
+        // When server running as restful server (this server is restful mode server + file server + view server[only index.handlebars])
         restful: true,
         cookieOptions: {
             // When app is using http it needs isSecure to be false.
