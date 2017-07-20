@@ -9,10 +9,9 @@ const app = {
             unknownPage: 404,
         }
         const webServer = server.select(config.server.labels)
-        server.expose({})
+
         // Inspect the response here, perhaps see if it's a 404?
         // Since using vue route vue route will handle 404
-
         webServer.ext('onPreResponse', (request, reply) => {
             const {source, variety} = request.response
             /** @namespace request.response.isBoom */

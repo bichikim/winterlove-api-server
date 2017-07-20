@@ -43,6 +43,10 @@ const app = {
         const webServer = server.select(config.server.labels)
         const handler = controllers(webServer)
 
+        server.expose({
+            handler,
+        })
+
         server.handler('controller', handler)
 
         next()
