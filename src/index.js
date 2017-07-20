@@ -15,45 +15,49 @@ import Status from './plugins/status'
 import handlebars from 'handlebars'
 
 const register = (server, plugin, options = {}) => {
-        return new Promise(function(resolve, reject) {
-            server.register({
-                register: plugin,
-                options: options
-            }, (error) => {
-                if (error) {
-                    return reject(error)
-                }
-                resolve()
-            })
+    return new Promise(function(resolve, reject) {
+        server.register({
+            register: plugin,
+            options: options,
+        }, (error) => {
+            if (error) {
+                return reject(error)
+            }
+            resolve()
         })
-    },
-    server = new Server(),
+    })
+}
+const server = new Server()
 
-    // After loading all plugins
-    globalSet = (server) => {
-        // View setting todo  temporarily being here. it needs to be replaced
-        server.views({
-            engines: {
-                // This object member name will be name of file type
-                handlebars: {
-                    // Set what kind of module the file type use
-                    module: handlebars,
-                }
+/**
+ * After loading all plugins
+ * @param {{views}} server
+ */
+const globalSet = (server) => {
+    // View setting todo  temporarily being here. it needs to be replaced
+    server.views({
+        engines: {
+            // This object member name will be name of file type
+            handlebars: {
+                // Set what kind of module the file type use
+                module: handlebars,
             },
-            // Root path for vision(view)
-            relativeTo: `${__dirname}/../public`,
+        },
+        // Root path for vision(view)
+        relativeTo: `${__dirname}/../public`,
+    })
+}
+const start = (server) => {
+    return new Promise(function(resolve, reject) {
+        server.start((error) => {
+            if (error) {
+                return reject(error)
+            }
+            resolve()
         })
-    },
-    start = (server) => {
-        return new Promise(function(resolve, reject) {
-            server.start((error) => {
-                if (error) {
-                    return reject(error)
-                }
-                resolve()
-            })
-        })
-    }
+    })
+}
+
 const registerPlugins = async function() {
     await register(server, Inert)
     await register(server, Vision)
@@ -70,8 +74,8 @@ const registerPlugins = async function() {
         restful: true,
         cookieOptions: {
             // When app is using http it needs isSecure being false.
-            isSecure: false
-        }
+            isSecure: false,
+        },
         // AddToViewContext: false,
         // AutoGenerate: false,
     })

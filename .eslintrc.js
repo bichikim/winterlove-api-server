@@ -17,7 +17,7 @@ module.exports = {
         'no-console': 'off',
         'indent': ['error', 4],
         'linebreak-style': 'off',
-        'comma-dangle': ["error", "only-multiline"],
+        'comma-dangle': ["error", "always-multiline"],
         'camelcase': 'off',
         'space-before-function-paren': ["error", "never"],
         'object-curly-spacing': ["error", "never"],
