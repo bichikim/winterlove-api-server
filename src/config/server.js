@@ -1,5 +1,5 @@
 /* global __dirname*/
-import Path from 'path'
+import path from './path'
 export default {
     host: 'localhost',
     port: '80',
@@ -7,7 +7,7 @@ export default {
     routes: {
         cors: true,
         files: {
-            relativeTo: Path.join(__dirname, '../../../public'),
+            relativeTo: path.server.public,
         },
     },
 }

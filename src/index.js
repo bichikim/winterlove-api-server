@@ -13,6 +13,7 @@ import Auth from './plugins/auth'
 import Socket from './plugins/socket'
 import Status from './plugins/status'
 import handlebars from 'handlebars'
+import config from './config'
 
 /**
  * Make registering Promise
@@ -46,6 +47,7 @@ const server = new Server()
  * @param {Server} server
  */
 const globalSet = (server) => {
+    const {path} = config
     // View setting todo  temporarily being here. it needs to be replaced
     /**
      * @namespace server.views
@@ -59,7 +61,7 @@ const globalSet = (server) => {
             },
         },
         // Root path for vision(view)
-        relativeTo: `${__dirname}/../public`,
+        relativeTo: path.server.public,
     })
 }
 

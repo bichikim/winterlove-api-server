@@ -1,5 +1,5 @@
 import config from '../config'
-const {CLIENT_BUNDLE_JS_PATH} = config.app
+const {path} = config
 
 /**
  * Web routes serve for http get file request only
@@ -25,7 +25,7 @@ export default (server) => {
                 auth: false,
             },
             handler: {
-                file: `../../${CLIENT_BUNDLE_JS_PATH}`,
+                file: path.client.bundleJs,
             },
         },
         {
