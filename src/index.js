@@ -92,23 +92,25 @@ const registerPlugins = async function() {
     // App has connection so register before others
     await register(server, App)
     await register(server, Controllers)
-    // Routes needs Controllers so register it after Controllers
-    // Routes has routes so register before others
     await register(server, Bell)
     await register(server, DB)
     await register(server, AuthCookie)
     await register(server, Crumb, {
         restful: true,
         cookieOptions: {
-            // When app is using http it needs isSecure being false.
+            // When app is using http it needs isSecure to be false.
             isSecure: false,
         },
+        // It is flag using view or not default : true
         // AddToViewContext: false,
+        // It is able to turn on generating crumb each reloading page default : true
         // AutoGenerate: false,
     })
     // Auth needs connection and config so register it after App
     // Auth needs AuthCookie, DB and Bell so register it after Bell, DB and AuthCookie
     await register(server, Auth)
+    // Routes needs Controllers so register it after Controllers
+    // Routes has routes so register before others
     // Routes is using auth so it needs Auth
     await register(server, Routes)
     await register(server, Status)
@@ -121,6 +123,7 @@ const registerPlugins = async function() {
 registerPlugins().then(() => {
     globalSet(server)
     start(server).then(() => {
+        // Serve string messages
         console.log('Server running at:', server.select(server.plugins.app.config.server.labels).info.uri)
         console.log('Event running at:', server.select(server.plugins.app.config.event.labels).info.uri)
     })
