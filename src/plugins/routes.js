@@ -46,6 +46,8 @@ const app = {
         server.expose({
             route: {
                 web: webRoute,
+                auth: authRoute,
+                api: apiRoute,
             },
         })
 
