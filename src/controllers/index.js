@@ -2,6 +2,11 @@ import requireAll from 'require-all'
 
 let controllers
 
+/**
+ *
+ * @param {Server} server
+ * @return {object}
+ */
 export default (server) => {
     if (!controllers) {
         controllers = requireAll({

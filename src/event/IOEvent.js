@@ -9,11 +9,12 @@ export const initializeEvent = (myIo) => {
 }
 
 /**
- *
+ * Event
  */
-export default class Event {
+export default class IOEvent {
     /**
-     * @param {{}|null} channel
+     * @constructor
+     * @param {string|null} channel
      */
     constructor(channel = null) {
         if (_.isString(channel)) {
@@ -25,7 +26,7 @@ export default class Event {
 
     /**
      *
-     * @return {*}
+     * @return {object}
      */
     get io() {
         if (io) {

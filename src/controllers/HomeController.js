@@ -2,11 +2,12 @@
 import Controller from './Controller'
 
 /**
- *
+ * @extends Controller
  */
 export default class HomeController extends Controller {
     /**
      *
+     * @constructor
      * @param {{}} request
      * @param {Function} reply
      */

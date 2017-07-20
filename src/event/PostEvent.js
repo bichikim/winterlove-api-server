@@ -1,10 +1,10 @@
-import Event from './Event'
+import IOEvent from './IOEvent'
 /**
- *
+ * @extends IOEvent
  */
-export default class PostEvent extends Event {
+export default class PostEvent extends IOEvent {
     /**
-     *
+     * @constructor
      */
     constructor() {
         super('post')
