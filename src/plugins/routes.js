@@ -6,28 +6,27 @@ import config from '../config'
 
 /**
  * To make crumb option false when app mode is development
- * @param {[{method, path, handler: (object|undefined)}]} route
+ * @param {*} route
  * @return {[{config:{plugins:{crumb: boolean}}}]}
  */
 const developmentMode = (route) => {
     const nextRoute = route
+    const crumbConfig = {
+        plugins: {
+            crumb: false,
+        },
+    }
     _.map(nextRoute, (item) => {
         const nextItem = item
         if (_.isObject(nextItem)) {
             if (_.isObject(nextItem.config)) {
                 if (_.isObject(nextItem.config.plugins)) {
-                    nextItem.config.plugins.crumb = false
+                    nextItem.config.plugins.crumb = crumbConfig.plugins.crumb
                 } else {
-                    nextItem.config.plugins = {
-                        crumb: false,
-                    }
+                    nextItem.config.plugins = crumbConfig.plugins
                 }
             } else {
-                nextItem.config = {
-                    plugins: {
-                        crumb: false,
-                    },
-                }
+                nextItem.config = crumbConfig
             }
         }
         return nextItem
