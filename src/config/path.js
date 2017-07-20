@@ -3,7 +3,7 @@ import path from 'path'
 import env from '../env'
 const root = path.join(__dirname, '../../')
 const {
-    CLIENT_BUNDLE_JS_PATH = 'public/index.js',
+    CLIENT_BUNDLE_JS_PATH = 'public/bundle.js',
     CLIENT_FILES_PATH = 'public/static',
 } = env
 

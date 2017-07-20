@@ -1,7 +1,7 @@
 let env
 
 try {
-    env = require('../../.env.json')
+    env = require('../.env.json')
 } catch (e) {
     console.warn(`Warning server needs .env.json ${e}`)
     env = {}
