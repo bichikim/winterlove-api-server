@@ -32,7 +32,7 @@ const name = 'users',
         password: {
             type: String,
             required: true,
-        }
+        },
     })
 
 /**

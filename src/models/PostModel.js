@@ -13,7 +13,8 @@ const name = 'posts',
     })
 
 /**
- *
+ * PostModal
+ * @class
  */
 class PostModel {
 

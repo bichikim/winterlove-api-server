@@ -8,6 +8,7 @@ import Joi from 'joi'
 
 /**
  * AuthController
+ * @class
  * @extends Controller
  */
 export default class AuthController extends Controller {

@@ -1,6 +1,7 @@
 /**
  * default Controller
  * defined Controller stuff
+ * @class
  */
 export default class Controller {
     /**

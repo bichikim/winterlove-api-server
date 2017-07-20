@@ -10,6 +10,7 @@ export const initializeEvent = (myIo) => {
 
 /**
  * Event
+ * @class
  */
 export default class IOEvent {
     /**
