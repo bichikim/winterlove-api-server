@@ -50,7 +50,7 @@ const app = {
 }
 
 app.register.attributes = {
-    name: 'controller',
+    name: 'controllers',
     version: '0.0.1',
 }
 

@@ -14,27 +14,7 @@ import Socket from './plugins/socket'
 import Status from './plugins/status'
 import handlebars from 'handlebars'
 import config from './config'
-
-/**
- * Make registering Promise
- * @param {Server} server
- * @param {*} plugin
- * @param {object} options
- * @return {Promise}
- */
-const register = (server, plugin, options = {}) => {
-    return new Promise(function(resolve, reject) {
-        server.register({
-            register: plugin,
-            options: options,
-        }, (error) => {
-            if (error) {
-                return reject(error)
-            }
-            resolve()
-        })
-    })
-}
+import {register, start} from './lib/server-initializer'
 
 /**
  * New server
@@ -63,31 +43,16 @@ const globalSet = (server) => {
 }
 
 /**
- * Make promise to start server
- * @param {Server} server
- * @return {Promise}
- */
-const start = (server) => {
-    return new Promise(function(resolve, reject) {
-        server.start((error) => {
-            if (error) {
-                return reject(error)
-            }
-            resolve()
-        })
-    })
-}
-
-/**
  * Register all plugins
  * @return {Promise.<void>}
  */
 const registerPlugins = async function() {
     await register(server, Inert)
-    await register(server, Vision)
-    // App needs Inert so register it after Inert
-    // App has connection so register before others
+    // It needs Inert
+    // It has connection so all plugins need App
     await register(server, App)
+    await register(server, Vision)
+    // It needs Vision and App
     await register(server, Controllers)
     await register(server, Bell)
     await register(server, DB)
@@ -104,12 +69,9 @@ const registerPlugins = async function() {
         // It is able to turn on generating crumb each reloading page default : true
         // AutoGenerate: false,
     })
-    // Auth needs connection and config so register it after App
-    // Auth needs AuthCookie, DB and Bell so register it after Bell, DB and AuthCookie
+    // It needs App, AuthCookie, DB and Bell
     await register(server, Auth)
-    // Routes needs Controllers so register it after Controllers
-    // Routes has routes so register before others
-    // Routes is using auth so it needs Auth
+    // It needs Controllers, Auth and App
     await register(server, Routes)
     await register(server, Status)
     return await register(server, Socket)
