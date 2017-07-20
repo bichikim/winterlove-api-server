@@ -26,6 +26,9 @@ const app = {
         mongoose.connect(mongooseConnectionAddress, {useMongoClient: true})
 
         {
+            /**
+             * @type {{on: function, once: function}}
+             */
             const {connection} = mongoose
             connection.on('error', console.error)
             connection.once('open', () => {

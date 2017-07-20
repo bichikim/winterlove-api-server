@@ -1,5 +1,11 @@
 import config from '../config'
 const {CLIENT_BUNDLE_JS_PATH} = config.app
+
+/**
+ *
+ * @param {Server} server
+ * @return {array}
+ */
 export default (server) => {
     return [
         {
@@ -9,7 +15,7 @@ export default (server) => {
                 auth: false,
             },
             handler: {
-                file: 'favicon.ico'
+                file: 'favicon.ico',
             },
         },
         {
@@ -19,7 +25,7 @@ export default (server) => {
                 auth: false,
             },
             handler: {
-                file: `../../${CLIENT_BUNDLE_JS_PATH}`
+                file: `../../${CLIENT_BUNDLE_JS_PATH}`,
             },
         },
         {

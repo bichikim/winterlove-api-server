@@ -1,3 +1,8 @@
+/**
+ *
+ * @param {Server} server
+ * @return {array}
+ */
 export default (server) => {
     return [
         {

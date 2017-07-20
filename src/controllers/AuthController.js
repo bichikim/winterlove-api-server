@@ -1,15 +1,19 @@
 /* eslint-disable class-methods-use-this auth */
 import Controller from './Controller'
 import User from '../models/UserModel'
+/**
+ * @type {{object:function, validate:function, string:function}}
+ */
 import Joi from 'joi'
+
 /**
  * AuthController
+ * @extends Controller
  */
 export default class AuthController extends Controller {
-
     /**
-     *
-     * @param {{}} server
+     * @constructor
+     * @param {Server} server
      */
     constructor(server) {
         super(server)
@@ -18,8 +22,9 @@ export default class AuthController extends Controller {
 
     /**
      *
-     * @param {{}} request
+     * @param {{payload:object}} request
      * @param {Function} reply
+     * @return {*}
      */
     signIn(request, reply) {
         const result = Joi.validate(request.payload, Joi.object().keys({
@@ -34,23 +39,26 @@ export default class AuthController extends Controller {
         }
         const {id, password} = request.payload
         this._user.find({id, password})
-        .then((documents) => {
-            if (documents.length < 1) {
+            .then((documents) => {
+                if (documents.length < 1) {
+                    reply({
+                        success: false,
+                        data: documents,
+                    })
+                }
                 reply({
-                    success: false,
+                    success: true,
                     data: documents,
                 })
-            }
-            reply({
-                success: true,
-                data: documents,
+            /**
+             * @param {{errmsg}} error
+             */
+            }).catch((error) => {
+                reply({
+                    success: false,
+                    error: error.errmsg,
+                })
             })
-        }).catch((error) => {
-            reply({
-                success: false,
-                error: error.errmsg,
-            })
-        })
     }
 
     /**
@@ -64,7 +72,7 @@ export default class AuthController extends Controller {
 
     /**
      *
-     * @param {{}} request
+     * @param {{payload:object}} request
      * @param {Function} reply
      * @return {*}
      */

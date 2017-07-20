@@ -14,6 +14,13 @@ import Socket from './plugins/socket'
 import Status from './plugins/status'
 import handlebars from 'handlebars'
 
+/**
+ *
+ * @param {Server} server
+ * @param {*} plugin
+ * @param {object} options
+ * @return {Promise}
+ */
 const register = (server, plugin, options = {}) => {
     return new Promise(function(resolve, reject) {
         server.register({
@@ -27,14 +34,21 @@ const register = (server, plugin, options = {}) => {
         })
     })
 }
+
+/**
+ * @type {Server}
+ */
 const server = new Server()
 
 /**
  * After loading all plugins
- * @param {{views}} server
+ * @param {Server} server
  */
 const globalSet = (server) => {
     // View setting todo  temporarily being here. it needs to be replaced
+    /**
+     * @namespace server.views
+     */
     server.views({
         engines: {
             // This object member name will be name of file type
@@ -47,6 +61,12 @@ const globalSet = (server) => {
         relativeTo: `${__dirname}/../public`,
     })
 }
+
+/**
+ *
+ * @param {Server} server
+ * @return {Promise}
+ */
 const start = (server) => {
     return new Promise(function(resolve, reject) {
         server.start((error) => {
@@ -58,6 +78,10 @@ const start = (server) => {
     })
 }
 
+/**
+ *
+ * @return {Promise.<void>}
+ */
 const registerPlugins = async function() {
     await register(server, Inert)
     await register(server, Vision)
@@ -85,9 +109,12 @@ const registerPlugins = async function() {
     // Routes is using auth so it needs Auth
     await register(server, Routes)
     await register(server, Status)
-    await register(server, Socket)
+    return await register(server, Socket)
 }
 
+/**
+ *
+ */
 registerPlugins().then(() => {
     globalSet(server)
     start(server).then(() => {

@@ -1,10 +1,12 @@
 /**
- *
+ * default Controller
+ * defined Controller stuff
  */
 export default class Controller {
     /**
      *
-     * @param {{}} server
+     * @constructor
+     * @param {Server} server
      */
     constructor(server) {
         this._server = server
@@ -12,7 +14,7 @@ export default class Controller {
 
     /**
      *
-     * @return {*}
+     * @return {Server}
      */
     get server() {
         return this._server
