@@ -78,7 +78,7 @@ const registerPlugins = async function() {
 }
 
 /**
- * Do register all Plugins and then set global setting and start server after loading all
+ * Do register all Plugins and then set global setting and start server
  */
 registerPlugins().then(() => {
     globalSet(server)
