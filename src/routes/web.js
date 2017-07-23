@@ -30,13 +30,13 @@ export default (server) => {
         },
         {
             method: 'GET',
-            path: '/files/{param*}',
+            path: `/${path.client.CLIENT_FILES_PATH}/{param*}`,
             config: {
                 auth: false,
             },
             handler: {
                 directory: {
-                    path: '.',
+                    path: path.client.staticPath,
                     redirectToSlash: false,
                     index: true,
                 },
