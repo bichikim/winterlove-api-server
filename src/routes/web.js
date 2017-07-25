@@ -1,6 +1,6 @@
 import config from '../config'
 import _ from 'lodash'
-const {CLIENT_FILES_PATH} = config.path.client
+const {CLIENT_STATIC_PATH, CLIENT_BUNDLE_JS_NAME, CLIENT_VENDOR_JS_NAME, CLIENT_JS_PATH} = config.path.client
 const {ALLOW} = config.file
 
 /**
@@ -33,14 +33,14 @@ export default (server) => {
         },
         {
             method: 'GET',
-            path: `/${CLIENT_FILES_PATH}/{filename}.{ext}`,
+            path: `/${CLIENT_STATIC_PATH}/{filename}.{ext}`,
             config: {
                 auth: false,
             },
             handler: (request, reply) => {
                 const {filename, ext} = request.params
                 if (_.indexOf(ALLOW, ext) > -1) {
-                    return reply.file(`${CLIENT_FILES_PATH}/${filename}.${ext}`)
+                    return reply.file(`${CLIENT_STATIC_PATH}/${filename}.${ext}`)
                 }
             },
         },
@@ -53,6 +53,8 @@ export default (server) => {
             handler: (request, reply) => {
                 reply.view('index.handlebars', {
                     crumb: server.plugins.crumb.generate(request, reply),
+                    vendorJs: `/${CLIENT_JS_PATH}/${CLIENT_VENDOR_JS_NAME}`,
+                    bundleJs: `/${CLIENT_JS_PATH}/${CLIENT_BUNDLE_JS_NAME}`,
                 })
             },
         },

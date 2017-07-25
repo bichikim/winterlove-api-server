@@ -4,7 +4,7 @@
   "description": "winterlove project",
   "main": "dist/index.js",
   "scripts": {
-    "watch": "nodemon src/index.js --delay 3 --exec babel-node --presets es2015 es2017 stage-2 --watch src",
+    "watch": "nodemon src/index.js --delay 3 --exec babel-node --presets es2015 es2017 stage-2 --watch src --watch public/assets.json",
     "serve": "./node_modules/.bin/babel-node src/index.js --presets es2015 es2017 stage-2",
     "test": "./node_modules/.bin/babel-node node_modules/mocha/bin/_mocha --recursive -R spec --check-leaks"
   },
