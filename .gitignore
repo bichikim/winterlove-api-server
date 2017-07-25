@@ -8,6 +8,7 @@
 /public/*.js
 /.env.json
 /public/static
+/public/js
 Homestead.json
 Homestead.yaml
 .env

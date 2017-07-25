@@ -22,6 +22,8 @@ import {register, start} from './lib/server-initializer'
  */
 const server = new Server()
 
+const {console} = global
+
 /**
  * After loading all plugins
  * @param {Server} server
@@ -88,4 +90,6 @@ registerPlugins().then(() => {
         console.log('Server running at:', server.select(server.plugins.app.config.server.labels).info.uri)
         console.log('Event running at:', server.select(server.plugins.app.config.event.labels).info.uri)
     })
+}).catch((error) => {
+    console.error(error)
 })

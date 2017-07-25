@@ -1,5 +1,8 @@
 import config from '../config'
-const {path} = config
+import _ from 'lodash'
+const {path, file} = config
+const {CLIENT_FILES_PATH} = path.client
+const {ALLOW} = file
 
 /**
  * Web routes serve for http get file request only
@@ -20,26 +23,26 @@ export default (server) => {
         },
         {
             method: 'GET',
-            path: '/bundle.js',
+            path: '/js/{filename}.js',
             config: {
                 auth: false,
             },
-            handler: {
-                file: path.client.bundleJs,
+            handler: (request, reply) => {
+                const {filename} = request.params
+                return reply.file(`js/${filename}.js`)
             },
         },
         {
             method: 'GET',
-            path: `/${path.client.CLIENT_FILES_PATH}/{param*}`,
+            path: `/${CLIENT_FILES_PATH}/{filename}.{ext}`,
             config: {
                 auth: false,
             },
-            handler: {
-                directory: {
-                    path: path.client.staticPath,
-                    redirectToSlash: false,
-                    index: true,
-                },
+            handler: (request, reply) => {
+                const {filename, ext} = request.params
+                if (_.indexOf(ALLOW, ext) > -1) {
+                    return reply.file(`${CLIENT_FILES_PATH}/${filename}.${ext}`)
+                }
             },
         },
         {

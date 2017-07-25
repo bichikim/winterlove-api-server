@@ -21,5 +21,18 @@ export default (server) => {
                 },
             },
         },
+        {
+            method: 'POST',
+            path: '/test',
+            config: {
+                plugins: {
+                    crumb: false,
+                },
+                auth: false,
+            },
+            handler: (request, reply) => {
+                reply({success: true})
+            },
+        },
     ]
 }
