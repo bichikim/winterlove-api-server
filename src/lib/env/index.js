@@ -4,14 +4,14 @@ let env
 
 if (!env) {
     env = {}
-    let envLow
+    let envRaw
     try {
-        envLow = fs.readFileSync(`${__dirname}/../../../.env`).toString()
+        envRaw = fs.readFileSync(`${__dirname}/../../../.env`).toString()
     } catch (e) {
         console.warn(`Warning server needs .env.json ${e}`)
         env = {}
     }
-    envLow.split('\n').forEach((declaration) => {
+    envRaw.split('\n').forEach((declaration) => {
         declaration = declaration.trim()
 
         if (declaration.length > 1 && declaration.indexOf('=') === -1) {
