@@ -7,7 +7,7 @@ const {
 
 export default {
     APP_NAME,
-    development: APP_ENV === 'development',
-    production: APP_ENV === 'production',
-    mode: APP_ENV,
+    DEVELOPMENT: APP_ENV === 'development',
+    PRODUCTION: APP_ENV === 'production',
+    MODE: APP_ENV,
 }

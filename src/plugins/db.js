@@ -3,6 +3,8 @@ import mongoose from 'mongoose'
 import config from '../config'
 
 const {console} = global
+const {PRODUCTION} = config.server
+const {HOST, PORT, DATABASE} = config.database.connection
 
 const app = {
     register(server, options, next) {
@@ -11,12 +13,10 @@ const app = {
             db: mongoose,
         })
 
-        if (config.app.env === 'production') {
-            const {host, port, database} = config.database.connection
-            mongooseConnectionAddress = `mongodb://${host}:${port}/${database}`
+        if (PRODUCTION) {
+            mongooseConnectionAddress = `mongodb://${HOST}:${PORT}/${DATABASE}`
         } else {
-            const {host, port, database} = config.database.connection
-            mongooseConnectionAddress = `mongodb://${host}:${port}/${database}`
+            mongooseConnectionAddress = `mongodb://${HOST}:${PORT}/${DATABASE}`
         }
 
         // Plugging in My own Promises Library since deprecation mpromise

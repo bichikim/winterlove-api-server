@@ -29,7 +29,7 @@ const {console} = global
  * @param {Server} server
  */
 const globalSet = (server) => {
-    const {path} = config
+    const {PUBLIC} = config.path
     // View setting todo temporarily being here. it needs to be replaced
     server.views({
         engines: {
@@ -40,7 +40,7 @@ const globalSet = (server) => {
             },
         },
         // Root path for vision(view)
-        relativeTo: path.server.public,
+        relativeTo: PUBLIC,
     })
 }
 
@@ -87,8 +87,8 @@ registerPlugins().then(() => {
     globalSet(server)
     start(server).then(() => {
         // Serve string messages
-        console.log('Server running at:', server.select(server.plugins.app.config.server.labels).info.uri)
-        console.log('Event running at:', server.select(server.plugins.app.config.event.labels).info.uri)
+        console.log('Server running at:', server.select(server.plugins.app.config.server.LABELS).info.uri)
+        console.log('Event running at:', server.select(server.plugins.app.config.event.LABELS).info.uri)
     })
 }).catch((error) => {
     console.error(error)

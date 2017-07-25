@@ -1,14 +1,14 @@
 import _ from 'lodash'
 import composers from '../composers'
 import config from '../config'
-
+const {LABELS} = config.server
 const app = {
     register(server, options, next) {
         const errorCode = {
             unauthorized: 401,
             unknownPage: 404,
         }
-        const webServer = server.select(config.server.labels)
+        const webServer = server.select(LABELS)
 
         // Inspect the response here, perhaps see if it's a 404?
         // Since using vue route vue route will handle 404

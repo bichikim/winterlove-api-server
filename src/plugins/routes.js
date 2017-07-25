@@ -4,6 +4,9 @@ import apiRouteConfig from '../routes/api'
 import _ from 'lodash'
 import config from '../config'
 
+const {DEVELOPMENT} = config.app
+const {LABELS} = config.server
+
 /**
  * To make crumb option false when app mode is development
  * @param {*} route
@@ -36,12 +39,11 @@ const developmentMode = (route) => {
 
 const app = {
     register(server, options, next) {
-        const {development} = config.app
-        const webServer = server.select(config.server.labels)
+        const webServer = server.select(LABELS)
         // Override config plugins crumb for testing when app mode is development
-        const webRoute = development ? developmentMode(webRouteConfig(webServer)) : webRouteConfig(webServer)
-        const authRoute = development ? developmentMode(authRouteConfig(webServer)) : authRouteConfig(webServer)
-        const apiRoute = development ? developmentMode(apiRouteConfig(webServer)) : apiRouteConfig(webServer)
+        const webRoute = DEVELOPMENT ? developmentMode(webRouteConfig(webServer)) : webRouteConfig(webServer)
+        const authRoute = DEVELOPMENT ? developmentMode(authRouteConfig(webServer)) : authRouteConfig(webServer)
+        const apiRoute = DEVELOPMENT ? developmentMode(apiRouteConfig(webServer)) : apiRouteConfig(webServer)
 
         server.expose({
             route: {

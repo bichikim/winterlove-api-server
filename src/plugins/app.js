@@ -4,18 +4,35 @@
 /* global process*/
 import config from '../config'
 
-// eslint-disable-next-line no-process-env
-process.env.NODE_ENV = config.app.mode
-
 const app = {
     register(server, options, next) {
         server.expose({
             config: config,
         })
 
-        server.connection(config.server)
-        server.connection(config.event)
-
+        {
+            const {HOST, PORT, LABELS, CORS} = config.server
+            const {PUBLIC} = config.path.server
+            server.connection({
+                host: HOST,
+                port: PORT,
+                labels: LABELS,
+                routes: {
+                    cors: CORS,
+                    files: {
+                        relativeTo: PUBLIC,
+                    },
+                },
+            })
+        }
+        {
+            const {HOST, PORT, LABELS} = config.event
+            server.connection({
+                host: HOST,
+                port: PORT,
+                labels: LABELS,
+            })
+        }
         next()
     },
 }

@@ -2,7 +2,7 @@
 import _ from 'lodash'
 import config from '../config'
 import getControllers from '../controllers'
-
+const {LABELS} = config.server
 /**
  * Factory to make controller handlers
  * @param {{}} server
@@ -40,7 +40,7 @@ const controllers = (server) => {
 
 const app = {
     register(server, options, next) {
-        const webServer = server.select(config.server.labels)
+        const webServer = server.select(LABELS)
         const handler = controllers(webServer)
 
         server.expose({

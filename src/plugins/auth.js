@@ -1,21 +1,24 @@
 import User from '../models/UserModel'
 import config from '../config'
 
+const {LABELS} = config.server
+const {COOKIE_KEY, COOKIE_NAME, STRATEGY} = config.auth
+
 const app = {
     register(server, options, next) {
-        const webServer = server.select(config.server.labels)
+        const webServer = server.select(LABELS)
 
         server.expose({
             user: User,
         })
 
-        webServer.auth.strategy(config.auth.strategy, 'cookie', {
-            password: config.auth.cookieKey,
-            cookie: config.auth.cookieName,
+        webServer.auth.strategy(STRATEGY, 'cookie', {
+            password: COOKIE_KEY,
+            cookie: COOKIE_NAME,
             isSecure: false,
         })
 
-        webServer.auth.default(config.auth.strategy)
+        webServer.auth.default(STRATEGY)
 
         next()
     },

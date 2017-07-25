@@ -9,10 +9,10 @@ const {
 
 export default {
     connection: {
-        host: DB_HOST,
-        port: DB_PORT,
-        database: DB_DATABASE,
-        user: DB_USER,
-        password: DB_PASSWORD,
+        HOST: DB_HOST,
+        PORT: DB_PORT,
+        DATABASE: DB_DATABASE,
+        USER: DB_USER,
+        PASSWORD: DB_PASSWORD,
     },
 }
