@@ -10,7 +10,20 @@ const {
     CLIENT_BUNDLE_JS_NAME = 'bundle',
     CLIENT_VENDOR_JS_NAME = 'vendor',
 } = env
-const assets = require(path.join(root, 'public', CLIENT_ASSETS_INFO_NAME))
+let assets
+try {
+    assets = require(path.join(root, 'public', CLIENT_ASSETS_INFO_NAME))
+} catch (e) {
+    console.log(`Warning server needs a ${CLIENT_ASSETS_INFO_NAME}`)
+}
+
+if (!assets) {
+    assets = {
+        [`${CLIENT_BUNDLE_JS_NAME}.js`]: `${CLIENT_BUNDLE_JS_NAME}.js`,
+        [`${CLIENT_VENDOR_JS_NAME}.js`]: `${CLIENT_VENDOR_JS_NAME}.js`,
+    }
+}
+
 export default {
     CONFIG: path.join(root, 'src/config'),
     client: {
