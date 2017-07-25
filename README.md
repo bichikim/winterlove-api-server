@@ -3,3 +3,4 @@
 ## TODO
 * auth
 * io event
+* mongoose migrations
