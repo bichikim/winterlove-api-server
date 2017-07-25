@@ -9,6 +9,7 @@
 /.env.json
 /public/static
 /public/js
+/public/assets.json
 Homestead.json
 Homestead.yaml
 .env
