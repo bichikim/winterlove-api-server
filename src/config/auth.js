@@ -5,6 +5,7 @@ const {
 } = env
 
 export default {
+    APP_KEY,
     COOKIE_KEY: APP_KEY,
     COOKIE_NAME: 'user-auth',
     STRATEGY: 'site-point-cookie',

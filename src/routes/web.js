@@ -1,8 +1,7 @@
 import config from '../config'
 import _ from 'lodash'
-const {path, file} = config
-const {CLIENT_FILES_PATH} = path.client
-const {ALLOW} = file
+const {CLIENT_FILES_PATH} = config.path.client
+const {ALLOW} = config.file
 
 /**
  * Web routes serve for http get file request only

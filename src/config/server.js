@@ -4,5 +4,4 @@ export default {
     PORT: '80',
     LABELS: 'server',
     CORS: true,
-
 }
