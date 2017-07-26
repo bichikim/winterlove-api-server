@@ -5,6 +5,12 @@
 import config from '../config'
 
 const app = {
+    /**
+     *
+     * @param {Server} server
+     * @param {object}options
+     * @param {function}next
+     */
     register(server, options, next) {
         server.expose({
             config: config,

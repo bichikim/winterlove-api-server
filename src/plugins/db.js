@@ -1,5 +1,11 @@
 /* global global*/
+/**
+ * @type {{connect}}
+ */
 import mongoose from 'mongoose'
+/**
+ * @type {{database}}
+ */
 import config from '../config'
 
 const {console} = global
@@ -7,6 +13,12 @@ const {PRODUCTION} = config.server
 const {HOST, PORT, DATABASE} = config.database.connection
 
 const app = {
+    /**
+     *
+     * @param {Server} server
+     * @param {object}options
+     * @param {function}next
+     */
     register(server, options, next) {
         let mongooseConnectionAddress
         server.expose({

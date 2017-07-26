@@ -51,6 +51,12 @@ const controllers = (server) => {
 }
 
 const app = {
+    /**
+     *
+     * @param {Server} server
+     * @param {object} options
+     * @param {function}next
+     */
     register(server, options, next) {
         const webServer = server.select(LABELS)
         const handler = controllers(webServer)

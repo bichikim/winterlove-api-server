@@ -5,6 +5,12 @@ const {LABELS} = config.server
 const {COOKIE_KEY, COOKIE_NAME, STRATEGY} = config.auth
 
 const app = {
+    /**
+     *
+     * @param {Server}server
+     * @param {object}options
+     * @param {function}next
+     */
     register(server, options, next) {
         const webServer = server.select(LABELS)
 

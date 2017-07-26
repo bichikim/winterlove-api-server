@@ -1,3 +1,6 @@
+/**
+ * @type {{Schema, model}}
+ */
 import mongoose from 'mongoose'
 const name = 'posts',
     schema = new mongoose.Schema({

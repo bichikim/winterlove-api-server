@@ -38,6 +38,12 @@ const developmentMode = (route) => {
 }
 
 const app = {
+    /**
+     *
+     * @param {Server}server
+     * @param {object}options
+     * @param {function}next
+     */
     register(server, options, next) {
         const webServer = server.select(LABELS)
         // Override config plugins crumb for testing when app mode is development

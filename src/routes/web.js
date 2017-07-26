@@ -6,6 +6,7 @@ const {ALLOW} = config.file
 /**
  * Web routes serve for http get file request only
  * @param {Server} server
+ * @namespace server.plugins.crumb
  * @return {[{method, path, handler: (object|undefined)}]} returning file routing info
  */
 export default (server) => {
@@ -50,6 +51,11 @@ export default (server) => {
             config: {
                 auth: false,
             },
+            /**
+             *
+             * @param {object}request
+             * @param {{view}}reply
+             */
             handler: (request, reply) => {
                 reply.view('index.handlebars', {
                     crumb: server.plugins.crumb.generate(request, reply),

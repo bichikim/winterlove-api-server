@@ -1,5 +1,5 @@
 /* global global*/
-import {Server} from 'hapi'
+import Hapi from 'hapi'
 import Inert from 'inert'
 import App from './plugins/app'
 import Controllers from './plugins/controllers'
@@ -17,10 +17,28 @@ import config from './config'
 import {register, start} from './lib/server-initializer'
 
 /**
+ * @typedef {object} Hapi
+ * @property {function} Server
+ */
+
+/**
+ * @typedef {function} Server
+ * @property {function} views
+ * @property {function} register
+ * @property {function} start
+ * @property {function} select
+ * @property {function} expose
+ * @property {function} connection
+ * @property {function} handler
+ * @property {function} continue
+ * @property {{crumb:{generate}, app}} plugins
+ */
+
+/**
  * New server
  * @type {Server}
  */
-const server = new Server()
+const server = new Hapi.Server()
 
 const {console} = global
 
