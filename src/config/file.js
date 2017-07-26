@@ -7,5 +7,7 @@ export default {
         'png',
         'bmp',
         'gif',
+        'woff2',
+        'woff',
     ],
 }

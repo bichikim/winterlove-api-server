@@ -19,8 +19,8 @@ const app = {
                 // Console.log(request.response.output.statusCode)
                 const {statusCode} = request.response.output
                 switch (statusCode) {
-                case errorCode.unknownPage:
-                    return reply.view('index', {crumb: server.plugins.crumb.generate(request, reply)})
+                /* A case errorCode.unknownPage:
+                    return reply.view('index', {crumb: server.plugins.crumb.generate(request, reply)})*/
                 case errorCode.unauthorized:
                     return reply.continue()
                     // No default
