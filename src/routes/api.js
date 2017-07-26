@@ -15,6 +15,7 @@ export default (server) => {
                 auth: false,
             },
             handler: {
+                // It can be string like controller: 'HomeController@index'
                 controller: {
                     name: 'HomeController',
                     method: 'index',

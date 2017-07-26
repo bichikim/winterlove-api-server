@@ -1,6 +1,6 @@
 import SocketIO from 'socket.io'
 import config from '../config'
-const {LABELS} = config.server
+const {LABELS} = config.event
 const app = {
     register(server, options, next) {
         const io = SocketIO.listen(server.select(LABELS).listener)
