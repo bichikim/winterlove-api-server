@@ -10,7 +10,7 @@ export default class ModelAdepter {
      */
     constructor(name, anyModel) {
         this._model = anyModel
-        this._config = ModelAdepter.getConfig(name)
+        this._config = ModelAdepter.getConfig(name, anyModel)
     }
 
     /**

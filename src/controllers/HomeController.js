@@ -20,6 +20,6 @@ export default class HomeController extends Controller {
      *
      */
     main() {
-        // console.log(this._name)
+        // Console.log(this._name)
     }
 }
