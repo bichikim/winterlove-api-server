@@ -22,13 +22,13 @@ export default (server) => {
         },
         {
             method: 'GET',
-            path: '/js/{filename}.js',
+            path: `/${CLIENT_JS_PATH}/{filename}.js`,
             config: {
                 auth: false,
             },
             handler: (request, reply) => {
                 const {filename} = request.params
-                return reply.file(`js/${filename}.js`)
+                return reply.file(`${CLIENT_JS_PATH}/${filename}.js`)
             },
         },
         {
