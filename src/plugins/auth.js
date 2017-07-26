@@ -12,6 +12,9 @@ const app = {
      * @param {function}next
      */
     register(server, options, next) {
+        /**
+         * @type {{auth:{strategy, default}}}
+         */
         const webServer = server.select(LABELS)
 
         server.expose({
