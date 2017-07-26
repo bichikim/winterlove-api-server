@@ -5,33 +5,45 @@ import getControllers from '../controllers'
 const {LABELS} = config.server
 /**
  * Factory to make controller handlers
- * @param {{}} server
+ * @param {Server} server
  * @return {function(*, *=)}
  */
 const controllers = (server) => {
     const controllers = getControllers(server)
 
     return (route, options) => {
-        let controller, handle
+        let handle, controllerName, methodName
 
+        // Find Controller by name
         if (_.isObject(options)) {
-            if (_.isString(options.name)) {
-                controller = controllers[options.name]
+            const {name, method} = options
+            if (_.isString(name) && _.isString(method)) {
+                controllerName = name
+                methodName = method
             } else {
-                throw new Error('need a name for controllers')
+                throw new Error('It needs a name or a method')
             }
         } else if (_.isString(options)) {
-            throw new Error('not yet to support String option sorry')
+            const [name, method] = options.split('@')
+            if (_.isString(name) && _.isString(method)) {
+                controllerName = name
+                methodName = method
+            } else {
+                throw new Error('String controller option is odd')
+            }
         } else {
-            throw new Error('needs correct options for controllers')
+            throw new Error('It needs correct options')
         }
 
+        const controller = controllers[controllerName]
         if (_.isObject(controller)) {
-            if (_.isString(options.method)) {
-                handle = controller[options.method]
-            } else {
-                throw new Error('need a method name for controllers')
-            }
+            handle = controller[methodName]
+        } else {
+            throw new Error('It needs a correct controller name')
+        }
+
+        if (!_.isFunction(handle)) {
+            throw new Error('IT needs a correct method name')
         }
 
         return handle.bind(controller)
@@ -47,6 +59,7 @@ const app = {
             handler,
         })
 
+        // Set handler options name 'controller'
         server.handler('controller', handler)
 
         next()
