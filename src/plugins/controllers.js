@@ -24,9 +24,9 @@ const controllers = (server) => {
                 throw new Error('It needs a name or a method')
             }
         } else if (_.isString(options)) {
-            const [name, method] = options.split('@')
-            if (_.isString(name) && _.isString(method)) {
-                controllerName = name
+            const [method, kind] = options.split('@')
+            if (_.isString(kind) && _.isString(method)) {
+                controllerName = kind
                 methodName = method
             } else {
                 throw new Error('String controller option is odd')
