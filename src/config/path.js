@@ -24,7 +24,7 @@ if (!assets) {
     }
 }
 console.log(CLIENT_BUNDLE_JS_NAME)
-console.log(`${CLIENT_BUNDLE_JS_NAME}.js`)
+console.log(assets[`${CLIENT_BUNDLE_JS_NAME}.js`])
 
 export default {
     CONFIG: path.join(root, 'src/config'),
