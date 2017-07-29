@@ -1,7 +1,13 @@
 /* global __dirname*/
+import env from '../lib/env'
+const {
+    SERVER_HOST = 'localhost',
+    SERVER_PORT = '1777',
+} = env
+
 export default {
-    HOST: 'localhost',
-    PORT: '80',
+    HOST: SERVER_HOST,
+    PORT: SERVER_PORT,
     LABELS: 'server',
     CORS: true,
 }

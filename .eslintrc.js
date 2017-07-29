@@ -1,6 +1,6 @@
 module.exports = {
 	parser: "babel-eslint",
-    plugins: ['vue'],
+    plugins: ['html', 'vue'],
     env: {
         "browser": true,
         "es6": true,
@@ -21,6 +21,6 @@ module.exports = {
         'camelcase': 'off',
         'space-before-function-paren': ["error", "never"],
         'object-curly-spacing': ["error", "never"],
-        'capitalized-comments': ["error", "always"],
+        // 'capitalized-comments': ["error", "always"],
 }
 };
