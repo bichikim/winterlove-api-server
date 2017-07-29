@@ -2,6 +2,9 @@
 import Controller from './Controller'
 import User from '../models/UserModel'
 import passwordHash from 'password-hash'
+import config from '../config'
+import _ from 'lodash'
+const {NOT_FOUND, NOT_AUTH, NOT_UNIQUE} = config.errorCode
 /**
  * @type {{object:function, validate:function, string:function}}
  */
@@ -50,25 +53,27 @@ export default class AuthController extends Controller {
             })
         }
         const {id, password} = request.payload
-        this._user.find({id, password})
+        this._user.findOne({id})
             .then((documents) => {
-                if (documents.length < 1) {
+                const hashedPassword = documents.password
+                if (_.isObject(documents) && verify(password, hashedPassword)) {
                     reply({
-                        success: false,
+                        success: true,
                         data: documents,
                     })
+                } else {
+                    reply({
+                        success: false,
+                        error_code: NOT_AUTH,
+                        error: 'Password error',
+                    })
                 }
-                return reply({
-                    success: true,
-                    data: documents,
-                })
-            /**
-             * @param {{errmsg}} error
-             */
-            }).catch((error) => {
-                return reply({
+            })
+            .catch((error) => {
+                reply({
                     success: false,
-                    error: error.errmsg,
+                    error_code: NOT_FOUND,
+                    error,
                 })
             })
     }
@@ -94,7 +99,7 @@ export default class AuthController extends Controller {
             password: Joi.string().required(),
             name: Joi.string().required(),
             email: Joi.string().required(),
-
+            gender: Joi.string(),
         }))
         if (result.error) {
             return reply({
@@ -102,17 +107,17 @@ export default class AuthController extends Controller {
                 error: result.error,
             })
         }
-        const {id, name, email, password} = request.payload
-        const newUser = this._user({id, name, password: getPassword(password), email})
+        const {id, name, email, password, gender = 'man'} = request.payload
+        const newUser = this._user({id, name, password: getPassword(password), email, gender})
         newUser.save()
             .then((documents) => {
-                reply({
+                return reply({
                     success: true,
-                    data: documents,
                 })
             }).catch((error) => {
-                reply({
+                return reply({
                     success: false,
+                    errorCode: NOT_UNIQUE,
                     error: error.errmsg,
                 })
             })

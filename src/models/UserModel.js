@@ -19,6 +19,15 @@ const schema = new mongoose.Schema({
         required: true,
         unique: true,
     },
+    gender: {
+        type: String,
+        required: true,
+        default: 'man',
+    },
+    point: {
+        type: Number,
+        default: 0,
+    },
     created: {
         type: Date,
         default: Date.now,
@@ -30,6 +39,16 @@ const schema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
+    },
+    isVerified: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+    isActive: {
+        type: Boolean,
+        required: true,
+        default: true,
     },
 })
 

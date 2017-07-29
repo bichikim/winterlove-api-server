@@ -12,6 +12,7 @@ import Crumb from 'crumb'
 import Auth from './plugins/auth'
 import Socket from './plugins/socket'
 import Status from './plugins/status'
+import DataFilter from './plugins/data-filter'
 import handlebars from 'handlebars'
 import config from './config'
 import {register, start} from './lib/server-initializer'
@@ -95,6 +96,7 @@ const registerPlugins = async function() {
     // It needs Controllers, Auth and App
     await register(server, Routes)
     await register(server, Status)
+    await register(server, DataFilter)
     return await register(server, Socket)
 }
 

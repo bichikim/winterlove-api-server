@@ -11,6 +11,11 @@ export default (server) => {
             config: {
                 plugins: {
                     crumb: true,
+                    filter: {
+                        response: {
+                            only: ['name', 'gender'],
+                        },
+                    },
                 },
                 auth: {
                     mode: 'try',
