@@ -10,7 +10,7 @@ export default (server) => {
             path: '/sign-in',
             config: {
                 plugins: {
-                    crumb: false,
+                    crumb: true,
                 },
                 auth: {
                     mode: 'try',

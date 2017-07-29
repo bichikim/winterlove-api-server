@@ -19,9 +19,19 @@ export default (model) => {
          * @param {object} data
          * @return {Promise}
          */
-        save(data) {
+        create({data}) {
             const newModelObject = model(data)
             return newModelObject.save()
+        },
+
+        /**
+         *
+         * @param {object} target
+         * @param {object} data
+         * @return {Promise}
+         */
+        save({target, data}) {
+            return target.save()
         },
 
         /**

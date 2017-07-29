@@ -1,10 +1,21 @@
 /* eslint-disable class-methods-use-this auth */
 import Controller from './Controller'
 import User from '../models/UserModel'
+import passwordHash from 'password-hash'
 /**
  * @type {{object:function, validate:function, string:function}}
  */
 import Joi from 'joi'
+
+const getPassword = (password) => {
+    return passwordHash.generate(password, {
+        algorithm: 'sha512',
+    })
+}
+
+const verify = (password, hashedPassword) => {
+    return passwordHash.verify(password, hashedPassword)
+}
 
 /**
  * AuthController
@@ -47,7 +58,7 @@ export default class AuthController extends Controller {
                         data: documents,
                     })
                 }
-                reply({
+                return reply({
                     success: true,
                     data: documents,
                 })
@@ -55,7 +66,7 @@ export default class AuthController extends Controller {
              * @param {{errmsg}} error
              */
             }).catch((error) => {
-                reply({
+                return reply({
                     success: false,
                     error: error.errmsg,
                 })
@@ -92,7 +103,7 @@ export default class AuthController extends Controller {
             })
         }
         const {id, name, email, password} = request.payload
-        const newUser = this._user({id, name, password, email})
+        const newUser = this._user({id, name, password: getPassword(password), email})
         newUser.save()
             .then((documents) => {
                 reply({

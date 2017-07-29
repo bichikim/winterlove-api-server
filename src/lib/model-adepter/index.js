@@ -18,15 +18,42 @@ export default class ModelAdepter {
      * @param {object} data
      * @return {Promise}
      */
-    save(data) {
-        const {save} = this._config
-        if (_.isFunction(save)) {
-            return save()
-        }
-        throw new Error(`Waring cannot do save config hse no save function`)
+    save(target, data) {
+        return ModelAdepter._runConfig(this._config.save, {target, data})
+    }
+
+    /**
+     * Save data in db my any Model
+     * @param {object} data
+     * @return {Promise}
+     */
+    create(data) {
+        return ModelAdepter._runConfig(this._config.save, {data})
+    }
+
+    /**
+     * @param {object} data
+     * @return {*}
+     */
+    find(data) {
+        return ModelAdepter._runConfig(this._config.find, {data})
     }
 
     // Static ////////////////////////////////////////////////////////////////////////
+
+    /**
+     *
+     * @param {function}func
+     * @param {object}data
+     * @return {*}
+     * @private
+     */
+    static _runConfig(func, data) {
+        if (_.isFunction(func)) {
+            return func(data)
+        }
+        throw new Error(`Waring cannot run config function`)
+    }
 
     /**
      * Return config what model needs

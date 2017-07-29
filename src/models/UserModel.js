@@ -4,9 +4,6 @@
  */
 import mongoose from 'mongoose'
 const name = 'users'
-/**
- * @type {{loadClass}}
- */
 const schema = new mongoose.Schema({
     id: {
         type: String,
@@ -16,11 +13,6 @@ const schema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        unique: false,
-    },
-    api_id: {
-        type: String,
-        required: false,
     },
     email: {
         type: String,
