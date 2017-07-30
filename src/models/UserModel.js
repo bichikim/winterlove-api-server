@@ -5,11 +5,6 @@
 import mongoose from 'mongoose'
 const name = 'users'
 const schema = new mongoose.Schema({
-    id: {
-        type: String,
-        required: true,
-        unique: true,
-    },
     name: {
         type: String,
         required: true,

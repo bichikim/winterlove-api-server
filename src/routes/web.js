@@ -1,7 +1,5 @@
 import config from '../config'
-import _ from 'lodash'
-const {CLIENT_STATIC_PATH, CLIENT_BUNDLE_JS_NAME, CLIENT_VENDOR_JS_NAME, CLIENT_JS_PATH} = config.path.client
-const {ALLOW} = config.file
+const {CLIENT_STATIC_PATH, CLIENT_JS_PATH} = config.path.client
 
 /**
  * Web routes serve for http get file request only
@@ -27,9 +25,24 @@ export default (server) => {
             config: {
                 auth: false,
             },
-            handler: (request, reply) => {
-                const {filename} = request.params
-                return reply.file(`${CLIENT_JS_PATH}/${filename}.js`)
+            handler: {
+                controller: {
+                    name: 'FileController',
+                    method: 'getJavascriptFile',
+                },
+            },
+        },
+        {
+            method: 'GET',
+            path: `/${CLIENT_JS_PATH}/{filename}.js.map`,
+            config: {
+                auth: false,
+            },
+            handler: {
+                controller: {
+                    name: 'FileController',
+                    method: 'getJavascriptMapFile',
+                },
             },
         },
         {
@@ -38,11 +51,11 @@ export default (server) => {
             config: {
                 auth: false,
             },
-            handler: (request, reply) => {
-                const {filename, ext} = request.params
-                if (_.indexOf(ALLOW, ext) > -1) {
-                    return reply.file(`${CLIENT_STATIC_PATH}/${filename}.${ext}`)
-                }
+            handler: {
+                controller: {
+                    name: 'FileController',
+                    method: 'getFile',
+                },
             },
         },
         {
@@ -51,17 +64,12 @@ export default (server) => {
             config: {
                 auth: false,
             },
-            /**
-             *
-             * @param {object}request
-             * @param {{view}}reply
-             */
-            handler: (request, reply) => {
-                reply.view('index.handlebars', {
-                    crumb: server.plugins.crumb.generate(request, reply),
-                    vendorJs: `/${CLIENT_JS_PATH}/${CLIENT_VENDOR_JS_NAME}`,
-                    bundleJs: `/${CLIENT_JS_PATH}/${CLIENT_BUNDLE_JS_NAME}`,
-                })
+
+            handler: {
+                controller: {
+                    name: 'FileController',
+                    method: 'getHtml',
+                },
             },
         },
     ]
