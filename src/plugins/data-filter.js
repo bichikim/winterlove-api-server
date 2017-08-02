@@ -26,6 +26,9 @@ const app = {
                     return reply.continue()
                 }
                 const {data} = source
+                if (!data) {
+                    return reply.continue()
+                }
                 if (request.route.settings.plugins) {
                     const {filter} = request.route.settings.plugins
                     if (data && variety === 'plain' && filter) {
