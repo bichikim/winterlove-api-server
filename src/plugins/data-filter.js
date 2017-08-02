@@ -22,6 +22,9 @@ const app = {
              */
             (request, reply) => {
                 const {source, variety} = request.response
+                if (!source) {
+                    return reply.continue()
+                }
                 const {data} = source
                 if (request.route.settings.plugins) {
                     const {filter} = request.route.settings.plugins
