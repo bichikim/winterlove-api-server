@@ -1,23 +1,27 @@
 /* eslint-disable class-methods-use-this auth */
+/**
+ * @typedef {object} Joi
+ * @property {function} validate
+ * @property {function} string
+ * @property {function} object
+ */
 import Controller from './Controller'
 import User from '../models/UserModel'
-import passwordHash from 'password-hash'
-import config from '../config'
 import _ from 'lodash'
-const {NOT_FOUND, NOT_AUTH, NOT_UNIQUE} = config.errorCode
-/**
- * @type {{object:function, validate:function, string:function}}
- */
+import Boom from 'boom'
 import Joi from 'joi'
-
-const getPassword = (password) => {
-    return passwordHash.generate(password, {
-        algorithm: 'sha512',
-    })
-}
-
-const verify = (password, hashedPassword) => {
-    return passwordHash.verify(password, hashedPassword)
+const Schema = {
+    signIn: Joi.object().keys({
+        email: Joi.string().email(),
+        password: Joi.string().regex(/^(?=.*\d)(?=.*[a-zA-Z]).{6,20}$/),
+        access_token: Joi.string(),
+    }).with('email', 'password').without('password', 'access_token').without('email', 'access_token'),
+    signUp: Joi.object().keys({
+        name: Joi.string().min(3).max(30).required(),
+        email: Joi.string().email().required(),
+        password: Joi.string().regex(/^(?=.*\d)(?=.*[a-zA-Z]).{6,20}$/).required(),
+        gender: Joi.string(),
+    }),
 }
 
 /**
@@ -42,39 +46,29 @@ export default class AuthController extends Controller {
      * @return {*}
      */
     signIn(request, reply) {
-        const result = Joi.validate(request.payload, Joi.object().keys({
-            id: Joi.string().required(),
-            password: Joi.string().required(),
-        }))
+        const result = Joi.validate(request.payload, Schema.signIn)
         if (result.error) {
-            return reply({
-                success: false,
-                error: result.error,
-            })
+            return reply(Boom.notAcceptable(result.error))
         }
-        const {id, password} = request.payload
-        this._user.findOne({id})
+        const {email, password} = request.payload
+        this._user.findOne({email})
             .then((documents) => {
-                const hashedPassword = documents.password
-                if (_.isObject(documents) && verify(password, hashedPassword)) {
-                    reply({
-                        success: true,
-                        data: documents,
-                    })
-                } else {
-                    reply({
-                        success: false,
-                        error_code: NOT_AUTH,
-                        error: 'Password error',
-                    })
+                if (!documents) {
+                    return reply(Boom.notFound('Email not found.'))
                 }
+                documents.verifyPassword(password, (isVerified) => {
+                    if (_.isObject(documents) && isVerified) {
+                        reply({
+                            success: true,
+                            data: documents,
+                        })
+                    } else {
+                        reply(Boom.forbidden('Password incorrect'))
+                    }
+                })
             })
             .catch((error) => {
-                reply({
-                    success: false,
-                    error_code: NOT_FOUND,
-                    error,
-                })
+                reply(Boom.badImplementation(error))
             })
     }
 
@@ -94,32 +88,19 @@ export default class AuthController extends Controller {
      * @return {*}
      */
     signUp(request, reply) {
-        const result = Joi.validate(request.payload, Joi.object().keys({
-            id: Joi.string().required(),
-            password: Joi.string().required(),
-            name: Joi.string().required(),
-            email: Joi.string().required(),
-            gender: Joi.string(),
-        }))
+        const result = Joi.validate(request.payload, Schema.signUp)
         if (result.error) {
-            return reply({
-                success: false,
-                error: result.error,
-            })
+            return reply(Boom.notAcceptable(result.error))
         }
-        const {id, name, email, password, gender = 'man'} = request.payload
-        const newUser = this._user({id, name, password: getPassword(password), email, gender})
+        const {name, email, password, gender = 'man'} = request.payload
+        const newUser = this._user({name, password, email, gender})
         newUser.save()
             .then((documents) => {
-                return reply({
+                reply({
                     success: true,
                 })
             }).catch((error) => {
-                return reply({
-                    success: false,
-                    errorCode: NOT_UNIQUE,
-                    error: error.errmsg,
-                })
+                reply(Boom.badImplementation(error.errmsg, {success: false}))
             })
     }
 }

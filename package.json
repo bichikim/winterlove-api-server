@@ -4,7 +4,7 @@
   "description": "winterlove project",
   "main": "dist/index.js",
   "scripts": {
-    "watch": "nodemon src/index.js --delay 3 --exec babel-node --presets es2015 es2016 es2017 stage-1 stage-2 stage-3 --watch src --watch public/assets.json",
+    "watch": "./node_modules/.bin/nodemon src/index.js --delay 3 --exec babel-node --presets es2015 es2016 es2017 stage-1 stage-2 stage-3 --watch src --watch public/assets.json",
     "serve": "./node_modules/.bin/babel-node src/index.js --presets es2015 es2016 es2017 stage-1 stage-2 stage-3",
     "test": "./node_modules/.bin/babel-node node_modules/mocha/bin/_mocha --recursive -R spec --check-leaks"
   },
@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "bell": "^8.7.0",
+    "boom": "^5.2.0",
     "chai": "^4.1.0",
     "crumb": "^6.0.3",
     "handlebars": "^4.0.10",

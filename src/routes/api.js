@@ -12,7 +12,6 @@ export default (server) => {
                 plugins: {
                     crumb: true,
                 },
-                auth: false,
             },
             handler: {
                 // It can be string like controller: 'HomeController@index'
@@ -27,9 +26,8 @@ export default (server) => {
             path: '/test',
             config: {
                 plugins: {
-                    crumb: false,
+                    crumb: true,
                 },
-                auth: false,
             },
             handler: (request, reply) => {
                 reply({success: true})

@@ -13,7 +13,7 @@ export default (server) => {
                     crumb: true,
                     filter: {
                         response: {
-                            only: ['name', 'gender'],
+                            only: ['name', 'email', 'gender'],
                         },
                     },
                 },
