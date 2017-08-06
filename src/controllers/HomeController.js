@@ -13,7 +13,8 @@ export default class HomeController extends Controller {
      * @param {Function} reply
      */
     index(request, reply) {
-        reply({say: 'hello'})
+        const {role, email} = request.headers
+        reply({say: 'hello', data: {role, email}})
     }
 
     /**

@@ -24,17 +24,9 @@ const app = {
         webServer.auth.strategy(STRATEGY, 'jwt', {
             key: APP_KEY,
             validateFunc: (decoded, request, next) => {
-                const {email} = decoded
-                User.findOne({email})
-                    .then((document) => {
-                        if (document) {
-                            return next(null, true)
-                        }
-                        return next(null, false)
-                    })
-                    .catch(() => {
-                        return next(null, false)
-                    })
+                const {email, role} = decoded
+                Object.assign(request.headers, {email, role})
+                return next(null, true)
             },
             verifyOptions: {
                 algorithms: ['HS256'],

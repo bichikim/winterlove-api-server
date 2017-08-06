@@ -41,6 +41,7 @@
     "boom": "^5.2.0",
     "chai": "^4.1.0",
     "crumb": "^6.0.3",
+    "cryptiles": "^3.1.2",
     "handlebars": "^4.0.10",
     "hapi": "^16.4.3",
     "hapi-auth-jwt2": "^7.3.0",

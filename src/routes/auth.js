@@ -30,24 +30,6 @@ export default (server) => {
         },
         {
             method: 'POST',
-            path: '/sign-out',
-            config: {
-                plugins: {
-                    crumb: true,
-                },
-                auth: {
-                    mode: 'required',
-                },
-            },
-            handler: {
-                controller: {
-                    name: 'AuthController',
-                    method: 'signOut',
-                },
-            },
-        },
-        {
-            method: 'POST',
             path: '/sign-up',
             config: {
                 plugins: {

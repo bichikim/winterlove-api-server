@@ -5,6 +5,7 @@
 import mongoose from 'mongoose'
 import passwordHash from 'password-hash'
 import jwt from 'jsonwebtoken'
+
 import config from '../config'
 const name = 'users'
 const password = 'password'
@@ -24,6 +25,9 @@ const schema = new mongoose.Schema({
         type: String,
         required: true,
         default: 'man',
+    },
+    beer: {
+        type: String,
     },
     point: {
         type: Number,
@@ -76,15 +80,19 @@ schema.pre('save', function(next) {
 schema.methods.verifyPassword = function(password, next) {
     // verify password with db.hashed password
     // eslint-disable-next-line no-invalid-this
-    next(passwordHash.verify(password, this.password))
+    const isVerified = (passwordHash.verify(password, this.password))
+    if (next) {
+        next(isVerified)
+    }
+    return isVerified
 }
 
-schema.methods.getToken = function() {
-    const {email, password} = this
+schema.methods.getToken = function(role = [], expiresIn = '18h') {
+    const {email} = this
     return jwt.sign({
         email,
-        password,
-    }, APP_KEY, {expiresIn: '18h'})
+        role: ['basics', ...role],
+    }, APP_KEY, {expiresIn})
 }
 
 schema.loadClass(UserModel)

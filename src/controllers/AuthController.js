@@ -14,7 +14,7 @@ import Joi from 'joi'
 const SchemaItems = {
     name: Joi.string().min(3).max(30),
     email: Joi.string().email(),
-    password: Joi.string().regex(/^(?=.*\d)(?=.*[a-zA-Z]).{6,20}$/),
+    password: Joi.string().regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,30}$/),
     gender: Joi.string(),
 }
 const Schema = {
@@ -69,33 +69,23 @@ export default class AuthController extends Controller {
                 if (!documents) {
                     return reply(Boom.notFound('Email not found.'))
                 }
-                documents.verifyPassword(password, (isVerified) => {
+                const isVerified = documents.verifyPassword(password)
+                if (_.isObject(documents) && isVerified) {
                     const data = documents._doc
                     if (isNeedAccessToken === 'true') {
                         Object.assign(data, {access_token: documents.getToken()})
                     }
-                    if (_.isObject(documents) && isVerified) {
-                        reply({
-                            success: true,
-                            data,
-                        })
-                    } else {
-                        reply(Boom.forbidden('Password incorrect'))
-                    }
-                })
+                    reply({
+                        success: true,
+                        data,
+                    })
+                } else {
+                    reply(Boom.forbidden('Password incorrect'))
+                }
             })
             .catch((error) => {
                 reply(Boom.badImplementation(error))
             })
-    }
-
-    /**
-     *
-     * @param {{}} request
-     * @param {Function} reply
-     */
-    signOut(request, reply) {
-        // TODO Make this
     }
 
     /**
