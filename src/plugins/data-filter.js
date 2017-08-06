@@ -29,21 +29,24 @@ const app = {
                 if (!data) {
                     return reply.continue()
                 }
-                if (request.route.settings.plugins) {
-                    const {filter} = request.route.settings.plugins
-                    if (data && variety === 'plain' && filter) {
-                        const {response} = filter
-                        if (response) {
-                            const {only, except} = response
-                            if (_.isArray(only)) {
-                                request.response.source.data = _.pick(_.clone(data._doc), only)
-                                return reply.continue()
-                            } else if (_.isArray(except)) {
-                                request.response.source.data = _.omit(_.clone(data._doc), except)
-                                return reply.continue()
-                            }
-                        }
-                    }
+                if (!request.route.settings.plugins) {
+                    return reply.continue()
+                }
+                const {filter} = request.route.settings.plugins
+                if (!filter || !variety === 'plain') {
+                    return reply.continue()
+                }
+                const {response} = filter
+                if (!response) {
+                    return reply.continue()
+                }
+                const {only, except} = response
+                if (_.isArray(only)) {
+                    request.response.source.data = _.pick(_.clone(data), only)
+                    return reply.continue()
+                } else if (_.isArray(except)) {
+                    request.response.source.data = _.omit(_.clone(data), except)
+                    return reply.continue()
                 }
 
                 return reply.continue()

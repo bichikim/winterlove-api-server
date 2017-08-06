@@ -4,8 +4,11 @@
  */
 import mongoose from 'mongoose'
 import passwordHash from 'password-hash'
+import jwt from 'jsonwebtoken'
+import config from '../config'
 const name = 'users'
 const password = 'password'
+const {APP_KEY} = config.auth
 const schema = new mongoose.Schema({
     email: {
         type: String,
@@ -74,6 +77,14 @@ schema.methods.verifyPassword = function(password, next) {
     // verify password with db.hashed password
     // eslint-disable-next-line no-invalid-this
     next(passwordHash.verify(password, this.password))
+}
+
+schema.methods.getToken = function() {
+    const {email, password} = this
+    return jwt.sign({
+        email,
+        password,
+    }, APP_KEY, {expiresIn: '18h'})
 }
 
 schema.loadClass(UserModel)

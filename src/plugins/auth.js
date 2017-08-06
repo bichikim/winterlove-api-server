@@ -2,7 +2,7 @@ import User from '../models/UserModel'
 import config from '../config'
 
 const {LABELS} = config.server
-const {COOKIE_KEY, COOKIE_NAME, STRATEGY} = config.auth
+const {APP_KEY, STRATEGY} = config.auth
 
 const app = {
     /**
@@ -21,10 +21,24 @@ const app = {
             user: User,
         })
 
-        webServer.auth.strategy(STRATEGY, 'cookie', {
-            password: COOKIE_KEY,
-            cookie: COOKIE_NAME,
-            isSecure: false,
+        webServer.auth.strategy(STRATEGY, 'jwt', {
+            key: APP_KEY,
+            validateFunc: (decoded, request, next) => {
+                const {email} = decoded
+                User.findOne({email})
+                    .then((document) => {
+                        if (document) {
+                            return next(null, true)
+                        }
+                        return next(null, false)
+                    })
+                    .catch(() => {
+                        return next(null, false)
+                    })
+            },
+            verifyOptions: {
+                algorithms: ['HS256'],
+            },
         })
 
         webServer.auth.default(STRATEGY)

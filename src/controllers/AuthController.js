@@ -4,23 +4,36 @@
  * @property {function} validate
  * @property {function} string
  * @property {function} object
+ * @property {function} boolean
  */
 import Controller from './Controller'
 import User from '../models/UserModel'
 import _ from 'lodash'
 import Boom from 'boom'
 import Joi from 'joi'
+const SchemaItems = {
+    name: Joi.string().min(3).max(30),
+    email: Joi.string().email(),
+    password: Joi.string().regex(/^(?=.*\d)(?=.*[a-zA-Z]).{6,20}$/),
+    gender: Joi.string(),
+}
 const Schema = {
     signIn: Joi.object().keys({
-        email: Joi.string().email(),
-        password: Joi.string().regex(/^(?=.*\d)(?=.*[a-zA-Z]).{6,20}$/),
-        access_token: Joi.string(),
-    }).with('email', 'password').without('password', 'access_token').without('email', 'access_token'),
+        email: SchemaItems.email.required(),
+        password: Joi.string().required(),
+        isNeedAccessToken: Joi.boolean(),
+    }),
     signUp: Joi.object().keys({
-        name: Joi.string().min(3).max(30).required(),
-        email: Joi.string().email().required(),
-        password: Joi.string().regex(/^(?=.*\d)(?=.*[a-zA-Z]).{6,20}$/).required(),
-        gender: Joi.string(),
+        name: SchemaItems.name.required(),
+        email: SchemaItems.email.required(),
+        password: SchemaItems.password.required(),
+        gender: SchemaItems.gender,
+    }),
+    update: Joi.object().keys({
+        name: SchemaItems.name,
+        email: SchemaItems.email,
+        password: SchemaItems.email,
+        gender: SchemaItems.gender,
     }),
 }
 
@@ -50,17 +63,21 @@ export default class AuthController extends Controller {
         if (result.error) {
             return reply(Boom.notAcceptable(result.error))
         }
-        const {email, password} = request.payload
+        const {email, password, isNeedAccessToken} = request.payload
         this._user.findOne({email})
             .then((documents) => {
                 if (!documents) {
                     return reply(Boom.notFound('Email not found.'))
                 }
                 documents.verifyPassword(password, (isVerified) => {
+                    const data = documents._doc
+                    if (isNeedAccessToken === 'true') {
+                        Object.assign(data, {access_token: documents.getToken()})
+                    }
                     if (_.isObject(documents) && isVerified) {
                         reply({
                             success: true,
-                            data: documents,
+                            data,
                         })
                     } else {
                         reply(Boom.forbidden('Password incorrect'))
@@ -100,7 +117,7 @@ export default class AuthController extends Controller {
                     success: true,
                 })
             }).catch((error) => {
-                reply(Boom.badImplementation(error.errmsg, {success: false}))
+                reply(Boom.badData(error.errmsg))
             })
     }
 }

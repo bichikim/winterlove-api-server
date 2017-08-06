@@ -6,8 +6,7 @@ const {
 
 export default {
     APP_KEY,
-    COOKIE_KEY: APP_KEY,
     COOKIE_NAME: 'user-auth',
-    STRATEGY: 'site-point-cookie',
+    STRATEGY: 'jwt',
     DB_STRATEGY_NAME: 'site-point-db',
 }

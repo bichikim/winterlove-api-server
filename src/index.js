@@ -2,12 +2,12 @@
 import Hapi from 'hapi'
 import Inert from 'inert'
 import App from './plugins/app'
+import HapiAuthJwt2 from 'hapi-auth-jwt2'
 import Controllers from './plugins/controllers'
 import Routes from './plugins/routes'
 import Bell from 'bell'
 import Vision from 'vision'
 import DB from './plugins/db'
-import AuthCookie from 'hapi-auth-cookie'
 import Crumb from 'crumb'
 import Auth from './plugins/auth'
 import Socket from './plugins/socket'
@@ -73,11 +73,11 @@ const registerPlugins = async function() {
     // It has connection so all plugins need App
     await register(server, App)
     await register(server, Vision)
+    await register(server, HapiAuthJwt2)
     // It needs Vision and App
     await register(server, Controllers)
     await register(server, Bell)
     await register(server, DB)
-    await register(server, AuthCookie)
     await register(server, Crumb, {
         // It is true When server running as restful server
         // (this server is restful mode server + file server + view server[only index.handlebars])
@@ -97,19 +97,17 @@ const registerPlugins = async function() {
     await register(server, Routes)
     await register(server, Status)
     await register(server, DataFilter)
-    return await register(server, Socket)
+    await register(server, Socket)
+    await globalSet(server)
+    return await start(server)
 }
 
 /**
  * Do register all Plugins and then set global setting and start server
  */
 registerPlugins().then(() => {
-    globalSet(server)
-    start(server).then(() => {
-        // Serve string messages
-        console.log('Server running at:', server.select(server.plugins.app.config.server.LABELS).info.uri)
-        console.log('Event running at:', server.select(server.plugins.app.config.event.LABELS).info.uri)
-    })
+    console.log('Server running at:', server.select(server.plugins.app.config.server.LABELS).info.uri)
+    console.log('Event running at:', server.select(server.plugins.app.config.event.LABELS).info.uri)
 }).catch((error) => {
     console.error(error)
 })
