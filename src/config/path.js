@@ -9,12 +9,15 @@ const {
     CLIENT_ASSETS_INFO_NAME = 'assets.json',
     CLIENT_BUNDLE_JS_NAME = 'bundle',
     CLIENT_VENDOR_JS_NAME = 'vendor',
+    APP_ENV = 'production',
 } = env
 let assets
-try {
-    assets = require(path.join(root, 'public', CLIENT_ASSETS_INFO_NAME))
-} catch (e) {
-    console.log(`Warning server needs a ${CLIENT_ASSETS_INFO_NAME} in config path`)
+if (APP_ENV === 'production') {
+    try {
+        assets = require(path.join(root, 'public', CLIENT_ASSETS_INFO_NAME))
+    } catch (e) {
+        console.log(`Warning server needs a ${CLIENT_ASSETS_INFO_NAME} in config path`)
+    }
 }
 
 if (!assets) {
