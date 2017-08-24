@@ -5,7 +5,7 @@
 /vendor
 /.idea
 /dist
-/public
+public
 /.env.json
 Homestead.json
 Homestead.yaml
