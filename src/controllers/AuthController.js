@@ -12,9 +12,9 @@ import _ from 'lodash'
 import Boom from 'boom'
 import Joi from 'joi'
 const SchemaItems = {
-    name: Joi.string().min(3).max(30),
-    email: Joi.string().email(),
-    password: Joi.string().regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,30}$/),
+    name: Joi.string().min(3).max(40),
+    email: Joi.string().email().max(150),
+    password: Joi.string().regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,40}$/),
     gender: Joi.string(),
 }
 const Schema = {
