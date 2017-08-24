@@ -9,5 +9,6 @@ export default {
         'gif',
         'woff2',
         'woff',
+        'css',
     ],
 }

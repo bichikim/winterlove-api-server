@@ -1,5 +1,5 @@
 import config from '../config'
-const {CLIENT_STATIC_PATH, CLIENT_JS_PATH} = config.path.client
+const {CLIENT_STATIC_PATH} = config.path.client
 
 /**
  * Web routes serve for http get file request only
@@ -21,7 +21,17 @@ export default (server) => {
         },
         {
             method: 'GET',
-            path: `/${CLIENT_JS_PATH}/{filename}.js`,
+            path: '/service-worker.js',
+            config: {
+                auth: false,
+            },
+            handler: {
+                file: 'service-worker.js',
+            },
+        },
+        {
+            method: 'GET',
+            path: `/${CLIENT_STATIC_PATH}/js/{filename}.js`,
             config: {
                 auth: false,
             },
@@ -34,7 +44,7 @@ export default (server) => {
         },
         {
             method: 'GET',
-            path: `/${CLIENT_JS_PATH}/{filename}.js.map`,
+            path: `/${CLIENT_STATIC_PATH}/js/{filename}.js.map`,
             config: {
                 auth: false,
             },
@@ -47,7 +57,7 @@ export default (server) => {
         },
         {
             method: 'GET',
-            path: `/${CLIENT_STATIC_PATH}/{filename}.{ext}`,
+            path: `/${CLIENT_STATIC_PATH}/{type}/{filename}.{ext}`,
             config: {
                 auth: false,
             },

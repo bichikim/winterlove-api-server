@@ -5,11 +5,8 @@
 /vendor
 /.idea
 /dist
-/public/*.js
+/public
 /.env.json
-/public/static
-/public/js
-/public/assets.json
 Homestead.json
 Homestead.yaml
 .env

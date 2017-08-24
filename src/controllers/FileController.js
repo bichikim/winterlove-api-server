@@ -26,7 +26,7 @@ export default class FileController extends Controller {
      */
     getJavascriptFile(request, reply) {
         const {filename} = request.params
-        return reply.file(`${CLIENT_JS_PATH}/${filename}.js`)
+        return reply.file(`${CLIENT_STATIC_PATH}/js/${filename}.js`)
     }
 
     /**
@@ -36,9 +36,9 @@ export default class FileController extends Controller {
      * @return {*}
      */
     getFile(request, reply) {
-        const {filename, ext} = request.params
+        const {filename, ext, type} = request.params
         if (_.indexOf(ALLOW, ext) > -1) {
-            return reply.file(`${CLIENT_STATIC_PATH}/${filename}.${ext}`)
+            return reply.file(`${CLIENT_STATIC_PATH}/${type}/${filename}.${ext}`)
         }
     }
 
