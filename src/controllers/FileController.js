@@ -2,6 +2,7 @@ import Controller from './Controller'
 import config from '../config'
 import _ from 'lodash'
 const {CLIENT_STATIC_PATH, CLIENT_BUNDLE_JS_NAME, CLIENT_VENDOR_JS_NAME, CLIENT_JS_PATH} = config.path.client
+const {APP_NAME} = config.app
 const {ALLOW} = config.file
 /**
  *
@@ -59,8 +60,7 @@ export default class FileController extends Controller {
     getHtml(request, reply) {
         return reply.view('index.handlebars', {
             crumb: this.server.plugins.crumb.generate(request, reply),
-            vendorJs: `/${CLIENT_JS_PATH}/${CLIENT_VENDOR_JS_NAME}`,
-            bundleJs: `/${CLIENT_JS_PATH}/${CLIENT_BUNDLE_JS_NAME}`,
+            title: APP_NAME,
         })
     }
 }
