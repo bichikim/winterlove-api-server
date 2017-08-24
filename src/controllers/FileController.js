@@ -36,9 +36,17 @@ export default class FileController extends Controller {
      * @return {*}
      */
     getFile(request, reply) {
-        const {filename, ext, type} = request.params
+        const {filename, ext, type1, type2} = request.params
         if (_.indexOf(ALLOW, ext) > -1) {
-            return reply.file(`${CLIENT_STATIC_PATH}/${type}/${filename}.${ext}`)
+            let path = `${CLIENT_STATIC_PATH}/`
+            if (type1) {
+                path += `${type1}/`
+            }
+            if (type2) {
+                path += `${type2}/`
+            }
+            path += `${filename}.${ext}`
+            return reply.file(path)
         }
     }
 

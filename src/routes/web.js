@@ -57,7 +57,33 @@ export default (server) => {
         },
         {
             method: 'GET',
-            path: `/${CLIENT_STATIC_PATH}/{type}/{filename}.{ext}`,
+            path: `/${CLIENT_STATIC_PATH}/{filename}.{ext}`,
+            config: {
+                auth: false,
+            },
+            handler: {
+                controller: {
+                    name: 'FileController',
+                    method: 'getFile',
+                },
+            },
+        },
+        {
+            method: 'GET',
+            path: `/${CLIENT_STATIC_PATH}/{type1}/{filename}.{ext}`,
+            config: {
+                auth: false,
+            },
+            handler: {
+                controller: {
+                    name: 'FileController',
+                    method: 'getFile',
+                },
+            },
+        },
+        {
+            method: 'GET',
+            path: `/${CLIENT_STATIC_PATH}/{type1}/{type2}/{filename}.{ext}`,
             config: {
                 auth: false,
             },

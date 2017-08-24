@@ -10,5 +10,7 @@ export default {
         'woff2',
         'woff',
         'css',
+        'json',
+        'ico',
     ],
 }
