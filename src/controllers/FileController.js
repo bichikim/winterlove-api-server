@@ -2,7 +2,7 @@ import Controller from './Controller'
 import config from '../config'
 import _ from 'lodash'
 import Boom from 'boom'
-const {CLIENT_STATIC_PATH, CLIENT_BUNDLE_JS_NAME, CLIENT_VENDOR_JS_NAME, CLIENT_JS_PATH} = config.path.client
+const {CLIENT_STATIC_PATH} = config.path.client
 const {APP_NAME} = config.app
 const {ALLOW} = config.file
 /**
