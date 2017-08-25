@@ -49,11 +49,12 @@ const {console} = global
  */
 const globalSet = (server) => {
     const {PUBLIC} = config.path.server
+    console.log(PUBLIC)
     // View setting todo temporarily being here. it needs to be replaced
     server.views({
         engines: {
             // It will be name of file type
-            handlebars: {
+            html: {
                 // Set what kind of module to use for file type
                 module: handlebars,
             },

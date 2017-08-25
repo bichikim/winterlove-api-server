@@ -1,6 +1,7 @@
 import Controller from './Controller'
 import config from '../config'
 import _ from 'lodash'
+import Boom from 'boom'
 const {CLIENT_STATIC_PATH, CLIENT_BUNDLE_JS_NAME, CLIENT_VENDOR_JS_NAME, CLIENT_JS_PATH} = config.path.client
 const {APP_NAME} = config.app
 const {ALLOW} = config.file
@@ -14,41 +15,15 @@ export default class FileController extends Controller {
      * @param {*}reply
      * @return {*}
      */
-    getJavascriptMapFile(request, reply) {
-        const {filename} = request.params
-        return reply.file(`${CLIENT_JS_PATH}/${filename}.js.map`)
-    }
-
-    /**
-     *
-     * @param {*}request
-     * @param {*}reply
-     * @return {*}
-     */
-    getJavascriptFile(request, reply) {
-        const {filename} = request.params
-        return reply.file(`${CLIENT_STATIC_PATH}/js/${filename}.js`)
-    }
-
-    /**
-     *
-     * @param {*}request
-     * @param {*}reply
-     * @return {*}
-     */
     getFile(request, reply) {
-        const {filename, ext, type1, type2} = request.params
+        const paths = request.params.paths.split('/')
+        const file = _.last(paths)
+        const fileSplit = file.split('.')
+        const ext = _.last(fileSplit)
         if (_.indexOf(ALLOW, ext) > -1) {
-            let path = `${CLIENT_STATIC_PATH}/`
-            if (type1) {
-                path += `${type1}/`
-            }
-            if (type2) {
-                path += `${type2}/`
-            }
-            path += `${filename}.${ext}`
-            return reply.file(path)
+            return reply.file(`${CLIENT_STATIC_PATH}/${request.params.paths}`)
         }
+        return reply(Boom.forbidden('Not allow to read the file', {ext}))
     }
 
     /**
@@ -58,7 +33,7 @@ export default class FileController extends Controller {
      * @return {*}
      */
     getHtml(request, reply) {
-        return reply.view('index.handlebars', {
+        return reply.view('index.html', {
             crumb: this.server.plugins.crumb.generate(request, reply),
             title: APP_NAME,
         })

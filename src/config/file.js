@@ -12,5 +12,7 @@ export default {
         'css',
         'json',
         'ico',
+        'map',
+        'js',
     ],
 }

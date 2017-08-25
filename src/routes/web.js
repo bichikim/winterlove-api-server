@@ -29,61 +29,10 @@ export default (server) => {
                 file: 'service-worker.js',
             },
         },
+
         {
             method: 'GET',
-            path: `/${CLIENT_STATIC_PATH}/js/{filename}.js`,
-            config: {
-                auth: false,
-            },
-            handler: {
-                controller: {
-                    name: 'FileController',
-                    method: 'getJavascriptFile',
-                },
-            },
-        },
-        {
-            method: 'GET',
-            path: `/${CLIENT_STATIC_PATH}/js/{filename}.js.map`,
-            config: {
-                auth: false,
-            },
-            handler: {
-                controller: {
-                    name: 'FileController',
-                    method: 'getJavascriptMapFile',
-                },
-            },
-        },
-        {
-            method: 'GET',
-            path: `/${CLIENT_STATIC_PATH}/{filename}.{ext}`,
-            config: {
-                auth: false,
-            },
-            handler: {
-                controller: {
-                    name: 'FileController',
-                    method: 'getFile',
-                },
-            },
-        },
-        {
-            method: 'GET',
-            path: `/${CLIENT_STATIC_PATH}/{type1}/{filename}.{ext}`,
-            config: {
-                auth: false,
-            },
-            handler: {
-                controller: {
-                    name: 'FileController',
-                    method: 'getFile',
-                },
-            },
-        },
-        {
-            method: 'GET',
-            path: `/${CLIENT_STATIC_PATH}/{type1}/{type2}/{filename}.{ext}`,
+            path: `/${CLIENT_STATIC_PATH}/{paths*}`,
             config: {
                 auth: false,
             },
