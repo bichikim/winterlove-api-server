@@ -1,8 +1,8 @@
 import env from '../lib/env'
 
 const {
-    APP_NAME = 'WinterLove',
-    APP_ENV = 'production',
+  APP_NAME = 'WinterLove',
+  APP_ENV = 'production',
 } = env
 
 export default {
