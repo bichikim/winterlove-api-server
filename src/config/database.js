@@ -8,11 +8,11 @@ const {
 } = env
 
 export default {
-    connection: {
-        HOST: DB_HOST,
-        PORT: DB_PORT,
-        DATABASE: DB_DATABASE,
-        USER: DB_USER,
-        PASSWORD: DB_PASSWORD,
-    },
+  connection: {
+    HOST: DB_HOST,
+    PORT: DB_PORT,
+    DATABASE: DB_DATABASE,
+    USER: DB_USER,
+    PASSWORD: DB_PASSWORD,
+  },
 }

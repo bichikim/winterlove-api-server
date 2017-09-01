@@ -8,20 +8,20 @@ let composers
  * @return {*}
  */
 export default () => {
-    if (!composers) {
-        composers = requireAll({
-            dirname: `${__dirname}/../composers/`,
-            filter: /^(?!index).*(\.js)$/,
-            resolve: (config) => {
-                return config.default
-            },
-            map: (name, path) => {
-                return path.split('//').pop()
-                    .split('.')
-                    .shift()
-            },
-        })
-    }
-    return composers
+  if (!composers) {
+    composers = requireAll({
+      dirname: `${__dirname}/../composers/`,
+      filter: /^(?!index).*(\.js)$/,
+      resolve: (config) => {
+        return config.default
+      },
+      map: (name, path) => {
+        return path.split('//').pop()
+          .split('.')
+          .shift()
+      },
+    })
+  }
+  return composers
 }
 

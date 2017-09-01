@@ -3,17 +3,17 @@
  */
 import mongoose from 'mongoose'
 const name = 'posts',
-    schema = new mongoose.Schema({
-        name: String,
-        created: {
-            type: Date,
-            default: Date.now,
-        },
-        modified: {
-            type: Date,
-            default: Date.now,
-        },
-    })
+  schema = new mongoose.Schema({
+    name: String,
+    created: {
+      type: Date,
+      default: Date.now,
+    },
+    modified: {
+      type: Date,
+      default: Date.now,
+    },
+  })
 
 /**
  * PostModal

@@ -6,21 +6,21 @@ import Controller from './Controller'
  * @extends Controller
  */
 export default class HomeController extends Controller {
-    /**
-     *
-     * @constructor
-     * @param {{}} request
-     * @param {Function} reply
-     */
-    index(request, reply) {
-        const {role, email} = request.headers
-        reply({say: 'hello', data: {role, email}})
-    }
+  /**
+   *
+   * @constructor
+   * @param {{}} request
+   * @param {Function} reply
+   */
+  index(request, reply) {
+    const {role, email} = request.headers
+    reply({say: 'hello', data: {role, email}})
+  }
 
-    /**
-     *
-     */
-    main() {
-        // Console.log(this._name)
-    }
+  /**
+   *
+   */
+  main() {
+    // Console.log(this._name)
+  }
 }

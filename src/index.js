@@ -48,20 +48,20 @@ const {console} = global
  * @param {Server} server
  */
 const globalSet = (server) => {
-    const {PUBLIC} = config.path.server
-    console.log(PUBLIC)
-    // View setting todo temporarily being here. it needs to be replaced
-    server.views({
-        engines: {
-            // It will be name of file type
-            html: {
-                // Set what kind of module to use for file type
-                module: handlebars,
-            },
-        },
-        // Root path for vision(view)
-        relativeTo: PUBLIC,
-    })
+  const {PUBLIC} = config.path.server
+  console.log(PUBLIC)
+  // View setting todo temporarily being here. it needs to be replaced
+  server.views({
+    engines: {
+      // It will be name of file type
+      html: {
+        // Set what kind of module to use for file type
+        module: handlebars,
+      },
+    },
+    // Root path for vision(view)
+    relativeTo: PUBLIC,
+  })
 }
 
 /**
@@ -69,46 +69,46 @@ const globalSet = (server) => {
  * @return {Promise.<void>}
  */
 const registerPlugins = async function() {
-    await register(server, Inert)
-    // It needs Inert
-    // It has connection so all plugins need App
-    await register(server, App)
-    await register(server, Vision)
-    await register(server, HapiAuthJwt2)
-    // It needs Vision and App
-    await register(server, Controllers)
-    await register(server, Bell)
-    await register(server, DB)
-    await register(server, Crumb, {
-        // It is true When server running as restful server
-        // (this server is restful mode server + file server + view server[only index.handlebars])
-        restful: true,
-        cookieOptions: {
-            // It is false When this server is using http
-            isSecure: false,
-        },
-        // It is a flag for using view or not. default : true
-        // AddToViewContext: false,
-        // It is able to turn on generating crumb whenever reloading page. default : true
-        // AutoGenerate: false,
-    })
-    // It needs App, AuthCookie, DB and Bell
-    await register(server, Auth)
-    // It needs Controllers, Auth and App
-    await register(server, Routes)
-    await register(server, Status)
-    await register(server, DataFilter)
-    await register(server, Socket)
-    await globalSet(server)
-    return await start(server)
+  await register(server, Inert)
+  // It needs Inert
+  // It has connection so all plugins need App
+  await register(server, App)
+  await register(server, Vision)
+  await register(server, HapiAuthJwt2)
+  // It needs Vision and App
+  await register(server, Controllers)
+  await register(server, Bell)
+  await register(server, DB)
+  await register(server, Crumb, {
+    // It is true When server running as restful server
+    // (this server is restful mode server + file server + view server[only index.handlebars])
+    restful: true,
+    cookieOptions: {
+      // It is false When this server is using http
+      isSecure: false,
+    },
+    // It is a flag for using view or not. default : true
+    // AddToViewContext: false,
+    // It is able to turn on generating crumb whenever reloading page. default : true
+    // AutoGenerate: false,
+  })
+  // It needs App, AuthCookie, DB and Bell
+  await register(server, Auth)
+  // It needs Controllers, Auth and App
+  await register(server, Routes)
+  await register(server, Status)
+  await register(server, DataFilter)
+  await register(server, Socket)
+  await globalSet(server)
+  return await start(server)
 }
 
 /**
  * Do register all Plugins and then set global setting and start server
  */
 registerPlugins().then(() => {
-    console.log('Server running at:', server.select(server.plugins.app.config.server.LABELS).info.uri)
-    console.log('Event running at:', server.select(server.plugins.app.config.event.LABELS).info.uri)
+  console.log('Server running at:', server.select(server.plugins.app.config.server.LABELS).info.uri)
+  console.log('Event running at:', server.select(server.plugins.app.config.event.LABELS).info.uri)
 }).catch((error) => {
-    console.error(error)
+  console.error(error)
 })

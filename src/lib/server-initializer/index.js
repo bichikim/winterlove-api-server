@@ -6,19 +6,19 @@
  * @return {Promise}
  */
 export const register = (server, plugin, options = {}) => {
-    return new Promise(function(resolve, reject) {
-        server.register({
-            register: plugin,
-            options: options,
-        }, (error) => {
-            if (error) {
-                const {name, version} = plugin.attributes
-                Object.assign(error, {name, version})
-                return reject(error)
-            }
-            resolve()
-        })
+  return new Promise(function(resolve, reject) {
+    server.register({
+      register: plugin,
+      options: options,
+    }, (error) => {
+      if (error) {
+        const {name, version} = plugin.attributes
+        Object.assign(error, {name, version})
+        return reject(error)
+      }
+      resolve()
     })
+  })
 }
 
 /**
@@ -27,12 +27,12 @@ export const register = (server, plugin, options = {}) => {
  * @return {Promise}
  */
 export const start = (server) => {
-    return new Promise(function(resolve, reject) {
-        server.start((error) => {
-            if (error) {
-                return reject(error)
-            }
-            resolve()
-        })
+  return new Promise(function(resolve, reject) {
+    server.start((error) => {
+      if (error) {
+        return reject(error)
+      }
+      resolve()
     })
+  })
 }
