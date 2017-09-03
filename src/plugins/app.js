@@ -18,7 +18,7 @@ const app = {
 
     {
       const {HOST, PORT, LABELS, CORS} = config.server
-      const {PUBLIC} = config.path.server
+      const {PUBLIC} = config.path.client
       server.connection({
         host: HOST,
         port: PORT,

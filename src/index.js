@@ -48,7 +48,7 @@ const {console} = global
  * @param {Server} server
  */
 const globalSet = (server) => {
-  const {PUBLIC} = config.path.server
+  const {PUBLIC} = config.path.client
   console.log(PUBLIC)
   // View setting todo temporarily being here. it needs to be replaced
   server.views({

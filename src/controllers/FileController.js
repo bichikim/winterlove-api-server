@@ -2,7 +2,7 @@ import Controller from './Controller'
 import config from '../config'
 import _ from 'lodash'
 import Boom from 'boom'
-const {CLIENT_STATIC_PATH} = config.path.client
+const {STATIC_PATH} = config.path.client
 const {APP_NAME} = config.app
 const {ALLOW} = config.file
 /**
@@ -21,7 +21,7 @@ export default class FileController extends Controller {
     const fileSplit = file.split('.')
     const ext = _.last(fileSplit)
     if (_.indexOf(ALLOW, ext) > -1) {
-      return reply.file(`${CLIENT_STATIC_PATH}/${request.params.paths}`)
+      return reply.file(`${STATIC_PATH}/${request.params.paths}`)
     }
     return reply(Boom.forbidden('Not allow to read the file', {ext}))
   }
