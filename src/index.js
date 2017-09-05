@@ -49,7 +49,7 @@ const {console} = global
  */
 const globalSet = (server) => {
   const {PUBLIC} = config.path.client
-  console.log(PUBLIC)
+  console.log(`Public files at: ${PUBLIC}`)
   // View setting todo temporarily being here. it needs to be replaced
   server.views({
     engines: {

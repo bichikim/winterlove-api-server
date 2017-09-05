@@ -1,7 +1,7 @@
 /* global __dirname*/
 import env from '../lib/env'
 const {
-    APP_KEY = '9JTxCSYh/UnXsH5DhZRtKGlQFw8AwLAliHl/T9ZtQeo=',
+  APP_KEY = '9JTxCSYh/UnXsH5DhZRtKGlQFw8AwLAliHl/T9ZtQeo=',
 } = env
 
 export default {

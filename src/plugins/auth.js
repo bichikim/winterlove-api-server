@@ -1,4 +1,3 @@
-import User from '../models/UserModel'
 import config from '../config'
 
 const {LABELS} = config.server
@@ -18,7 +17,6 @@ const app = {
     const webServer = server.select(LABELS)
 
     server.expose({
-      user: User,
     })
 
     webServer.auth.strategy(STRATEGY, 'jwt', {

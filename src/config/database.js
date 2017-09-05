@@ -1,10 +1,10 @@
 import env from '../lib/env'
 const {
-    DB_HOST = '127.0.0.1',
-    DB_PORT = '27017',
-    DB_DATABASE = 'winterlove',
-    DB_USER = 'admin',
-    DB_PASSWORD = 'password',
+  DB_HOST = '127.0.0.1',
+  DB_PORT = '27017',
+  DB_DATABASE = 'winterlove',
+  DB_USER = 'admin',
+  DB_PASSWORD = 'password',
 } = env
 
 export default {
