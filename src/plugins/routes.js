@@ -33,7 +33,7 @@ const app = {
 
 app.register.attributes = {
   name: 'route',
-  version: '0.0.1',
+  version: '0.0.2',
 }
 
 export default app.register
