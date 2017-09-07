@@ -13,7 +13,9 @@ import Auth from './plugins/auth'
 import Socket from './plugins/socket'
 import Status from './plugins/status'
 import DataFilter from './plugins/data-filter'
+import HapiSwagger from 'hapi-swagger'
 import handlebars from 'handlebars'
+import packageJson from '../package.json'
 import config from './config'
 import {register, start} from './lib/server-initializer'
 /**
@@ -100,6 +102,14 @@ const registerPlugins = async function() {
   await register(server, Status)
   await register(server, DataFilter)
   await register(server, Socket)
+  // https://github.com/glennjones/hapi-swagger
+  // URL = ~/documentation
+  await register(server, HapiSwagger, {
+    info: {
+      title: config.app.name,
+      version: packageJson.version,
+    },
+  })
   await globalSet(server)
   return await start(server)
 }

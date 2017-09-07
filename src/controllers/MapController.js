@@ -5,7 +5,7 @@ import Controller from './Controller'
  * @class
  * @extends Controller
  */
-export default class HomeController extends Controller {
+export default class MapController extends Controller {
   /**
    *
    * @constructor
