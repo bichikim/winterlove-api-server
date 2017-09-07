@@ -1,7 +1,3 @@
-/**
- * Set config and connection according to config
- */
-/* global process*/
 import config from '../config'
 
 const app = {
@@ -12,10 +8,7 @@ const app = {
    * @param {function}next
    */
   register(server, options, next) {
-/*    server.expose({
-      config: config,
-    })*/
-
+    // making web server & api server connection
     {
       const {host, port, labels, cors} = config.server
       const {root} = config.path.client
@@ -31,6 +24,7 @@ const app = {
         },
       })
     }
+    // making event connection
     {
       const {host, port, labels} = config.event
       server.connection({
@@ -45,7 +39,8 @@ const app = {
 
 app.register.attributes = {
   name: 'app',
-  version: '0.0.1',
+  version: '0.0.2',
+  // to set connection in this plugins connections options must false
   connections: false,
 }
 
