@@ -38,7 +38,7 @@ export default (server) => {
           }).label('Result'),
         },
         plugins: {
-          crumb: false,
+          crumb: true,
         },
         auth: {
           mode: 'try',
@@ -55,8 +55,23 @@ export default (server) => {
       method: 'POST',
       path: '/sign-up',
       config: {
+        description: 'Sign up',
+        tags: ['api', 'auth'],
+        validate: {
+          payload: Joi.object().keys({
+            name: SchemaItems.name.required(),
+            email: SchemaItems.email.required(),
+            password: SchemaItems.password.required(),
+            gender: SchemaItems.gender,
+          }).label('Sign'),
+        },
+        response: {
+          schema: Joi.object({
+            success: Joi.boolean(),
+          }).label('Result'),
+        },
         plugins: {
-          crumb: false,
+          crumb: true,
         },
         auth: false,
       },

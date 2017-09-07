@@ -82,19 +82,21 @@ const registerPlugins = async function() {
   await register(server, Controllers)
   await register(server, Bell)
   await register(server, DB)
-  await register(server, Crumb, {
-    // It is true When server running as restful server
-    // (this server is restful mode server + file server + view server[only index.handlebars])
-    restful: true,
-    cookieOptions: {
-      // It is false When this server is using http
-      isSecure: false,
-    },
-    // It is a flag for using view or not. default : true
-    // AddToViewContext: false,
-    // It is able to turn on generating crumb whenever reloading page. default : true
-    // AutoGenerate: false,
-  })
+  if (config.app.isProduction) {
+    await register(server, Crumb, {
+      // It is true When server running as restful server
+      // (this server is restful mode server + file server + view server[only index.handlebars])
+      restful: true,
+      cookieOptions: {
+        // It is false When this server is using http
+        isSecure: false,
+      },
+      // It is a flag for using view or not. default : true
+      // AddToViewContext: false,
+      // It is able to turn on generating crumb whenever reloading page. default : true
+      // AutoGenerate: false,
+    })
+  }
   // It needs App, AuthCookie, DB and Bell
   await register(server, Auth)
   // It needs Controllers, Auth and App
