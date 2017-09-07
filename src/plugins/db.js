@@ -1,11 +1,10 @@
 /* global global*/
 /**
- * @type {{connect}}
+ * @typedef {object} mongoose
+ * @property {object} connection
+ * @property {Promise} Promise
  */
 import mongoose from 'mongoose'
-/**
- * @type {{database}}
- */
 import config from '../config'
 
 const app = {
@@ -30,9 +29,6 @@ const app = {
     mongoose.connect(mongooseConnectionAddress, {useMongoClient: true})
 
     {
-      /**
-       * @type {{on: function, once: function}}
-       */
       const {connection} = mongoose
       connection.on('error', console.error)
       connection.once('open', () => {
@@ -45,7 +41,7 @@ const app = {
 
 app.register.attributes = {
   name: 'db',
-  version: '0.0.1',
+  version: '0.0.2',
 }
 
 export default app.register
