@@ -17,9 +17,9 @@ const controllers = (server) => {
 
     // Find Controller by controller(name)
     if (_.isObject(options)) {
-      const {controller, method} = options
-      if (_.isString(controller) && _.isString(method)) {
-        controllerName = controller
+      const {name, method} = options
+      if (_.isString(name) && _.isString(method)) {
+        controllerName = name
         methodName = method
       } else {
         throw new Error(`[ controllers ] It seems name: ${name} or method: ${method} is not a string `)
