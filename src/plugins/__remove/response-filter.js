@@ -32,11 +32,11 @@ const app = {
         if (!request.route.settings.plugins) {
           return reply.continue()
         }
-        const {filter} = request.route.settings.plugins
-        if (!filter || !variety === 'plain') {
+        const {responseFilter} = request.route.settings.plugins
+        if (!responseFilter || !variety === 'plain') {
           return reply.continue()
         }
-        const {response} = filter
+        const {response} = responseFilter
         if (!response) {
           return reply.continue()
         }
@@ -57,7 +57,7 @@ const app = {
 }
 
 app.register.attributes = {
-  name: 'data-filter',
+  name: 'response-filter',
   version: '0.0.1',
 }
 

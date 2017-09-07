@@ -10,9 +10,6 @@ export default (server) => {
       method: 'POST',
       path: '/test',
       config: {
-        handler: (request, reply) => {
-          reply({success: true})
-        },
         description: 'Array properties',
         tags: ['api'],
         validate: {
@@ -30,6 +27,9 @@ export default (server) => {
           crumb: false,
         },
         auth: false,
+      },
+      handler: (request, reply) => {
+        reply({success: true})
       },
     },
   ]

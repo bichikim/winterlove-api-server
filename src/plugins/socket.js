@@ -1,8 +1,6 @@
-/**
- * @type {{listen}}
- */
 import SocketIO from 'socket.io'
 import config from '../config'
+// TOdo this is not done
 const app = {
   /**
    *

@@ -56,13 +56,8 @@ export default class AuthController extends Controller {
    *
    * @param {{payload:object}} request
    * @param {Function} reply
-   * @return {*}
    */
   signIn(request, reply) {
-    const result = Joi.validate(request.payload, Schema.signIn)
-    if (result.error) {
-      return reply(Boom.notAcceptable(result.error))
-    }
     const {email, password, isNeedAccessToken} = request.payload
     this._user.findOne({email})
       .then((documents) => {
@@ -71,8 +66,9 @@ export default class AuthController extends Controller {
         }
         const isVerified = documents.verifyPassword(password)
         if (_.isObject(documents) && isVerified) {
-          const data = documents._doc
-          if (isNeedAccessToken === 'true') {
+          const {gender, point, email, name} = documents._doc
+          const data = {gender, point, email, name}
+          if (isNeedAccessToken === true) {
             Object.assign(data, {access_token: documents.getToken()})
           }
           reply({

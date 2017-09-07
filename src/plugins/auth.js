@@ -9,12 +9,12 @@ const app = {
    */
   register(server, options, next) {
     const {labels} = config.server
-    const {appKey, strategy} = config.auth
+    const {key, strategy} = config.auth
     const webServer = server.select(labels)
 
     // its auth strategy is jwt
     webServer.auth.strategy(strategy, 'jwt', {
-      key: appKey,
+      key,
       // jwt validate this will be called if it needs validate jwt
       validateFunc: (decoded, request, next) => {
         const {email, role} = decoded

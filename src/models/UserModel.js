@@ -9,7 +9,7 @@ import jwt from 'jsonwebtoken'
 import config from '../config'
 const name = 'users'
 const password = 'password'
-const {APP_KEY} = config.auth
+
 const schema = new mongoose.Schema({
   email: {
     type: String,
@@ -89,10 +89,11 @@ schema.methods.verifyPassword = function(password, next) {
 
 schema.methods.getToken = function(role = [], expiresIn = '18h') {
   const {email} = this
+  const {key} = config.auth
   return jwt.sign({
     email,
     role: ['basics', ...role],
-  }, APP_KEY, {expiresIn})
+  }, key, {expiresIn})
 }
 
 schema.loadClass(UserModel)
