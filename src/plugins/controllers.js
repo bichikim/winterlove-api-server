@@ -9,6 +9,7 @@ import getControllers from '../controllers'
  * @return {function(*, *=)}
  */
 const controllers = (server) => {
+  // since controllers needs server to use must pass sever when it gets controllers
   const controllers = getControllers(server)
 
   return (route, options) => {
