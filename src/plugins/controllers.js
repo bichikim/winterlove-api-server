@@ -16,34 +16,38 @@ const controllers = (server) => {
 
     // Find Controller by name
     if (_.isObject(options)) {
-      const {name, method} = options
+      const {controller, method} = options
       if (_.isString(name) && _.isString(method)) {
-        controllerName = name
+        controllerName = controller
         methodName = method
       } else {
-        throw new Error('It needs a name or a method')
+        throw new Error(`[ controllers ] It seems name: ${name} or method: ${method} is not a string `)
       }
+      // method@controller name
     } else if (_.isString(options)) {
       const [method, kind] = options.split('@')
       if (_.isString(kind) && _.isString(method)) {
         controllerName = kind
         methodName = method
       } else {
-        throw new Error('String controller option is odd')
+        throw new Error(`[ controllers ] It is not like method@controller. the current options is ${options}`)
       }
     } else {
-      throw new Error('It needs correct options')
+      throw new Error(
+        `[ controllers ] It needs correct options {method: \'\', controller: \'\'} or method@controller.
+         the current options is ${options}`
+      )
     }
 
     const controller = controllers[controllerName]
     if (_.isObject(controller)) {
       handle = controller[methodName]
     } else {
-      throw new Error('It needs a correct controller name')
+      throw new Error(`[ controllers ] It needs a correct controller name. the current options is ${options}`)
     }
 
     if (!_.isFunction(handle)) {
-      throw new Error('IT needs a correct method name')
+      throw new Error(`[ controllers ] controller has a member: ${methodName} However that is not a function`)
     }
 
     return handle.bind(controller)

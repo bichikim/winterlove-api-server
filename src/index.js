@@ -11,8 +11,8 @@ import DB from './plugins/db'
 import Crumb from 'crumb'
 import Auth from './plugins/auth'
 import Socket from './plugins/socket'
-import Status from './plugins/status'
-import DataFilter from './plugins/data-filter'
+// import Status from './plugins/status'
+// import DataFilter from './plugins/data-filter'
 import HapiSwagger from 'hapi-swagger'
 import handlebars from 'handlebars'
 import packageJson from '../package.json'
@@ -99,8 +99,8 @@ const registerPlugins = async function() {
   await register(server, Auth)
   // It needs Controllers, Auth and App
   await register(server, Routes)
-  await register(server, Status)
-  await register(server, DataFilter)
+  // await register(server, Status)
+  // await register(server, DataFilter)
   await register(server, Socket)
   // https://github.com/glennjones/hapi-swagger
   // URL = ~/documentation

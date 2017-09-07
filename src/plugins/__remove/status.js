@@ -1,6 +1,6 @@
 import _ from 'lodash'
-import composers from '../composers'
-import config from '../config'
+import composers from '../../composers/index'
+import config from '../../config/index'
 // todo need refactoring
 const app = {
   /**
