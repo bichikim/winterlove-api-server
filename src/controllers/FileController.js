@@ -1,10 +1,11 @@
 import Controller from './Controller'
 import config from '../config'
-import _ from 'lodash'
+import last from 'lodash/last'
+import indexOf from 'lodash/indexOf'
 import Boom from 'boom'
-const {STATIC_PATH} = config.path.client
-const {APP_NAME} = config.app
-const {ALLOW} = config.file
+const {staticName} = config.client
+const {appName} = config.app
+const {allow} = config.file
 /**
  *
  */
@@ -17,11 +18,11 @@ export default class FileController extends Controller {
    */
   getFile(request, reply) {
     const paths = request.params.paths.split('/')
-    const file = _.last(paths)
+    const file = last(paths)
     const fileSplit = file.split('.')
-    const ext = _.last(fileSplit)
-    if (_.indexOf(ALLOW, ext) > -1) {
-      return reply.file(`${STATIC_PATH}/${request.params.paths}`)
+    const ext = last(fileSplit)
+    if (indexOf(allow, ext) > -1) {
+      return reply.file(`${staticName}/${request.params.paths}`)
     }
     return reply(Boom.forbidden('Not allow to read the file', {ext}))
   }
@@ -35,7 +36,7 @@ export default class FileController extends Controller {
   getHtml(request, reply) {
     return reply.view('index.html', {
       crumb: this.server.plugins.crumb.generate(request, reply),
-      title: APP_NAME,
+      title: appName,
     })
   }
 }

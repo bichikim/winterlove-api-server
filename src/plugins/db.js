@@ -8,10 +8,6 @@ import mongoose from 'mongoose'
  */
 import config from '../config'
 
-const {console} = global
-const {PRODUCTION} = config.server
-const {HOST, PORT, DATABASE} = config.database.connection
-
 const app = {
   /**
    *
@@ -20,16 +16,12 @@ const app = {
    * @param {function}next
    */
   register(server, options, next) {
-    let mongooseConnectionAddress
+    const {console} = global
+    const {host, port, database} = config.database
+    const mongooseConnectionAddress = `mongodb://${host}:${port}/${database}`
     server.expose({
       db: mongoose,
     })
-
-    if (PRODUCTION) {
-      mongooseConnectionAddress = `mongodb://${HOST}:${PORT}/${DATABASE}`
-    } else {
-      mongooseConnectionAddress = `mongodb://${HOST}:${PORT}/${DATABASE}`
-    }
 
     // Plugging in My own Promises Library since deprecation mpromise
     mongoose.Promise = global.Promise

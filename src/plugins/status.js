@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import composers from '../composers'
 import config from '../config'
-const {LABELS} = config.server
+// todo need refactoring
 const app = {
   /**
    *
@@ -10,11 +10,12 @@ const app = {
    * @param {function}next
    */
   register(server, options, next) {
+    const {labels} = config.server
     const errorCode = {
       unauthorized: 401,
       unknownPage: 404,
     }
-    const webServer = server.select(LABELS)
+    const webServer = server.select(labels)
 
     // Inspect the response here, perhaps see if it's a 404?
     // Since using vue route vue route will handle 404

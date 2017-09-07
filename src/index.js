@@ -16,7 +16,6 @@ import DataFilter from './plugins/data-filter'
 import handlebars from 'handlebars'
 import config from './config'
 import {register, start} from './lib/server-initializer'
-
 /**
  * @typedef {object} Hapi
  * @property {function} Server
@@ -43,14 +42,16 @@ const server = new Hapi.Server()
 
 const {console} = global
 
+const globalSet = (server) => {
+  viewsSet(server)
+}
 /**
  * After loading all plugins
  * @param {Server} server
  */
-const globalSet = (server) => {
-  const {PUBLIC} = config.path.client
-  console.log(`Public files at: ${PUBLIC}`)
-  // View setting todo temporarily being here. it needs to be replaced
+const viewsSet = (server) => {
+  const {root} = config.path.client
+  console.log(`Public files at: ${root}`)
   server.views({
     engines: {
       // It will be name of file type
@@ -60,7 +61,7 @@ const globalSet = (server) => {
       },
     },
     // Root path for vision(view)
-    relativeTo: PUBLIC,
+    relativeTo: root,
   })
 }
 
@@ -107,8 +108,8 @@ const registerPlugins = async function() {
  * Do register all Plugins and then set global setting and start server
  */
 registerPlugins().then(() => {
-  console.log('Server running at:', server.select(server.plugins.app.config.server.LABELS).info.uri)
-  console.log('Event running at:', server.select(server.plugins.app.config.event.LABELS).info.uri)
+  console.log('Server running at:', server.select(config.server.labels).info.uri)
+  console.log('Event running at:', server.select(config.event.labels).info.uri)
 }).catch((error) => {
   console.error(error)
 })

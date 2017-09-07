@@ -1,6 +1,5 @@
 import _ from 'lodash'
 import config from '../config'
-const {LABELS} = config.server
 const app = {
   /**
    *
@@ -9,7 +8,8 @@ const app = {
    * @param {function}next
    */
   register(server, options, next) {
-    const webServer = server.select(LABELS)
+    const {labels} = config.server
+    const webServer = server.select(labels)
 
     // Inspect the response here, perhaps see if it's a 404?
     // Since using vue route vue route will handle 404

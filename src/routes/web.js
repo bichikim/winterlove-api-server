@@ -1,5 +1,5 @@
 import config from '../config'
-const {STATIC_PATH} = config.path.client
+const {staticName} = config.client
 
 /**
  * Web routes serve for http get file request only
@@ -32,7 +32,7 @@ export default (server) => {
 
     {
       method: 'GET',
-      path: `/${STATIC_PATH}/{paths*}`,
+      path: `/${staticName}/{paths*}`,
       config: {
         auth: false,
       },

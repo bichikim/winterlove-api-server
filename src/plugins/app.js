@@ -12,31 +12,31 @@ const app = {
    * @param {function}next
    */
   register(server, options, next) {
-    server.expose({
+/*    server.expose({
       config: config,
-    })
+    })*/
 
     {
-      const {HOST, PORT, LABELS, CORS} = config.server
-      const {PUBLIC} = config.path.client
+      const {host, port, labels, cors} = config.server
+      const {root} = config.path.client
       server.connection({
-        host: HOST,
-        port: PORT,
-        labels: LABELS,
+        host,
+        port,
+        labels,
         routes: {
-          cors: CORS,
+          cors,
           files: {
-            relativeTo: PUBLIC,
+            relativeTo: root,
           },
         },
       })
     }
     {
-      const {HOST, PORT, LABELS} = config.event
+      const {host, port, labels} = config.event
       server.connection({
-        host: HOST,
-        port: PORT,
-        labels: LABELS,
+        host,
+        port,
+        labels,
       })
     }
     next()

@@ -1,8 +1,5 @@
 import config from '../config'
 
-const {LABELS} = config.server
-const {APP_KEY, STRATEGY} = config.auth
-
 const app = {
   /**
    *
@@ -11,16 +8,13 @@ const app = {
    * @param {function}next
    */
   register(server, options, next) {
-    /**
-     * @type {{auth:{strategy, default}}}
-     */
-    const webServer = server.select(LABELS)
+    const {labels} = config.server
+    const {appKey, strategy} = config.auth
+    const webServer = server.select(labels)
 
-    server.expose({
-    })
-
-    webServer.auth.strategy(STRATEGY, 'jwt', {
-      key: APP_KEY,
+    webServer.auth.strategy(strategy, 'jwt', {
+      key: appKey,
+      // jwt validate
       validateFunc: (decoded, request, next) => {
         const {email, role} = decoded
         Object.assign(request.headers, {email, role})
@@ -31,7 +25,7 @@ const app = {
       },
     })
 
-    webServer.auth.default(STRATEGY)
+    webServer.auth.default(strategy)
 
     next()
   },

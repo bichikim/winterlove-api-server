@@ -3,7 +3,6 @@
  */
 import SocketIO from 'socket.io'
 import config from '../config'
-const {LABELS} = config.event
 const app = {
   /**
    *
@@ -12,7 +11,8 @@ const app = {
    * @param {function}next
    */
   register(server, options, next) {
-    const io = SocketIO.listen(server.select(LABELS).listener)
+    const {labels} = config.event
+    const io = SocketIO.listen(server.select(labels).listener)
     server.expose({
       io: io,
     })
