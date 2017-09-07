@@ -18,7 +18,7 @@ const controllers = (server) => {
     // Find Controller by controller(name)
     if (_.isObject(options)) {
       const {controller, method} = options
-      if (_.isString(name) && _.isString(method)) {
+      if (_.isString(controller) && _.isString(method)) {
         controllerName = controller
         methodName = method
       } else {
