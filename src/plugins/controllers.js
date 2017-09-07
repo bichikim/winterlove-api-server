@@ -14,7 +14,7 @@ const controllers = (server) => {
   return (route, options) => {
     let handle, controllerName, methodName
 
-    // Find Controller by name
+    // Find Controller by controller(name)
     if (_.isObject(options)) {
       const {controller, method} = options
       if (_.isString(name) && _.isString(method)) {
@@ -25,9 +25,9 @@ const controllers = (server) => {
       }
       // method@controller name
     } else if (_.isString(options)) {
-      const [method, kind] = options.split('@')
-      if (_.isString(kind) && _.isString(method)) {
-        controllerName = kind
+      const [method, controller] = options.split('@')
+      if (_.isString(controller) && _.isString(method)) {
+        controllerName = controller
         methodName = method
       } else {
         throw new Error(`[ controllers ] It is not like method@controller. the current options is ${options}`)
@@ -79,7 +79,7 @@ const app = {
 
 app.register.attributes = {
   name: 'controllers',
-  version: '0.0.1',
+  version: '0.0.2',
 }
 
 export default app.register
