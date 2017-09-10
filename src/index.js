@@ -12,8 +12,6 @@ import Crumb from 'crumb'
 import Auth from './plugins/auth'
 import Socket from './plugins/socket'
 import View from './plugins/view'
-// import Status from './plugins/status'
-// import ResponseFilter from './plugins/response-filter'
 import HapiSwagger from 'hapi-swagger'
 import packageJson from '../package.json'
 import config from './config'
@@ -46,7 +44,7 @@ const server = new Hapi.Server()
  * Register all plugins
  * @return {Promise.<void>}
  */
-const registerPlugins = async function() {
+const registerPluginsAndStart = async function() {
   await register(server, Inert)
   // It needs Inert
   // It has connection so all plugins need App
@@ -96,7 +94,7 @@ const registerPlugins = async function() {
 /**
  * Do register all Plugins and then set global setting and start server
  */
-registerPlugins().then(() => {
+registerPluginsAndStart().then(() => {
   const {console} = global
   console.log(`MongoDB server Connected to: ${server.plugins.db.address}`)
   console.log(`Public files at: ${config.path.client.root}`)
