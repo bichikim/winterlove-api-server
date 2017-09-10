@@ -20,4 +20,11 @@ export default class Controller {
   get server() {
     return this._server
   }
+
+  /**
+   *
+   */
+  get events() {
+    return this._server.plugins.socket.events
+  }
 }

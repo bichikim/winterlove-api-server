@@ -1,7 +1,7 @@
 import Event from './Event'
 /**
  * @class
- * @extends IOEvent
+ * @extends Event
  */
 export default class UserEvent extends Event {
 }

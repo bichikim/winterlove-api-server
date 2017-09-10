@@ -1,6 +1,8 @@
 import _ from 'lodash'
 /**
  * default Event
+ * in Client io.emit('EventClass', data) will call EventClass.on(data) in Server
+ * in Server EventClass.emit(data) will call io.on in Client with nameSpace '/EventClass'
  * defined Event stuff
  * @class
  */
@@ -10,12 +12,13 @@ export default class Event {
    * @constructor
    * @param {Server} server
    * @param {object} io
-   * @param {string|undefined} nameSpace
+   * @param {string|null} eventName
    */
-  constructor(server, io, nameSpace = undefined) {
+  constructor(server, io, eventName = null) {
     this._server = server
     this._io = io
-    this._nameSpace = nameSpace
+    this._eventName = eventName
+    this._nameSpace = '/'
   }
 
   /* functions
@@ -29,10 +32,7 @@ export default class Event {
    * @return {string}
    */
   get nameSpace() {
-    if (_.isString(this._nameSpace)) {
-      return this._nameSpace
-    }
-    throw new Error('chanel must be string')
+    return this._nameSpace
   }
 
   /**
@@ -59,11 +59,68 @@ export default class Event {
 
   /**
    *
-   * @param {object} data
+   * @return {string|null|*}
    */
-  emit(data) {
+  get eventName() {
+    if (this._eventName) {
+      return this._eventName
+    }
+    throw new Error('Needs eventName')
+  }
+
+  /**
+   *
+   * @param {{email}}user
+   * @return {(object|undefined)}
+   */
+  getSocket(user) {
+    if (!user.email) {
+      throw new Error(`[ Event ] user in the emitToUser needs email user: ${user}`)
+    }
+    const {nameSpace, io} = this
+    const {isObject, find} = _
+    let sockets
+    if (nameSpace !== '/') {
+      sockets = io.of(`/${nameSpace}`).sockets
+    } else {
+      sockets = io.sockets
+    }
+    const {connected} = sockets.connected
+    if (!connected) {
+      return io
+    }
+    const socket = find(connected, (item) => {
+      if (!isObject(item.user)) {
+        return false
+      }
+      return item.user.email === user.email
+    })
+    if (!socket) {
+      return io
+    }
+    return socket
+  }
+
+  /**
+   * @param {object} data
+   * @param {object} options
+   * @param {({email}|null)} options.user
+   * @param {(string|null)} options.room
+   */
+  emit(data, options = {}) {
     const {Json} = global
-    const nameSpace = this.io.of(this.nameSpace)
-    nameSpace.emit(Json.parse(data), this.nameSpace)
+    const {user = null, room = null} = options
+    const {eventName, nameSpace, getSocket} = this
+    let socket
+    if (user) {
+      socket = getSocket(user)
+    }
+    if (nameSpace !== '/') {
+      socket = socket.of(nameSpace)
+    }
+    if (_.isString(room)) {
+      socket = socket.to(room)
+    }
+    socket.emit(eventName, Json.parse(data), nameSpace)
   }
 }

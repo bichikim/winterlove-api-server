@@ -26,7 +26,14 @@ export default (server, io) => {
   const events = getEventClasses()
   const eventInstants = {}
   _.forEach(events, (Event, key) => {
-    _.assign(eventInstants, {[key]: new Event(server, io, key)})
+    const eventInstant = new Event(server, io, key)
+    if (eventInstants[eventInstant.nameSpace]) {
+      eventInstants[eventInstant.nameSpace].push(eventInstant)
+      return true
+    }
+    _.assign(eventInstants, {[eventInstant.nameSpace]: [eventInstant]})
+    return true
   })
+
   return eventInstants
 }

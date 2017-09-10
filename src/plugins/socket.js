@@ -13,43 +13,52 @@ const plugin = {
   register(server, options, next) {
     const io = SocketIO.listen(server.select(config.event.labels).listener)
     // https://www.npmjs.com/package/jsonwebtoken
-    const {verify} = server.plugins.auth.jwt
     const webServer = server.select(config.server.labels)
     const events = getEvents(webServer, io)
+    const {verify} = server.plugins.auth.jwt
     server.expose({
       io,
       events,
     })
     // connection behavior
-    io.on('connection', (client) => {
-      const user = {}
-      events.forEach((event) => {
-        if (_.isFunction(event.connection)) { event.connection(client) }
-      })
-      // register a user by jwt to connection
-      client.on('connect-user', (jwt) => {
-        verify(jwt, (err, decoded) => {
-          if (err) {
-            throw new Error(err)
-          }
-          _.assign(user, decoded)
-          _.forEach(events, (item, key) => {
-            if (!_.isFunction(item.on)) {
-              return true
-            }
-            client.on([key], (data) => {
-              item.on(data, user)
-            })
-            return true
-          })
-        })
-      })
-      client.on('disconnect', () => {
-        events.forEach((event) => {
+    _.forEach(events, (namespace, key) => {
+      const nsp = io.of(key)
+      nsp.on('connection', (client) => {
+        console.log('connection', key, client.id)
+        const onConnection = (event) => {
+          if (_.isFunction(event.connection)) { event.connection(client) }
+        }
+        const onDisconnection = (event) => {
           if (_.isFunction(event.disconnect)) { event.disconnect(client) }
+        }
+        const onConnectUser = (jwt) => {
+          verify(jwt, (err, user) => {
+            if (err) {
+              return
+            }
+            _.assign(client, {user})
+            _.forEach(events, (event, key) => {
+              if (!_.isFunction(event.on)) {
+                return true
+              }
+              client.on([key], (data) => {
+                event.on(data, user)
+              })
+              return true
+            })
+            console.log('connect-user', user.email)
+          })
+        }
+
+        _.forEach(events, onConnection)
+        client.on('disconnect', () => {
+          console.log('disconnect', client.id)
+          _.forEach(events, onDisconnection)
         })
+        client.on('connect-user', onConnectUser)
       })
     })
+
     next()
   },
 }

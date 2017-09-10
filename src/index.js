@@ -98,7 +98,7 @@ const registerPlugins = async function() {
  */
 registerPlugins().then(() => {
   const {console} = global
-  console.log(`MongoDB server Connected to: ${server.select(config.server.labels).plugins.db.address}`)
+  console.log(`MongoDB server Connected to: ${server.plugins.db.address}`)
   console.log(`Public files at: ${config.path.client.root}`)
   console.log(`Server running at: ${server.select(config.server.labels).info.uri}`)
   console.log('Event running at:', server.select(config.event.labels).info.uri)
