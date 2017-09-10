@@ -1,4 +1,6 @@
 import config from '../config'
+import _ from 'lodash'
+import jwt from 'jsonwebtoken'
 
 const plugin = {
   /**
@@ -11,6 +13,17 @@ const plugin = {
     const {labels} = config.server
     const {key, strategy} = config.auth
     const webServer = server.select(labels)
+
+    server.expose({
+      jwt: {
+        verify(token, callback = null) {
+          if (_.isFunction(callback)) {
+            return jwt.verify(token, key, callback)
+          }
+          return jwt.verify(token, key)
+        },
+      },
+    })
 
     // its auth strategy is jwt
     webServer.auth.strategy(strategy, 'jwt', {

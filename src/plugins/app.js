@@ -1,4 +1,5 @@
 import config from '../config'
+import handlebars from 'handlebars'
 
 const plugin = {
   /**
@@ -9,9 +10,9 @@ const plugin = {
    */
   register(server, options, next) {
     // making web server & api server connection
+    const {root} = config.path.client
     {
       const {host, port, labels, cors} = config.server
-      const {root} = config.path.client
       server.connection({
         host,
         port,

@@ -4,7 +4,7 @@ import last from 'lodash/last'
 import indexOf from 'lodash/indexOf'
 import Boom from 'boom'
 const {staticName} = config.client
-const {appName} = config.app
+const {appName, isProduction} = config.app
 const {allow} = config.file
 /**
  *
@@ -35,7 +35,7 @@ export default class FileController extends Controller {
    */
   getHtml(request, reply) {
     return reply.view('index.html', {
-      crumb: this.server.plugins.crumb.generate(request, reply),
+      crumb: isProduction ? this.server.plugins.crumb.generate(request, reply) : '',
       title: appName,
     })
   }

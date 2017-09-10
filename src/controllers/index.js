@@ -5,17 +5,15 @@ let controllers
 
 /**
  *
- * @param {Server} server
  * @return {object}
  */
-export const getControllerClasses = (server) => {
+export const getControllerClasses = () => {
   if (!controllers) {
     controllers = requireAll({
       dirname: `${__dirname}/../controllers/`,
       filter: /(.+Controller)\.js$/,
       resolve: (controller) => {
-        // eslint-disable-next-line new-cap
-        return new controller.default(server)
+        return controller.default
       },
     })
   }
@@ -29,8 +27,11 @@ export const getControllerClasses = (server) => {
  */
 export default (server) => {
   // since controllers needs server to use must pass sever when it gets controllers
-  const controllers = getControllerClasses(server)
-
+  const controllersClasses = getControllerClasses()
+  const controllers = {}
+  _.forEach(controllersClasses, (Controller, key) => {
+    _.assign(controllers, {[key]: new Controller(server)})
+  })
   return (route, options) => {
     let handle, controllerName, methodName
 

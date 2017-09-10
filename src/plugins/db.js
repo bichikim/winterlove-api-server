@@ -20,6 +20,7 @@ const plugin = {
     const mongooseConnectionAddress = `mongodb://${host}:${port}/${database}`
     server.expose({
       db: mongoose,
+      address: mongooseConnectionAddress,
     })
 
     // Plugging in My own Promises Library since deprecation mpromise
@@ -32,7 +33,6 @@ const plugin = {
       const {connection} = mongoose
       connection.on('error', console.error)
       connection.once('open', () => {
-        console.log(`MongoDB server Connected to: ${mongooseConnectionAddress}`)
         next()
       })
     }
