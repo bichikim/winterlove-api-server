@@ -1,6 +1,6 @@
 import config from '../config'
 
-const app = {
+const plugin = {
   /**
    *
    * @param {Server} server
@@ -37,11 +37,11 @@ const app = {
   },
 }
 
-app.register.attributes = {
+plugin.register.attributes = {
   name: 'app',
   version: '0.0.2',
   // to set connection in this plugins connections options must false
   connections: false,
 }
 
-export default app.register
+export default plugin.register

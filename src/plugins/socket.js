@@ -1,7 +1,7 @@
 import SocketIO from 'socket.io'
 import config from '../config'
 // TOdo this is not done
-const app = {
+const plugin = {
   /**
    *
    * @param {Server} server
@@ -18,9 +18,9 @@ const app = {
   },
 }
 
-app.register.attributes = {
+plugin.register.attributes = {
   name: 'socket',
   version: '0.0.1',
 }
 
-export default app.register
+export default plugin.register
