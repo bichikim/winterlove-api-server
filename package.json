@@ -42,7 +42,6 @@
     "boom": "^5.2.0",
     "chai": "^4.1.0",
     "crumb": "^6.0.3",
-    "cryptiles": "^3.1.2",
     "handlebars": "^4.0.10",
     "hapi": "^16.4.3",
     "hapi-auth-jwt2": "^7.3.0",
@@ -52,7 +51,7 @@
     "jsonwebtoken": "^7.4.2",
     "lodash": "^4.17.4",
     "mongoose": "^4.11.3",
-    "password-hash": "^1.2.2",
+    "password-hash": " ^1.2.2",
     "require-all": "^2.2.0",
     "socket.io": "^2.0.3",
     "vision": "^4.1.1"
