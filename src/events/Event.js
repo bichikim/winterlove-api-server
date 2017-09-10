@@ -75,7 +75,7 @@ export default class Event {
    */
   getSocket(user) {
     if (!user.email) {
-      throw new Error(`[ Event ] user in the emitToUser needs email user: ${user}`)
+      throw new Error(`[ Event ] user in the emitToUser needs email. user: ${user}`)
     }
     const {nameSpace, io} = this
     const {isObject, find} = _
