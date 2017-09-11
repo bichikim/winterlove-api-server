@@ -1,16 +1,15 @@
-/node_modules
-/public/storage
-/public/temp
-/public/app
-/vendor
-/.idea
-/dist
-public
-/.env.json
-Homestead.json
-Homestead.yaml
+node_modules/
+dist/
+public/
+# log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+# environment files
+yarn.lock
 .env
-npm-debug.log
-.phpstorm.meta.php
-_ide_helper.php
-_ide_helper_models.php
+# Editor directories and files
+.idea
+*.suo
+*.ntvs*
+*.njsproj
