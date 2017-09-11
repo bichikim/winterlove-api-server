@@ -1,5 +1,4 @@
 import config from '../config'
-import handlebars from 'handlebars'
 
 const plugin = {
   /**
