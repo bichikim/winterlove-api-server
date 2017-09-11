@@ -26,10 +26,10 @@ const plugin = {
       nsp.on('connection', (client) => {
         console.log('connection', key, client.id)
         const onConnection = (event) => {
-          if (_.isFunction(event.connection)) { event.connection(client) }
+          if (_.isFunction(event.connected)) { event.connected(client) }
         }
         const onDisconnection = (event) => {
-          if (_.isFunction(event.disconnect)) { event.disconnect(client) }
+          if (_.isFunction(event.disconnected)) { event.disconnected(client) }
         }
         const onConnectUser = (jwt) => {
           verify(jwt, (err, user) => {

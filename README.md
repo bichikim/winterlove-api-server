@@ -1,11 +1,36 @@
 # Winterlove API Server
 
+> Winterlove project
 
+## Event
+### Methods
+ * on(data)
+ * emit(data, [options]) // options = {user, room}
+ * connected(client)
+ * disconnected(client)
+### Members
+ * nameSpace
+ * server
+ * io
+ * eventName
+ * _nameSpace (override) // setting namespace in a Event class
+### To use an event in controllers
+```javascript
 
+```
+
+## Controller
+### Members
+ * server
+ * events
+### To use it
+```javascript
+```
 
 ## Mongoose  
-* This is our ODM of MongoDB
-### Make unique options as a key
+> This is ODM of MongoDB
+
+### To make unique options as a key
 ```javascript
 const SimSchema = new Schema({
     msisdn     : { type : String , unique : true, required : true, dropDups: true },
@@ -16,8 +41,8 @@ const SimSchema = new Schema({
 });
 ```
 
-### Make a middleware
-#### Before do some query
+### To make a middleware
+#### A query Before do some queries
 ```javascript
 const schema = new Schema({...something})
 schema.pre('save', function(next) {
@@ -25,7 +50,7 @@ schema.pre('save', function(next) {
     next()
 })
 ```
-#### After pre things do some query
+#### A query after pre queries
 ```javascript
 const schema = new Schema({...something})
 schema.post('remove', function(doc) {
@@ -34,6 +59,17 @@ schema.post('remove', function(doc) {
 ```
 
 ## TODO
-* auth
-* io event
+* search [api]
+* documents [api]
+* map [api]
 * mongoose migrations
+## In progress
+* auth [api] (70%)
+* event (50%)
+## Done
+* mongoose model
+* config
+* controller
+* router
+* auth
+

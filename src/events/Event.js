@@ -18,6 +18,11 @@ export default class Event {
     this._server = server
     this._io = io
     this._eventName = eventName
+    /**
+     * mark what name space is
+     * @type {string}
+     * @protected
+     */
     this._nameSpace = '/'
   }
 
@@ -72,8 +77,9 @@ export default class Event {
    *
    * @param {{email}}user
    * @return {(object|undefined)}
+   * @private
    */
-  getSocket(user) {
+  _getSocket(user) {
     if (!user.email) {
       throw new Error(`[ Event ] user in the emitToUser needs email. user: ${user}`)
     }
@@ -110,10 +116,10 @@ export default class Event {
   emit(data, options = {}) {
     const {Json} = global
     const {user = null, room = null} = options
-    const {eventName, nameSpace, getSocket} = this
+    const {eventName, nameSpace, _getSocket} = this
     let socket
     if (user) {
-      socket = getSocket(user)
+      socket = _getSocket(user)
     }
     if (nameSpace !== '/') {
       socket = socket.of(nameSpace)
