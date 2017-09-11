@@ -46,16 +46,20 @@ const server = new Hapi.Server()
 const registerPluginsAndStart = async function() {
   await register(server, Inert)
   // It needs Inert
-  // It has connection so all plugins need App
   await register(server, App)
+  // It needs App
   await register(server, Vision)
-  // It needs Vision. setting Vision(view)
+  // It needs App and Vision. setting Vision(view)
   await register(server, View)
+  // It needs App
   await register(server, HapiAuthJwt2)
-  // It needs Vision and App
+  // It needs App and Vision
   await register(server, Controllers)
+  // It needs App
   await register(server, Bell)
+  // It needs App
   await register(server, DB)
+  // It needs App
   if (config.app.isProduction) {
     await register(server, Crumb, {
       // It is true When server running as restful server
@@ -71,15 +75,15 @@ const registerPluginsAndStart = async function() {
       // AutoGenerate: false,
     })
   }
-  // It needs App, AuthCookie, DB and Bell
+  // It needs App, DB and Bell
   await register(server, Auth)
-  // It needs Controllers, Auth and App
+  // It needs App, Controllers and Auth
   await register(server, Routes)
-  // await register(server, Status)
-  // await register(server, ResponseFilter)
+  // It needs App and Auth
   await register(server, Socket)
   // https://github.com/glennjones/hapi-swagger
   // URL = ~/documentation
+  // It needs App and Routes
   await register(server, HapiSwagger, {
     info: {
       title: config.app.name,
