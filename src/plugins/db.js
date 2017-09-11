@@ -9,7 +9,7 @@ import config from '../config'
 
 const plugin = {
   /**
-   *
+   * setting a db connection
    * @param {Server} server
    * @param {object}options
    * @param {function}next

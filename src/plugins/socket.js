@@ -5,7 +5,7 @@ import getEvents from '../events'
 // TOdo this is not done
 const plugin = {
   /**
-   *
+   * setting an io socket connection
    * @param {Server} server
    * @param {object} options
    * @param {function}next

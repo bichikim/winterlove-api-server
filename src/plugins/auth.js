@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 
 const plugin = {
   /**
-   *
+   * setting auth & its strategy (jwt)
    * @param {Server}server
    * @param {object}options
    * @param {function}next

@@ -31,7 +31,7 @@ import {register, start} from './lib/server-initializer'
  * @property {function} connection
  * @property {function} handler
  * @property {function} continue
- * @property {{crumb:{generate}, app}} plugins
+ * @property {object} plugins
  */
 
 /**
@@ -41,7 +41,7 @@ import {register, start} from './lib/server-initializer'
 const server = new Hapi.Server()
 
 /**
- * Register all plugins
+ * Register all plugins and start
  * @return {Promise.<void>}
  */
 const registerPluginsAndStart = async function() {

@@ -4,7 +4,7 @@ import controllers from '../controllers'
 
 const plugin = {
   /**
-   *
+   * setting controllers that using in routes
    * @param {Server} server
    * @param {object} options
    * @param {function}next

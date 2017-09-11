@@ -6,7 +6,7 @@ import config from '../config'
 
 const plugin = {
   /**
-   *
+   * setting routes
    * @param {Server}server
    * @param {object}options
    * @param {function}next

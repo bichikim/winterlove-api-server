@@ -3,7 +3,7 @@ import handlebars from 'handlebars'
 
 const plugin = {
   /**
-   *
+   * setting server connections
    * @param {Server} server
    * @param {object}options
    * @param {function}next
