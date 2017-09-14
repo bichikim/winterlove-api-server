@@ -82,5 +82,37 @@ export default (server) => {
         },
       },
     },
+    {
+      method: 'POST',
+      path: '/update',
+      config: {
+        description: 'Update',
+        tags: ['api', 'auth'],
+        validate: {
+          payload: Joi.object().keys({
+            name: SchemaItems.name,
+            email: SchemaItems.email.required(),
+            beforePassword: SchemaItems.password.required(),
+            password: SchemaItems.password,
+            gender: SchemaItems.gender,
+          }).label('Sign'),
+        },
+        response: {
+          schema: Joi.object({
+            success: Joi.boolean(),
+          }).label('Result'),
+        },
+        plugins: {
+          crumb: true,
+        },
+        auth: false,
+      },
+      handler: {
+        controller: {
+          name: 'AuthController',
+          method: 'update',
+        },
+      },
+    },
   ]
 }
