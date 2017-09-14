@@ -8,7 +8,6 @@
  */
 import Controller from './Controller'
 import User from '../models/UserModel'
-import _ from 'lodash'
 import Boom from 'boom'
 
 /**
