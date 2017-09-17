@@ -9,10 +9,10 @@ const plugin = {
    * @param {function}next
    */
   register(server, options, next) {
-    const {labels} = config.server
-    const webServer = server.select(labels)
+    // options.server is global server
+    const myServer = options.server
     const {root} = config.path.client
-    webServer.views({
+    myServer.views({
       engines: {
         // It will be name of file type
         html: {

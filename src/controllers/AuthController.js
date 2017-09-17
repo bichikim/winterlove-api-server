@@ -66,13 +66,13 @@ export default class AuthController extends Controller {
    * @param {Function} reply
    */
   update(request, reply) {
-    const {name, email, beforePassword, password, gender} = request.payload
+    const {name, email, currentPassword, password, gender} = request.payload
     User.findOne({email})
       .then((documents) => {
         if (!documents) {
           return reply(Boom.notFound('Email not found.'))
         }
-        const isVerified = documents.verifyPassword(beforePassword)
+        const isVerified = documents.verifyPassword(currentPassword)
         if (isVerified) {
           if (name) {
             documents.name = name

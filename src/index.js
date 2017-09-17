@@ -50,7 +50,7 @@ const registerPluginsAndStart = async function() {
   // It needs App
   await register(server, Vision)
   // It needs App and Vision. setting Vision(view)
-  await register(server, View)
+  await register(server, View, {server})
   // It needs App
   await register(server, HapiAuthJwt2)
   // It needs App and Vision

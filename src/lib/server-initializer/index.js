@@ -9,7 +9,7 @@ export const register = (server, plugin, options = {}) => {
   return new Promise(function(resolve, reject) {
     server.register({
       register: plugin,
-      options: options,
+      options,
     }, (error) => {
       if (error) {
         const {name, version} = plugin.attributes

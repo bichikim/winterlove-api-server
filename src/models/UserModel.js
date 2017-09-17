@@ -88,7 +88,7 @@ class UserModel {
   /**
    *
    * @param {String}password
-   * @param {Function}next
+   * @param {Function|undefined}next
    * @return {*}
    */
   verifyPassword(password, next) {

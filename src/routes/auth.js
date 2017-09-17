@@ -67,7 +67,7 @@ export default (server) => {
         response: {
           schema: Joi.object({
             gender: SchemaItems.gender,
-            point: SchemaItems.point,
+            point: SchemaItems.point.required(),
             email: SchemaItems.email,
             name: SchemaItems.name,
             accessToken: SchemaItems.accessToken,
@@ -95,7 +95,7 @@ export default (server) => {
           payload: Joi.object({
             name: SchemaItems.name,
             email: SchemaItems.email.required(),
-            beforePassword: SchemaItems.password.required(),
+            currentPassword: SchemaItems.password.required(),
             password: SchemaItems.password,
             gender: SchemaItems.gender,
           }).label('Sign'),
