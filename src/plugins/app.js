@@ -51,7 +51,7 @@ const plugin = {
 
 plugin.register.attributes = {
   name: 'app',
-  version: '0.0.2',
+  version: '0.0.3',
   // to set connection in this plugins connections options must false
   connections: false,
 }
