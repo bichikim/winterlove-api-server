@@ -12,8 +12,6 @@ export const register = (server, plugin, options = {}) => {
       options,
     }, (error) => {
       if (error) {
-        const {name, version} = plugin.attributes
-        Object.assign(error, {name, version})
         return reject(error)
       }
       resolve()

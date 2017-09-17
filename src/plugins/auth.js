@@ -38,7 +38,6 @@ const plugin = {
         algorithms: ['HS256'],
       },
     })
-
     // default auth strategy
     webServer.auth.default(strategy)
 
