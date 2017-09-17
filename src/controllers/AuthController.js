@@ -30,15 +30,11 @@ export default class AuthController extends Controller {
         }
         const isVerified = documents.verifyPassword(password)
         if (isVerified) {
-          const {gender, point, email, name} = documents._doc
-          const data = {gender, point, email, name}
+          const data = documents.getInfo()
           if (isNeedAccessToken === true) {
-            Object.assign(data, {access_token: documents.getToken()})
+            Object.assign(data, {accessToken: documents.getToken()})
           }
-          reply({
-            success: true,
-            data,
-          })
+          reply(data)
         } else {
           reply(Boom.forbidden('Password incorrect'))
         }
@@ -58,9 +54,7 @@ export default class AuthController extends Controller {
     const newUser = User({name, password, email, gender})
     newUser.save()
       .then((documents) => {
-        reply({
-          success: true,
-        })
+        reply({...documents.getInfo(), accessToken: documents.getToken()})
       }).catch((error) => {
         reply(Boom.badData(error.errmsg))
       })

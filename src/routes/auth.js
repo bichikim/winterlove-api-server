@@ -3,7 +3,9 @@ const SchemaItems = {
   name: Joi.string().min(3).max(40),
   email: Joi.string().email().max(150),
   password: Joi.string().regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,40}$/),
+  point: Joi.number(),
   gender: Joi.string(),
+  accessToken: Joi.string(),
 }
 /**
  *
@@ -27,14 +29,11 @@ export default (server) => {
         },
         response: {
           schema: Joi.object({
-            success: Joi.boolean(),
-            data: Joi.object({
-              gender: SchemaItems.gender.required(),
-              point: Joi.number().required(),
-              email: SchemaItems.email.required(),
-              name: SchemaItems.name.required(),
-              access_token: Joi.string(),
-            }),
+            gender: SchemaItems.gender.required(),
+            point: SchemaItems.point.required(),
+            email: SchemaItems.email.required(),
+            name: SchemaItems.name.required(),
+            accessToken: SchemaItems.accessToken,
           }).label('Result'),
         },
         plugins: {
@@ -58,7 +57,7 @@ export default (server) => {
         description: 'Sign up',
         tags: ['api', 'auth'],
         validate: {
-          payload: Joi.object().keys({
+          payload: Joi.object({
             name: SchemaItems.name.required(),
             email: SchemaItems.email.required(),
             password: SchemaItems.password.required(),
@@ -67,7 +66,11 @@ export default (server) => {
         },
         response: {
           schema: Joi.object({
-            success: Joi.boolean(),
+            gender: SchemaItems.gender,
+            point: SchemaItems.point,
+            email: SchemaItems.email,
+            name: SchemaItems.name,
+            accessToken: SchemaItems.accessToken,
           }).label('Result'),
         },
         plugins: {
@@ -89,7 +92,7 @@ export default (server) => {
         description: 'Update',
         tags: ['api', 'auth'],
         validate: {
-          payload: Joi.object().keys({
+          payload: Joi.object({
             name: SchemaItems.name,
             email: SchemaItems.email.required(),
             beforePassword: SchemaItems.password.required(),
