@@ -25,7 +25,7 @@ export default (server) => {
             email: SchemaItems.email.required(),
             password: Joi.string().required(),
             isNeedAccessToken: Joi.boolean(),
-          }).label('Sign'),
+          }).label('Sign in Request'),
         },
         response: {
           schema: Joi.object({
@@ -62,7 +62,7 @@ export default (server) => {
             email: SchemaItems.email.required(),
             password: SchemaItems.password.required(),
             gender: SchemaItems.gender,
-          }).label('Sign'),
+          }).label('Sign up Request'),
         },
         response: {
           schema: Joi.object({
@@ -90,7 +90,7 @@ export default (server) => {
       path: '/update',
       config: {
         description: 'Update',
-        tags: ['api', 'auth'],
+        tags: ['api', 'auth', 'update'],
         validate: {
           payload: Joi.object({
             name: SchemaItems.name,
@@ -98,7 +98,7 @@ export default (server) => {
             currentPassword: SchemaItems.password.required(),
             password: SchemaItems.password,
             gender: SchemaItems.gender,
-          }).label('Sign'),
+          }).label('Sign update Request'),
         },
         response: {
           schema: Joi.object({

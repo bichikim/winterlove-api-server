@@ -1,5 +1,6 @@
 node_modules/
 dist/
+files/
 public/
 # log files
 npm-debug.log*

@@ -45,10 +45,10 @@ export default (server) => {
     },
     {
       method: 'POST',
-      path: '/map/save',
+      path: '/map/create',
       config: {
-        description: 'Save Marker(place)',
-        tags: ['api', 'map', 'save'],
+        description: 'Create Marker(place)',
+        tags: ['api', 'map', 'create'],
         validate: {
           payload: Joi.object({
             position: Joi.object({
@@ -70,7 +70,65 @@ export default (server) => {
       handler: {
         controller: {
           name: 'MapController',
-          method: 'save',
+          method: 'create',
+        },
+      },
+    },
+    {
+      method: 'POST',
+      path: '/map/update',
+      config: {
+        description: 'Update Marker(place)',
+        tags: ['api', 'map', 'update'],
+        validate: {
+          payload: Joi.object({
+            id: Joi.string().required(),
+            position: Joi.object({
+              lat: Joi.number(),
+              lng: Joi.number(),
+            }),
+            title: Joi.string(),
+            place: Joi.object(),
+          }).label('Request'),
+        },
+        response: {
+          schema: Joi.any().label('Result'),
+        },
+        plugins: {
+          crumb: false,
+        },
+        auth: false,
+      },
+      handler: {
+        controller: {
+          name: 'MapController',
+          method: 'update',
+        },
+      },
+    },
+    {
+      method: 'POST',
+      path: '/map/delete',
+      config: {
+        description: 'Update Marker(place)',
+        tags: ['api', 'map', 'delete'],
+        validate: {
+          payload: Joi.object({
+            id: Joi.string().required(),
+          }).label('Request'),
+        },
+        response: {
+          schema: Joi.any().label('Result'),
+        },
+        plugins: {
+          crumb: false,
+        },
+        auth: false,
+      },
+      handler: {
+        controller: {
+          name: 'MapController',
+          method: 'delete',
         },
       },
     },

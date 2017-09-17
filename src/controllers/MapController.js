@@ -28,8 +28,31 @@ export default class MapController extends Controller{
    * @param {{}} request
    * @param {Function} reply
    */
-  save(request, reply){
+  create(request, reply){
+    const {role, email} = request.headers
     const {position, title, place} = request.payload
-    reply({position, title, place})
+    reply({position, title, place, role, email})
+  }
+
+  /**
+   *
+   * @param {{}} request
+   * @param {Function} reply
+   */
+  update(request, reply){
+    const {email} = request.headers
+    const {id, position, title, place} = request.payload
+    reply({id, position, title, place, email})
+  }
+
+  /**
+   *
+   * @param {{}} request
+   * @param {Function} reply
+   */
+  delete(request, reply){
+    const {email} = request.headers
+    const {id} = request.payload
+    reply({id, email})
   }
 }

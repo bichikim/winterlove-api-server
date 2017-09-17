@@ -12,24 +12,20 @@ export default (server) => {
       config: {
         description: 'Array properties',
         tags: ['api'],
-        validate: {
-          params: Joi.object({
-            a: Joi.number(),
-            b: Joi.number(),
-          }).label('Sum'),
-        },
-        response: {
-          schema: Joi.object({
-            equals: Joi.number(),
-          }).label('Result'),
+        payload: {
+          output: 'stream',
+          allow: 'multipart/form-data',
         },
         plugins: {
           crumb: false,
         },
         auth: false,
       },
-      handler: (request, reply) => {
-        reply({success: true})
+      handler: {
+        controller: {
+          name: 'TestController',
+          method: 'test',
+        },
       },
     },
   ]

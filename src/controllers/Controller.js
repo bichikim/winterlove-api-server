@@ -27,4 +27,11 @@ export default class Controller{
   get events(){
     return this._server.plugins.socket.events
   }
+
+  /**
+   *
+   */
+  get files(){
+    return this._server.plugins.files
+  }
 }

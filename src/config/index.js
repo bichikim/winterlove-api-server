@@ -17,6 +17,7 @@ const {
   DB_PASSWORD = 'dev-12345',
   DB_PORT = '27017',
   DB_USER = 'admin',
+  SERVER_FILES_PATH = 'files',
   SERVER_PROTOCOL = 'http',
   SERVER_HOST = 'localhost',
   SERVER_PORT = '1777',
@@ -75,7 +76,8 @@ const config = {
       root: path.join(root, '..', CLIENT_ROOT_PATH, CLIENT_PUBLIC_PATH),
     },
     server: {
-      root: path.join(root),
+      files: path.join(root, SERVER_FILES_PATH),
+      root,
     },
   },
 }
