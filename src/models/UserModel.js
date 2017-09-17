@@ -6,7 +6,6 @@ import createMongooseModel from '../lib/create-mongoose-model'
 import passwordHash from 'password-hash'
 import jwt from 'jsonwebtoken'
 import config from '../config'
-const password = 'password'
 
 /**
  *
@@ -63,6 +62,7 @@ class UserModel{
     save({next, document}){
       // eslint-disable-next-line no-invalid-this
       const user = document
+      const password = 'password'
 
       // only hash the password if it has been modified (or is new)
       if(!user.isModified(password)) return next()
