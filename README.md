@@ -67,7 +67,7 @@ schema.post('remove', function(doc) {
 * map [api]
 * mongoose migrations
 ## In progress
-* auth [api] (70%)
+* auth [api] (90%)
 * event (50%)
 ## Done
 * mongoose model
