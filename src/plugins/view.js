@@ -8,7 +8,7 @@ const plugin = {
    * @param {object}options
    * @param {function}next
    */
-  register(server, options, next) {
+  register(server, options, next){
     // options.server is global server
     const myServer = options.server
     const {root} = config.path.client

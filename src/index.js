@@ -43,7 +43,7 @@ const server = new Hapi.Server()
  * Register all plugins and start
  * @return {Promise.<void>}
  */
-const registerPluginsAndStart = async function() {
+const registerPluginsAndStart = async function(){
   await register(server, Inert)
   // It needs Inert
   await register(server, App)
@@ -60,7 +60,7 @@ const registerPluginsAndStart = async function() {
   // It needs App
   await register(server, DB)
   // It needs App
-  if (config.app.isProduction) {
+  if(config.app.isProduction){
     await register(server, Crumb, {
       // It is true When server running as restful server
       // (this server is restful mode server + file server + view server[only index.handlebars])

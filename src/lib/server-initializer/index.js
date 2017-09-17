@@ -6,12 +6,12 @@
  * @return {Promise}
  */
 export const register = (server, plugin, options = {}) => {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function(resolve, reject){
     server.register({
       register: plugin,
       options,
     }, (error) => {
-      if (error) {
+      if(error){
         return reject(error)
       }
       resolve()
@@ -25,9 +25,9 @@ export const register = (server, plugin, options = {}) => {
  * @return {Promise}
  */
 export const start = (server) => {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function(resolve, reject){
     server.start((error) => {
-      if (error) {
+      if(error){
         return reject(error)
       }
       resolve()

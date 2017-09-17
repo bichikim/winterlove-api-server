@@ -3,12 +3,12 @@ import Event from './Event'
  * @class
  * @extends Event
  */
-export default class PostEvent extends Event {
+export default class PostEvent extends Event{
   /**
    * @constructor
    * @param {array}params
    */
-  constructor(...params) {
+  constructor(...params){
     super(...params)
     this._nameSpace = '/post'
   }
@@ -17,7 +17,7 @@ export default class PostEvent extends Event {
    *
    * @param {*} data
    */
-  on(data) {
+  on(data){
     console.log(data)
   }
 }

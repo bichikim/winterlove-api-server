@@ -7,7 +7,7 @@ const plugin = {
    * @param {object}options
    * @param {function}next
    */
-  register(server, options, next) {
+  register(server, options, next){
     // making web server & api server connection
     const {root} = config.path.client
     const setTls = (options) => {
@@ -27,7 +27,7 @@ const plugin = {
           },
         },
       }
-      if (protocol === 'https') {
+      if(protocol === 'https'){
         setTls(options)
       }
       server.connection(options)
@@ -40,7 +40,7 @@ const plugin = {
         port,
         labels,
       }
-      if (protocol === 'https') {
+      if(protocol === 'https'){
         setTls(options)
       }
       server.connection(options)

@@ -10,7 +10,7 @@ let events
  * @return {object}
  */
 export const getEventClasses = () => {
-  if (!events) {
+  if(!events){
     events = requireAll({
       dirname: `${__dirname}/../events/`,
       filter: /(.+Event)\.js$/,
@@ -27,7 +27,7 @@ export default (server, io) => {
   const eventInstants = {}
   _.forEach(events, (Event, key) => {
     const eventInstant = new Event(server, io, key)
-    if (eventInstants[eventInstant.nameSpace]) {
+    if(eventInstants[eventInstant.nameSpace]){
       eventInstants[eventInstant.nameSpace].push(eventInstant)
       return true
     }

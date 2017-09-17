@@ -9,7 +9,7 @@ const plugin = {
    * @param {object} options
    * @param {function}next
    */
-  register(server, options, next) {
+  register(server, options, next){
     const {labels} = config.server
     const webServer = server.select(labels)
     const handler = controllers(webServer)

@@ -15,23 +15,23 @@ import Boom from 'boom'
  * @class
  * @extends Controller
  */
-export default class AuthController extends Controller {
+export default class AuthController extends Controller{
   /**
    * signIn! if client needs Access token (jwt) response it
    * @param {{payload:object}} request
    * @param {Function} reply
    */
-  signIn(request, reply) {
+  signIn(request, reply){
     const {email, password, isNeedAccessToken = false} = request.payload
     User.findOne({email})
       .then((documents) => {
-        if (!documents) {
+        if(!documents){
           return reply(Boom.notFound('Email not found.'))
         }
         const isVerified = documents.verifyPassword(password)
-        if (isVerified) {
+        if(isVerified){
           const data = documents.getInfo()
-          if (isNeedAccessToken === true) {
+          if(isNeedAccessToken === true){
             Object.assign(data, {accessToken: documents.getToken()})
           }
           reply(data)
@@ -45,11 +45,11 @@ export default class AuthController extends Controller {
   }
 
   /**
-   * sign up todo I must validate email via the email
+   * sign up
    * @param {{payload:object}} request
    * @param {Function} reply
    */
-  signUp(request, reply) {
+  signUp(request, reply){
     const {name, email, password, gender = 'man'} = request.payload
     const newUser = User({name, password, email, gender})
     newUser.save()
@@ -65,25 +65,25 @@ export default class AuthController extends Controller {
    * @param {{payload:object}} request
    * @param {Function} reply
    */
-  update(request, reply) {
+  update(request, reply){
     const {name, email, currentPassword, password, gender} = request.payload
     User.findOne({email})
       .then((documents) => {
-        if (!documents) {
+        if(!documents){
           return reply(Boom.notFound('Email not found.'))
         }
         const isVerified = documents.verifyPassword(currentPassword)
-        if (isVerified) {
-          if (name) {
+        if(isVerified){
+          if(name){
             documents.name = name
           }
-          if (email) {
+          if(email){
             documents.email = email
           }
-          if (password) {
+          if(password){
             documents.password = password
           }
-          if (gender) {
+          if(gender){
             documents.gender = gender
           }
           reply({

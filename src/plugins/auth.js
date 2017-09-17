@@ -9,15 +9,15 @@ const plugin = {
    * @param {object}options
    * @param {function}next
    */
-  register(server, options, next) {
+  register(server, options, next){
     const {labels} = config.server
     const {key, strategy} = config.auth
     const webServer = server.select(labels)
 
     server.expose({
       jwt: {
-        verify(token, callback = null) {
-          if (_.isFunction(callback)) {
+        verify(token, callback = null){
+          if(_.isFunction(callback)){
             return jwt.verify(token, key, callback)
           }
           return jwt.verify(token, key)

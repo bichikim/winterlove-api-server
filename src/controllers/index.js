@@ -8,7 +8,7 @@ let controllers
  * @return {object}
  */
 export const getControllerClasses = () => {
-  if (!controllers) {
+  if(!controllers){
     controllers = requireAll({
       dirname: `${__dirname}/../controllers/`,
       filter: /(.+Controller)\.js$/,
@@ -36,18 +36,18 @@ export default (server) => {
     let handle, controllerName, methodName
 
     // Find Controller by controller(name)
-    if (_.isObject(options)) {
+    if(_.isObject(options)){
       const {name, method} = options
-      if (_.isString(name) && _.isString(method)) {
+      if(_.isString(name) && _.isString(method)){
         controllerName = name
         methodName = method
       } else {
         throw new Error(`[ controllers ] It seems name: ${name} or method: ${method} is not a string `)
       }
       // method@controller name
-    } else if (_.isString(options)) {
+    } else if(_.isString(options)){
       const [method, controller] = options.split('@')
-      if (_.isString(controller) && _.isString(method)) {
+      if(_.isString(controller) && _.isString(method)){
         controllerName = controller
         methodName = method
       } else {
@@ -61,13 +61,13 @@ export default (server) => {
     }
 
     const controller = controllers[controllerName]
-    if (_.isObject(controller)) {
+    if(_.isObject(controller)){
       handle = controller[methodName]
     } else {
       throw new Error(`[ controllers ] It needs a correct controller name. the current options is ${options}`)
     }
 
-    if (!_.isFunction(handle)) {
+    if(!_.isFunction(handle)){
       throw new Error(`[ controllers ] controller has a member: ${methodName} However that is not a function`)
     }
 

@@ -14,7 +14,7 @@ const plugin = {
    * @param {object}options
    * @param {function}next
    */
-  register(server, options, next) {
+  register(server, options, next){
     const {console} = global
     const {host, port, database} = config.database
     const mongooseConnectionAddress = `mongodb://${host}:${port}/${database}`

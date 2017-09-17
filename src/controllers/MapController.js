@@ -5,14 +5,14 @@ import Controller from './Controller'
  * @class
  * @extends Controller
  */
-export default class MapController extends Controller {
+export default class MapController extends Controller{
   /**
    *
    * @constructor
    * @param {{}} request
    * @param {Function} reply
    */
-  index(request, reply) {
+  index(request, reply){
     const {role, email} = request.headers
     reply({say: 'hello', data: {role, email}})
   }
@@ -20,7 +20,7 @@ export default class MapController extends Controller {
   /**
    *
    */
-  main() {
+  main(){
     // Console.log(this._name)
   }
 }

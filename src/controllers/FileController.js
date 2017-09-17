@@ -9,19 +9,19 @@ const {allow} = config.file
 /**
  *
  */
-export default class FileController extends Controller {
+export default class FileController extends Controller{
   /**
    *
    * @param {*}request
    * @param {*}reply
    * @return {*}
    */
-  getFile(request, reply) {
+  getFile(request, reply){
     const paths = request.params.paths.split('/')
     const file = last(paths)
     const fileSplit = file.split('.')
     const ext = last(fileSplit)
-    if (indexOf(allow, ext) > -1) {
+    if(indexOf(allow, ext) > -1){
       return reply.file(`${staticName}/${request.params.paths}`)
     }
     return reply(Boom.forbidden('Not allow to read the file', {ext}))
@@ -33,7 +33,7 @@ export default class FileController extends Controller {
    * @param {*}reply
    * @return {*}
    */
-  getHtml(request, reply) {
+  getHtml(request, reply){
     return reply.view('index.html', {
       crumb: isProduction ? this.server.plugins.crumb.generate(request, reply) : '',
       title: appName,

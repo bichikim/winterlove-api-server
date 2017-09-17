@@ -3,13 +3,13 @@
  * defined Controller stuff
  * @class
  */
-export default class Controller {
+export default class Controller{
   /**
    *
    * @constructor
    * @param {Server} server
    */
-  constructor(server) {
+  constructor(server){
     this._server = server
   }
 
@@ -17,14 +17,14 @@ export default class Controller {
    *
    * @return {Server}
    */
-  get server() {
+  get server(){
     return this._server
   }
 
   /**
    *
    */
-  get events() {
+  get events(){
     return this._server.plugins.socket.events
   }
 }

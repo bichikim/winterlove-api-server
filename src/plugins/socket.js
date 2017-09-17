@@ -10,7 +10,7 @@ const plugin = {
    * @param {object} options
    * @param {function}next
    */
-  register(server, options, next) {
+  register(server, options, next){
     const io = SocketIO.listen(server.select(config.event.labels).listener)
     // https://www.npmjs.com/package/jsonwebtoken
     const webServer = server.select(config.server.labels)
@@ -26,19 +26,19 @@ const plugin = {
       nsp.on('connection', (client) => {
         console.log('connection', key, client.id)
         const onConnection = (event) => {
-          if (_.isFunction(event.connected)) { event.connected(client) }
+          if(_.isFunction(event.connected)){ event.connected(client) }
         }
         const onDisconnection = (event) => {
-          if (_.isFunction(event.disconnected)) { event.disconnected(client) }
+          if(_.isFunction(event.disconnected)){ event.disconnected(client) }
         }
         const onConnectUser = (jwt) => {
           verify(jwt, (err, user) => {
-            if (err) {
+            if(err){
               return
             }
             _.assign(client, {user})
             _.forEach(events, (event, key) => {
-              if (!_.isFunction(event.on)) {
+              if(!_.isFunction(event.on)){
                 return true
               }
               client.on([key], (data) => {

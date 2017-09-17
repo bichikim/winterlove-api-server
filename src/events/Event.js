@@ -6,7 +6,7 @@ import _ from 'lodash'
  * defined Event stuff
  * @class
  */
-export default class Event {
+export default class Event{
   /**
    *
    * @constructor
@@ -14,7 +14,7 @@ export default class Event {
    * @param {object} io
    * @param {string|null} eventName
    */
-  constructor(server, io, eventName = null) {
+  constructor(server, io, eventName = null){
     this._server = server
     this._io = io
     this._eventName = eventName
@@ -36,7 +36,7 @@ export default class Event {
    *
    * @return {string}
    */
-  get nameSpace() {
+  get nameSpace(){
     return this._nameSpace
   }
 
@@ -44,8 +44,8 @@ export default class Event {
    *
    * @return {Server}
    */
-  get server() {
-    if (this._server) {
+  get server(){
+    if(this._server){
       return this._server
     }
     throw new Error('Needs server')
@@ -55,8 +55,8 @@ export default class Event {
    *
    * @return {object}
    */
-  get io() {
-    if (this._io) {
+  get io(){
+    if(this._io){
       return this._io
     }
     throw new Error('Needs io')
@@ -66,8 +66,8 @@ export default class Event {
    *
    * @return {string|null|*}
    */
-  get eventName() {
-    if (this._eventName) {
+  get eventName(){
+    if(this._eventName){
       return this._eventName
     }
     throw new Error('Needs eventName')
@@ -79,29 +79,29 @@ export default class Event {
    * @return {(object|undefined)}
    * @private
    */
-  _getSocket(user) {
-    if (!user.email) {
+  _getSocket(user){
+    if(!user.email){
       throw new Error(`[ Event ] user in the emitToUser needs email. user: ${user}`)
     }
     const {nameSpace, io} = this
     const {isObject, find} = _
     let sockets
-    if (nameSpace !== '/') {
+    if(nameSpace !== '/'){
       sockets = io.of(`/${nameSpace}`).sockets
     } else {
       sockets = io.sockets
     }
     const {connected} = sockets.connected
-    if (!connected) {
+    if(!connected){
       return io
     }
     const socket = find(connected, (item) => {
-      if (!isObject(item.user)) {
+      if(!isObject(item.user)){
         return false
       }
       return item.user.email === user.email
     })
-    if (!socket) {
+    if(!socket){
       return io
     }
     return socket
@@ -113,18 +113,18 @@ export default class Event {
    * @param {({email}|null)} options.user
    * @param {(string|null)} options.room
    */
-  emit(data, options = {}) {
+  emit(data, options = {}){
     const {Json} = global
     const {user = null, room = null} = options
     const {eventName, nameSpace, _getSocket} = this
     let socket
-    if (user) {
+    if(user){
       socket = _getSocket(user)
     }
-    if (nameSpace !== '/') {
+    if(nameSpace !== '/'){
       socket = socket.of(nameSpace)
     }
-    if (_.isString(room)) {
+    if(_.isString(room)){
       socket = socket.to(room)
     }
     socket.emit(eventName, Json.parse(data), nameSpace)
