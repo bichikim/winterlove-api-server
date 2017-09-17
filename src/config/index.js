@@ -6,9 +6,12 @@ const {
   APP_KEY = '9JTxCSYh/UnXsH5DhZRtKGlQFw8AwLAliHl/T9ZtQeo=',
   APP_NAME = 'Winter Love',
   APP_ENV = 'production',
+  TLS_KEY = null,
+  TLS_CERT = null,
   CLIENT_STATIC_PATH = 'static',
   CLIENT_ROOT_PATH = 'winterlove-client',
   CLIENT_PUBLIC_PATH = 'public',
+  CLIENT_INDEX_FILE = 'index.html',
   DB_DATABASE = 'winterlove',
   DB_HOST = '127.0.0.1',
   DB_PASSWORD = 'dev-12345',
@@ -19,6 +22,7 @@ const {
   SERVER_PORT = '1777',
   SERVER_LABELS = 'server',
   SERVER_CORS = true,
+  EVENT_PROTOCOL = 'http',
   EVENT_HOST = 'localhost',
   EVENT_PORT = '33333',
   EVENT_LABELS = 'event',
@@ -33,7 +37,10 @@ const config = {
     key: APP_KEY,
     strategy: AUTH_STRATEGY,
   },
-
+  tls: {
+    key: TLS_KEY,
+    cert: TLS_CERT,
+  },
   database: {
     database: DB_DATABASE,
     host: DB_HOST,
@@ -52,10 +59,12 @@ const config = {
     cors: SERVER_CORS,
   },
   client: {
+    indexFileName: CLIENT_INDEX_FILE,
     staticName: CLIENT_STATIC_PATH,
     publicName: CLIENT_PUBLIC_PATH,
   },
   event: {
+    protocol: EVENT_PROTOCOL,
     port: EVENT_PORT,
     host: EVENT_HOST,
     labels: EVENT_LABELS,
