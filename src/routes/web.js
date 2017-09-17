@@ -2,7 +2,7 @@ import config from '../config'
 const {staticName} = config.client
 
 /**
- * Web routes serve for http get file request only
+ * Web routes serve for getting file request only
  * @param {Server} server
  * @namespace server.plugins.crumb
  * @return {[{method, path, handler: (object|undefined)}]} returning file routing info
