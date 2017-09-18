@@ -10,10 +10,11 @@ const SchemaItems = {
 /**
  *
  * @param {Server} server
- * @return {[{method, path, handler: (object|undefined)}]}
+ * @return {Object}
  */
 export default (server) => {
-  return [
+  const basePath = '/auth'
+  const routes = [
     {
       method: 'POST',
       path: '/sign-in',
@@ -148,4 +149,5 @@ export default (server) => {
       },
     },
   ]
+  return {basePath, routes}
 }

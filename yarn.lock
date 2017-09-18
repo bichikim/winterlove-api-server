@@ -2579,6 +2579,10 @@ joi@^6.10.1:
     moment "2.x.x"
     topo "1.x.x"
 
+join-url@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/join-url/-/join-url-2.0.0.tgz#a80b63a58eba5b44abaf793c17c3b5817ef69e1b"
+
 js-base64@^2.1.8:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.2.0.tgz#5e8a8d193a908198dd23d1704826d207b0e5a8f6"

@@ -2,13 +2,14 @@ import Joi from 'joi'
 /**
  *
  * @param {Server} server
- * @return {[{method, path, handler: (object|undefined)}]}
+ * @return {Object}
  */
 export default (server) => {
-  return [
+  const basePath = '/map'
+  const routes = [
     {
       method: 'POST',
-      path: '/map/index',
+      path: '/index',
       config: {
         description: 'Get Markers',
         tags: ['api', 'map', 'index'],
@@ -45,7 +46,7 @@ export default (server) => {
     },
     {
       method: 'POST',
-      path: '/map/create',
+      path: '/create',
       config: {
         description: 'Create Marker(place)',
         tags: ['api', 'map', 'create'],
@@ -76,7 +77,7 @@ export default (server) => {
     },
     {
       method: 'POST',
-      path: '/map/update',
+      path: '/update',
       config: {
         description: 'Update Marker(place)',
         tags: ['api', 'map', 'update'],
@@ -108,7 +109,7 @@ export default (server) => {
     },
     {
       method: 'POST',
-      path: '/map/delete',
+      path: '/delete',
       config: {
         description: 'Update Marker(place)',
         tags: ['api', 'map', 'delete'],
@@ -133,4 +134,5 @@ export default (server) => {
       },
     },
   ]
+  return {basePath, routes}
 }

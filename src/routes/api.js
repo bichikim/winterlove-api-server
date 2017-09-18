@@ -2,31 +2,32 @@ import Joi from 'joi'
 /**
  *
  * @param {Server} server
- * @return {[{method, path, handler: (object|undefined)}]}
+ * @return {Object}
  */
 export default (server) => {
-  return [
-    {
-      method: 'POST',
-      path: '/test',
-      config: {
-        description: 'Array properties',
-        tags: ['api'],
-        payload: {
-          output: 'stream',
-          allow: 'multipart/form-data',
+  return {
+    routes: [
+      {
+        method: 'POST',
+        path: '/test',
+        config: {
+          description: 'Array properties',
+          tags: ['api'],
+          payload: {
+            output: 'stream',
+            allow: 'multipart/form-data',
+          },
+          plugins: {
+            crumb: false,
+          },
+          auth: false,
         },
-        plugins: {
-          crumb: false,
+        handler: {
+          controller: {
+            name: 'TestController',
+            method: 'test',
+          },
         },
-        auth: false,
       },
-      handler: {
-        controller: {
-          name: 'TestController',
-          method: 'test',
-        },
-      },
-    },
-  ]
+    ]}
 }
