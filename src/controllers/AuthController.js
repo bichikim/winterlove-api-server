@@ -63,7 +63,7 @@ export default class AuthController extends Controller{
    * @param {Function} reply
    */
   update(request, reply){
-    const {name, email, password, nextPassword, gender} = request.payload
+    const {name, email, nextEmail, password, nextPassword, gender} = request.payload
     User.findOne({email}).then((documents) => {
       if(!documents){
         return reply(Boom.notFound('Email not found.'))
@@ -76,8 +76,8 @@ export default class AuthController extends Controller{
       if(name){
         documents.name = name
       }
-      if(email){
-        documents.email = email
+      if(nextEmail){
+        documents.email = nextEmail
       }
       if(nextPassword){
         documents.password = nextPassword

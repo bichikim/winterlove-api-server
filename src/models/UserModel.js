@@ -101,10 +101,10 @@ class UserModel{
   /**
    *
    * @param {String}password
-   * @param {Function|undefined}next
+   * @param {Function|null}next
    * @return {*}
    */
-  verifyPassword(password, next){
+  verifyPassword(password, next = null){
     // verify password with db.hashed password
     // eslint-disable-next-line no-invalid-this
     const isVerified = (passwordHash.verify(password, this.password))

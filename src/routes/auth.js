@@ -22,7 +22,7 @@ export default (server) => {
         tags: ['api', 'auth'],
         validate: {
           payload: Joi.object({
-            email: SchemaItems.email.required(),
+            email: Joi.string().required(),
             password: Joi.string().required(),
             isNeedAccessToken: Joi.boolean(),
           }).label('Sign in Request'),
@@ -93,8 +93,9 @@ export default (server) => {
         tags: ['api', 'auth', 'update'],
         validate: {
           payload: Joi.object({
-            email: SchemaItems.email.required(),
+            email: Joi.string().required(),
             password: Joi.string().required(),
+            nextEmail: SchemaItems.email.required(),
             name: SchemaItems.name,
             nextPassword: SchemaItems.password,
             gender: SchemaItems.gender,
