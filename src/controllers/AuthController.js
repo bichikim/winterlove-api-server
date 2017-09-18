@@ -85,7 +85,7 @@ export default class AuthController extends Controller{
       if(gender){
         documents.gender = gender
       }
-      User.save().then(() => {
+      documents.save().then(() => {
         reply({
           success: true,
         })

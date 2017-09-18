@@ -4,7 +4,7 @@ const SchemaItems = {
   email: Joi.string().email().max(150),
   password: Joi.string().regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,40}$/),
   point: Joi.number(),
-  gender: Joi.string(),
+  gender: Joi.any().valid('man', 'woman'),
   accessToken: Joi.string(),
 }
 /**
