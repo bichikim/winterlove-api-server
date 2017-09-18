@@ -89,14 +89,14 @@ export default (server) => {
       method: 'POST',
       path: '/update',
       config: {
-        description: 'Update',
+        description: 'Update account',
         tags: ['api', 'auth', 'update'],
         validate: {
           payload: Joi.object({
-            name: SchemaItems.name,
             email: SchemaItems.email.required(),
-            currentPassword: SchemaItems.password.required(),
-            password: SchemaItems.password,
+            password: Joi.string().required(),
+            name: SchemaItems.name,
+            nextPassword: SchemaItems.password,
             gender: SchemaItems.gender,
           }).label('Sign update Request'),
         },
@@ -114,6 +114,35 @@ export default (server) => {
         controller: {
           name: 'AuthController',
           method: 'update',
+        },
+      },
+    },
+    {
+      method: 'POST',
+      path: '/delete',
+      config: {
+        description: 'Delete account',
+        tags: ['api', 'auth', 'delete'],
+        validate: {
+          payload: Joi.object({
+            email: SchemaItems.email.required(),
+            password: SchemaItems.password.required(),
+          }).label('Sign delete Request'),
+        },
+        response: {
+          schema: Joi.object({
+            success: Joi.boolean(),
+          }).label('Result'),
+        },
+        plugins: {
+          crumb: true,
+        },
+        auth: false,
+      },
+      handler: {
+        controller: {
+          name: 'AuthController',
+          method: 'delete',
         },
       },
     },

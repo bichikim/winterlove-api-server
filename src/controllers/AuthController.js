@@ -23,25 +23,23 @@ export default class AuthController extends Controller{
    */
   signIn(request, reply){
     const {email, password, isNeedAccessToken = false} = request.payload
-    User.findOne({email})
-      .then((documents) => {
-        if(!documents){
-          return reply(Boom.notFound('Email not found.'))
+    User.findOne({email}).then((documents) => {
+      if(!documents){
+        return reply(Boom.notFound('Email not found.'))
+      }
+      const isVerified = documents.verifyPassword(password)
+      if(isVerified){
+        const data = documents.getInfo()
+        if(isNeedAccessToken === true){
+          Object.assign(data, {accessToken: documents.getToken()})
         }
-        const isVerified = documents.verifyPassword(password)
-        if(isVerified){
-          const data = documents.getInfo()
-          if(isNeedAccessToken === true){
-            Object.assign(data, {accessToken: documents.getToken()})
-          }
-          reply(data)
-        } else {
-          reply(Boom.forbidden('Password incorrect'))
-        }
-      })
-      .catch((error) => {
-        reply(Boom.badImplementation(error))
-      })
+        reply(data)
+      } else {
+        reply(Boom.forbidden('Password incorrect'))
+      }
+    }).catch((error) => {
+      reply(Boom.badImplementation(error))
+    })
   }
 
   /**
@@ -52,12 +50,11 @@ export default class AuthController extends Controller{
   signUp(request, reply){
     const {name, email, password, gender = 'man'} = request.payload
     const newUser = User({name, password, email, gender})
-    newUser.save()
-      .then((documents) => {
-        reply({...documents.getInfo(), accessToken: documents.getToken()})
-      }).catch((error) => {
-        reply(Boom.badData(error.errmsg))
-      })
+    newUser.save().then((documents) => {
+      reply({...documents.getInfo(), accessToken: documents.getToken()})
+    }).catch((error) => {
+      reply(Boom.badData(error.errmsg))
+    })
   }
 
   /**
@@ -66,35 +63,62 @@ export default class AuthController extends Controller{
    * @param {Function} reply
    */
   update(request, reply){
-    const {name, email, currentPassword, password, gender} = request.payload
-    User.findOne({email})
-      .then((documents) => {
-        if(!documents){
-          return reply(Boom.notFound('Email not found.'))
-        }
-        const isVerified = documents.verifyPassword(currentPassword)
-        if(isVerified){
-          if(name){
-            documents.name = name
-          }
-          if(email){
-            documents.email = email
-          }
-          if(password){
-            documents.password = password
-          }
-          if(gender){
-            documents.gender = gender
-          }
-          reply({
-            success: true,
-          })
-        } else {
-          reply(Boom.forbidden('Password incorrect'))
-        }
-      })
-      .catch((error) => {
+    const {name, email, password, nextPassword, gender} = request.payload
+    User.findOne({email}).then((documents) => {
+      if(!documents){
+        return reply(Boom.notFound('Email not found.'))
+      }
+      const isVerified = documents.verifyPassword(password)
+      if(!isVerified){
+        return reply(Boom.forbidden('Password incorrect'))
+      }
+
+      if(name){
+        documents.name = name
+      }
+      if(email){
+        documents.email = email
+      }
+      if(nextPassword){
+        documents.password = nextPassword
+      }
+      if(gender){
+        documents.gender = gender
+      }
+      User.save().then(() => {
+        reply({
+          success: true,
+        })
+      }).catch((error) => {
         reply(Boom.badImplementation(error))
       })
+    }).catch((error) => {
+      reply(Boom.badImplementation(error))
+    })
+  }
+
+  /**
+   *
+   * @param {{payload:object}} request
+   * @param {Function} reply
+   */
+  delete(request, reply){
+    const {email, password} = request.payload
+    User.findOne({email}).then((documents) => {
+      if(!documents){
+        return reply(Boom.notFound('Email not found.'))
+      }
+      const isVerified = documents.verifyPassword(password)
+      if(!isVerified){
+        reply(Boom.forbidden('Password incorrect'))
+      }
+      User.remove().then(() => {
+        reply({
+          success: true,
+        })
+      })
+    }).catch((error) => {
+      reply(Boom.badImplementation(error))
+    })
   }
 }
