@@ -66,7 +66,7 @@ schema.post('remove', function(doc) {
 * documents [api]
 * map [api]
 * mongoose migrations
-* file uploading plugin
+* file uploading plugin (50%)
 ## In progress
 * auth [api] (90%)
 * event (50%)
