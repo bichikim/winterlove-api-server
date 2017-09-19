@@ -41,7 +41,6 @@ const uploadFiles = ({files, email, filesPath}) => {
   }
   throw new Error('[files] files is undefined')
 }
-
 const toBeArray = (item) => (_.isArray(item) ? item : [item])
 const saveFileToDB = (fileInfo) => {
   const promises = _.map(fileInfo, (item) => (File({...item}).save()))
@@ -90,7 +89,7 @@ const plugin = {
           await document.remove()
           return await del(path.join(filesPath, fileName))
         }
-        return _.map(fileNames, deleteOne)
+        return Promise.all(_.map(fileNames, deleteOne))
       },
       /**
        *
