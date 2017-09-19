@@ -80,6 +80,16 @@ const config = {
       root,
     },
   },
+  bind(server){
+    return {
+      server,
+      webServer: server.select(config.server.labels),
+      eventSever: server.select(config.event.labels),
+      file: server.plugins.file,
+      event: server.plugins.socket.events,
+      model: server.plugins.socket.models,
+    }
+  },
 }
 
 export default config

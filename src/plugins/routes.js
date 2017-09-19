@@ -2,32 +2,36 @@ import routesAll from '../routes'
 import forEach from 'lodash/forEach'
 import config from '../config'
 
-const plugin = {
+const plugin = (globalServer) => {
+  const plugin = {
   /**
    * setting routes
    * @param {Server}server
    * @param {object}options
    * @param {function}next
    */
-  register(server, options, next){
-    const {labels} = config.server
-    const webServer = server.select(labels)
-    const routes = routesAll(webServer)
-    server.expose({
-      routes,
-    })
+    register(server, options, next){
+      const {labels} = config.server
 
-    forEach(routes, (item) => {
-      webServer.route(item)
-    })
+      const webServer = server.select(labels)
+      const routes = routesAll(globalServer)
+      server.expose({
+        routes,
+      })
 
-    next()
-  },
-}
+      forEach(routes, (item) => {
+        webServer.route(item)
+      })
 
-plugin.register.attributes = {
-  name: 'routes',
-  version: '0.0.2',
+      next()
+    },
+  }
+
+  plugin.register.attributes = {
+    name: 'routes',
+    version: '0.0.2',
+  }
+  return plugin
 }
 
 export default plugin
