@@ -10,10 +10,14 @@ let controllers
 export const getControllerClasses = () => {
   if(!controllers){
     controllers = requireAll({
-      dirname: `${__dirname}/../controllers/`,
+      dirname: __dirname,
       filter: /(.+Controller)\.js$/,
       resolve: (controller) => {
         return controller.default
+      },
+      map: (name, path) => {
+        const [modelName] = name.split('Controller')
+        return modelName
       },
     })
   }
@@ -59,6 +63,11 @@ export default (server) => {
          the current options is ${options}`
       )
     }
+
+    // make sure controllerName to be capitalized
+    controllerName = _.capitalize(controllerName)
+    // make sure methodName to be camelCased
+    methodName = _.camelCase(methodName)
 
     const controller = controllers[controllerName]
     if(_.isObject(controller)){

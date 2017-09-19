@@ -1,9 +1,7 @@
-import createMongooseModel from '../lib/create-mongoose-model'
-
 /**
  *
  */
-class PostModel{
+export default class PostModel{
   static db = 'posts'
   static schema = {
     id: {
@@ -20,5 +18,3 @@ class PostModel{
     //
   }
 }
-
-export default createMongooseModel(PostModel)

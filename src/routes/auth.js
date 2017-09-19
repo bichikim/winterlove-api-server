@@ -46,7 +46,7 @@ export default (server) => {
       },
       handler: {
         controller: {
-          name: 'AuthController',
+          name: 'Auth',
           method: 'signIn',
         },
       },
@@ -81,7 +81,7 @@ export default (server) => {
       },
       handler: {
         controller: {
-          name: 'AuthController',
+          name: 'Auth',
           method: 'signUp',
         },
       },
@@ -114,7 +114,7 @@ export default (server) => {
       },
       handler: {
         controller: {
-          name: 'AuthController',
+          name: 'Auth',
           method: 'update',
         },
       },
@@ -143,7 +143,7 @@ export default (server) => {
       },
       handler: {
         controller: {
-          name: 'AuthController',
+          name: 'Auth',
           method: 'delete',
         },
       },

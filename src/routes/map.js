@@ -39,7 +39,7 @@ export default (server) => {
       },
       handler: {
         controller: {
-          name: 'MapController',
+          name: 'Map',
           method: 'index',
         },
       },
@@ -70,7 +70,7 @@ export default (server) => {
       },
       handler: {
         controller: {
-          name: 'MapController',
+          name: 'Map',
           method: 'create',
         },
       },
@@ -102,7 +102,7 @@ export default (server) => {
       },
       handler: {
         controller: {
-          name: 'MapController',
+          name: 'Map',
           method: 'update',
         },
       },
@@ -128,7 +128,7 @@ export default (server) => {
       },
       handler: {
         controller: {
-          name: 'MapController',
+          name: 'Map',
           method: 'delete',
         },
       },

@@ -13,12 +13,21 @@ export default class TestController extends Controller{
    * @param {Function} reply
    */
   test(request, reply){
-    const {files} = request.payload
-/*    this.file.upload(files).then((result) => {
+    const {files, email} = request.payload
+    this.file.upload(files, email).then((result) => {
       console.log(result)
-    })*/
-    // this.server.file()
-    console.log(this.event)
+    })
     reply({})
+  }
+  /**
+   *
+   * @constructor
+   * @param {{}} request
+   * @param {Function} reply
+   */
+  test2(request, reply){
+    const {email, fileName} = request.payload
+    const newFile = this.model.File({email, fileName})
+    newFile.save().then((document) => (reply(document)))
   }
 }

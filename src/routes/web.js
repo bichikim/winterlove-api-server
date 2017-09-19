@@ -39,7 +39,7 @@ export default (server) => {
         },
         handler: {
           controller: {
-            name: 'FileController',
+            name: 'File',
             method: 'getFile',
           },
         },
@@ -53,7 +53,7 @@ export default (server) => {
 
         handler: {
           controller: {
-            name: 'FileController',
+            name: 'File',
             method: 'getHtml',
           },
         },

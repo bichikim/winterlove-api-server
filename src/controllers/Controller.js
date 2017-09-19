@@ -52,4 +52,12 @@ export default class Controller{
   get event(){
     return this.server.plugins.socket.events
   }
+
+  /**
+   *
+   * @return {*}
+   */
+  get model(){
+    return this.server.plugins.models
+  }
 }

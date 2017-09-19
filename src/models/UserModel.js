@@ -2,7 +2,6 @@
 /**
  * @type {{Schema, model}}
  */
-import createMongooseModel from '../lib/create-mongoose-model'
 import passwordHash from 'password-hash'
 import jwt from 'jsonwebtoken'
 import config from '../config'
@@ -10,14 +9,14 @@ import config from '../config'
 /**
  *
  */
-class UserModel{
+export default class UserModel{
   static db = 'users'
   static schema = {
     email: {
       type: String,
       required: true,
+      index: true,
       unique: true,
-      dropDups: true,
     },
     name: {
       type: String,
@@ -114,5 +113,3 @@ class UserModel{
     return isVerified
   }
 }
-
-export default createMongooseModel(UserModel)

@@ -1,47 +1,10 @@
 import config from '../config'
 import File from '../models/FileModel'
 import _ from 'lodash'
-import uuid from 'uuid'
-import uuidV5 from 'uuid/v5'
-import fs from 'fs'
 import del from 'del'
 import path from 'path'
-const fileUuid = (name) => {
-  const [fileName, ext] = _.split(name, '.')
-  const nameSpace = uuid.v1()
-  return `${uuidV5(fileName, nameSpace)}.${ext}`
-}
-const uploadFiles = ({files, email, filesPath}) => {
-  const uploadFile = (file) => {
-    if(!file){
-      throw new Error('[files] file is undefined')
-    }
-    const fileName = fileUuid(file.hapi.filename)
-    const filePath = path.join(filesPath, fileName)
-    const fileStream = fs.createWriteStream(filePath)
-    return new Promise((resolve, reject) => {
-      file.on('error', function(error){
-        reject(error)
-      })
-      file.pipe(fileStream)
-      file.on('end', function(){
-        resolve({
-          email,
-          fileName,
-        })
-      })
-    })
-  }
-  if(_.isArray(files)){
-    const promises = _.map(files, uploadFile)
-    return Promise.all(promises)
-  }
-  if(files){
-    return uploadFile(files)
-  }
-  throw new Error('[files] files is undefined')
-}
-const toBeArray = (item) => (_.isArray(item) ? item : [item])
+import uploadFiles from '../lib/uploadFiles'
+import toBeArray from '../lib/toBeArray'
 const saveFileToDB = (fileInfo) => {
   const promises = _.map(fileInfo, (item) => (File({...item}).save()))
   return Promise.all(promises)

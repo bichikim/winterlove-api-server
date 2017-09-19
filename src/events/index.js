@@ -12,7 +12,7 @@ let events
 export const getEventClasses = () => {
   if(!events){
     events = requireAll({
-      dirname: `${__dirname}/../events/`,
+      dirname: __dirname,
       filter: /(.+Event)\.js$/,
       resolve: (event) => {
         return event.default

@@ -8,7 +8,7 @@ let routes
 export default (server) => {
   if(!routes){
     routes = requireAll({
-      dirname: `${__dirname}/`,
+      dirname: __dirname,
       filter: /^(?!index).*(\.js)$/,
       resolve: (config) => {
         const routes = config.default(server)
@@ -21,9 +21,9 @@ export default (server) => {
         return routes.routes
       },
       map: (name, path) => {
-        return path.split('//').pop()
-          .split('.')
-          .shift()
+        const nameJs = path.split('//').pop()
+        const [routeName] = nameJs.split('.')
+        return routeName
       },
     })
   }

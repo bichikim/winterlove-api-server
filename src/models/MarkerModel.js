@@ -1,9 +1,7 @@
-import createMongooseModel from '../lib/create-mongoose-model'
-
 /**
  *
  */
-class MarkerModel{
+export default class MarkerModel{
   static db = 'markers'
   static schema = {
     id: {
@@ -20,5 +18,3 @@ class MarkerModel{
     //
   }
 }
-
-export default createMongooseModel(MarkerModel)

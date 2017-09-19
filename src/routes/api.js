@@ -1,4 +1,3 @@
-import Joi from 'joi'
 /**
  *
  * @param {Server} server
@@ -24,8 +23,30 @@ export default (server) => {
         },
         handler: {
           controller: {
-            name: 'TestController',
+            name: 'Test',
             method: 'test',
+          },
+        },
+      },
+      {
+        method: 'POST',
+        path: '/test2',
+        config: {
+          description: 'Array properties',
+          tags: ['api'],
+          payload: {
+            output: 'stream',
+            allow: 'multipart/form-data',
+          },
+          plugins: {
+            crumb: false,
+          },
+          auth: false,
+        },
+        handler: {
+          controller: {
+            name: 'Test',
+            method: 'test2',
           },
         },
       },

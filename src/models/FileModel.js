@@ -1,16 +1,14 @@
-import createMongooseModel from '../lib/create-mongoose-model'
-
 /**
  *
  */
-class FileModel{
+export default class FileModel{
   static db = 'files'
   static schema = {
     fileName: {
       type: String,
       required: true,
       unique: true,
-      dropDups: true,
+      index: true,
     },
     email: {
       type: String,
@@ -24,5 +22,3 @@ class FileModel{
     //
   }
 }
-
-export default createMongooseModel(FileModel)
