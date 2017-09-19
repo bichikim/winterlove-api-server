@@ -112,7 +112,7 @@ export default class AuthController extends Controller{
       if(!isVerified){
         reply(Boom.forbidden('Password incorrect'))
       }
-      User.remove().then(() => {
+      documents.remove().then(() => {
         reply({
           success: true,
         })

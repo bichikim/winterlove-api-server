@@ -4,13 +4,34 @@ import _ from 'lodash'
 import uuid from 'uuid'
 import uuidV5 from 'uuid/v5'
 import fs from 'fs'
+import del from 'del'
 import path from 'path'
 const fileUuid = (name) => {
   const [fileName, ext] = _.split(name, '.')
   const nameSpace = uuid.v1()
   return `${uuidV5(fileName, nameSpace)}.${ext}`
 }
-const uploadFiles = (files) => {
+const uploadFiles = ({files, email, filesPath}) => {
+  const uploadFile = (file) => {
+    if(!file){
+      throw new Error('[files] file is undefined')
+    }
+    const fileName = fileUuid(file.hapi.filename)
+    const filePath = path.join(filesPath, fileName)
+    const fileStream = fs.createWriteStream(filePath)
+    return new Promise((resolve, reject) => {
+      file.on('error', function(error){
+        reject(error)
+      })
+      file.pipe(fileStream)
+      file.on('end', function(){
+        resolve({
+          email,
+          fileName,
+        })
+      })
+    })
+  }
   if(_.isArray(files)){
     const promises = _.map(files, uploadFile)
     return Promise.all(promises)
@@ -20,28 +41,12 @@ const uploadFiles = (files) => {
   }
   throw new Error('[files] files is undefined')
 }
-const uploadFile = (file) => {
-  if(!file){
-    throw new Error('[files] file is undefined')
-  }
-  const originalName = file.hapi.filename
-  const fileName = fileUuid(file.hapi.filename)
-  const filePath = path.join(config.path.server.files, fileName)
-  const fileStream = fs.createWriteStream(filePath)
-  return new Promise((resolve, reject) => {
-    file.on('error', function(error){
-      reject(error)
-    })
-    file.pipe(fileStream)
-    file.on('end', function(){
-      resolve({
-        fileName,
-        originalName,
-      })
-    })
-  })
-}
 
+const toBeArray = (item) => (_.isArray(item) ? item : [item])
+const saveFileToDB = (fileInfo) => {
+  const promises = _.map(fileInfo, (item) => (File({...item}).save()))
+  return Promise.all(promises)
+}
 const plugin = {
   /**
    * todo in progress
@@ -50,6 +55,7 @@ const plugin = {
    * @param {function}next
    */
   register(server, options, next){
+    const filesPath = config.path.server.files
     server.expose({
       /**
        *
@@ -64,17 +70,12 @@ const plugin = {
         if(!email){
           throw new Error('[files] upload needs email')
         }
-        return new Promise((resolve, reject) => {
-          uploadFiles(files).then((filesInfo) => {
-            if(_.isArray(filesInfo)){
-              resolve(filesInfo)
-            } else if(_.isObject(filesInfo)){
-              resolve([filesInfo])
-            }
-          }).catch((error) => {
-            reject(error)
-          })
-        })
+        const uploadFilesAndDB = async function(files, email){
+          const result = await uploadFiles({files, email, filesPath})
+          const filesInfo = toBeArray(result)
+          return saveFileToDB(filesInfo)
+        }
+        return uploadFilesAndDB(files, email)
       },
       /**
        *
@@ -84,9 +85,12 @@ const plugin = {
        * @return {Promise}
        */
       delete({fileNames, email}){
-        return new Promise((resolve, reject) => {
-
-        })
+        const deleteOne = async function(fileName){
+          const document = await File.findOne({fileName, email})
+          await document.remove()
+          return await del(path.join(filesPath, fileName))
+        }
+        return _.map(fileNames, deleteOne)
       },
       /**
        *
