@@ -56,4 +56,4 @@ plugin.register.attributes = {
   connections: false,
 }
 
-export default plugin.register
+export default plugin

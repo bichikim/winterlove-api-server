@@ -28,7 +28,7 @@ import Crumb from 'crumb'
 import Auth from './plugins/auth'
 import Socket from './plugins/socket'
 import View from './plugins/view'
-import Files from './plugins/files'
+import File from './plugins/file'
 import HapiSwagger from 'hapi-swagger'
 import packageJson from '../package.json'
 import config from './config'
@@ -51,7 +51,7 @@ const registerPluginsAndStart = async function(){
   // It needs App
   await register(server, Vision)
   // It needs App and Vision. setting Vision(view)
-  await register(server, View, {server})
+  await register(server, View)
   // It needs App
   await register(server, HapiAuthJwt2)
   // It needs App and Vision
@@ -80,9 +80,10 @@ const registerPluginsAndStart = async function(){
   await register(server, Auth)
   // It needs App, Controllers and Auth
   await register(server, Routes)
+  await register(server, File)
   // It needs App and Auth
   await register(server, Socket)
-  await register(server, Files)
+
   // https://github.com/glennjones/hapi-swagger
   // URL = ~/documentation
   // It needs App and Routes
@@ -93,6 +94,7 @@ const registerPluginsAndStart = async function(){
     },
     grouping: 'tags',
   })
+
   return await start(server)
 }
 

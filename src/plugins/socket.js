@@ -58,7 +58,6 @@ const plugin = {
         client.on('connect-user', onConnectUser)
       })
     })
-
     next()
   },
 }
@@ -68,4 +67,4 @@ plugin.register.attributes = {
   version: '0.0.1',
 }
 
-export default plugin.register
+export default plugin

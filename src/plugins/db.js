@@ -44,4 +44,4 @@ plugin.register.attributes = {
   version: '0.0.2',
 }
 
-export default plugin.register
+export default plugin

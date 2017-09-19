@@ -44,14 +44,12 @@ const uploadFile = (file) => {
 
 const plugin = {
   /**
-   * setting routes
+   * todo in progress
    * @param {Server}server
    * @param {object}options
    * @param {function}next
    */
   register(server, options, next){
-    const {labels} = config.server
-    const webServer = server.select(labels)
     server.expose({
       /**
        *
@@ -106,7 +104,7 @@ const plugin = {
 }
 
 plugin.register.attributes = {
-  name: 'files',
+  name: 'file',
   version: '0.0.1',
 }
 

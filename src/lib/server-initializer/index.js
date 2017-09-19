@@ -1,3 +1,16 @@
+const getRegister = (plugin, server) => {
+  const {register} = plugin
+  let attributes
+  if(register){
+    attributes = register.attributes
+  } else {
+    attributes = plugin.attributes
+  }
+  if(attributes){
+    return plugin
+  }
+  return plugin(server)
+}
 /**
  * Make registering Promise
  * @param {Server} server
@@ -7,8 +20,9 @@
  */
 export const register = (server, plugin, options = {}) => {
   return new Promise(function(resolve, reject){
+    const register = getRegister(plugin, server)
     server.register({
-      register: plugin,
+      register,
       options,
     }, (error) => {
       if(error){

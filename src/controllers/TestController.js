@@ -14,9 +14,11 @@ export default class TestController extends Controller{
    */
   test(request, reply){
     const {files} = request.payload
-    this.files.upload(files).then((result) => {
+/*    this.file.upload(files).then((result) => {
       console.log(result)
-    })
+    })*/
+    // this.server.file()
+    console.log(this.event)
     reply({})
   }
 }

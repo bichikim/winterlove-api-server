@@ -1,3 +1,4 @@
+import config from '../config'
 /**
  * default Controller
  * defined Controller stuff
@@ -22,16 +23,33 @@ export default class Controller{
   }
 
   /**
-   *
+   * @return {*}
    */
-  get events(){
-    return this._server.plugins.socket.events
+  get webServer(){
+    const {labels} = config.server
+    return this.server.select(labels)
+  }
+
+  /**
+   * @return {*}
+   */
+  get eventServer(){
+    const {labels} = config.event
+    return this.server.select(labels)
+  }
+
+  /**
+   * @return {*}
+   */
+  get file(){
+    return this.server.plugins.file
   }
 
   /**
    *
+   * @return {*}
    */
-  get files(){
-    return this._server.plugins.files
+  get event(){
+    return this.server.plugins.socket.events
   }
 }
