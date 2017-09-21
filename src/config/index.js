@@ -1,4 +1,4 @@
-import env from '../lib/env'
+import env from 'bichi-env'
 import path from 'path'
 const root = path.join(__dirname, '../../')
 const {
@@ -27,7 +27,7 @@ const {
   EVENT_HOST = 'localhost',
   EVENT_PORT = '33333',
   EVENT_LABELS = 'event',
-} = env
+} = env()
 
 const config = {
   app: {
@@ -79,16 +79,6 @@ const config = {
       files: path.join(root, SERVER_FILES_PATH),
       root,
     },
-  },
-  bind(server){
-    return {
-      server,
-      webServer: server.select(config.server.labels),
-      eventSever: server.select(config.event.labels),
-      file: server.plugins.file,
-      event: server.plugins.socket.events,
-      model: server.plugins.socket.models,
-    }
   },
 }
 

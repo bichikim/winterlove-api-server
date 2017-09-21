@@ -12,7 +12,6 @@ export default class Controller{
    */
   constructor(server){
     this._server = server
-    this._bind = config.bind(server)
   }
 
   /**
@@ -27,21 +26,23 @@ export default class Controller{
    * @return {*}
    */
   get webServer(){
-    return this._bind.webServer
+    const {labels} = config.server
+    return this.server.select(labels)
   }
 
   /**
    * @return {*}
    */
   get eventServer(){
-    return this._bind.eventServer
+    const {labels} = config.event
+    return this.server.select(labels)
   }
 
   /**
    * @return {*}
    */
   get file(){
-    return this._bind.file
+    return this.server.plugins.file
   }
 
   /**
@@ -49,7 +50,7 @@ export default class Controller{
    * @return {*}
    */
   get event(){
-    return this._bind.event
+    return this.server.plugins.socket.events
   }
 
   /**
@@ -57,6 +58,6 @@ export default class Controller{
    * @return {*}
    */
   get model(){
-    return this._bind.model
+    return this.server.plugins.models
   }
 }

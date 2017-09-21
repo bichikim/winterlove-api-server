@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "bell": "^8.7.0",
+    "bichi-env": "^0.0.3",
     "boom": "^5.2.0",
     "chai": "^4.1.0",
     "crumb": "^6.0.3",
