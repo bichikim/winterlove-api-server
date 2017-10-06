@@ -6,6 +6,7 @@
   "scripts": {
     "watch": "./node_modules/.bin/nodemon src/index.js --delay 3 --exec ./node_modules/.bin/babel-node --watch src --watch ../winterlove-client/public/index.html",
     "watch-forever": "forever start ./node_modules/.bin/nodemon src/index.js --delay 3 --exec ./node_modules/.bin/babel-node  --watch src --watch ../winterlove-client/public/index.html",
+    "webpack-watch": "node ./build/serve-watch.js",
     "serve": "./node_modules/.bin/babel-node src/index.js",
     "test": "./node_modules/.bin/babel-node node_modules/mocha/bin/_mocha --recursive -R spec --check-leaks"
   },
