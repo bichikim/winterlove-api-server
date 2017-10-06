@@ -6,7 +6,7 @@ module.exports = {
     "es6": true,
     "amd": true,
   },
-  extends: ["eslint:recommended", "google", "vue"],
+  extends: ["eslint:recommended", "vue"],
   "parserOptions": {
     "sourceType": "module"
   },
