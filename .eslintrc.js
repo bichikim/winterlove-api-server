@@ -6,7 +6,7 @@ module.exports = {
     'es6': true,
     'amd': true,
   },
-  extends: ['eslint:recommended', 'google', 'plugin:vue-libs/recommended'],
+  extends: ['eslint:recommended', 'plugin:vue-libs/recommended'],
   'parserOptions': {
     'sourceType': 'module',
   },
