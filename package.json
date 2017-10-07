@@ -4,11 +4,21 @@
   "description": "winterlove project",
   "main": "dist/index.js",
   "scripts": {
-    "watch": "./node_modules/.bin/nodemon src/index.js --delay 3 --exec ./node_modules/.bin/babel-node --watch src --watch ../winterlove-client/public/index.html",
+    "watch": "./node_modules/.bin/nodemon src/index.js --exec ./node_modules/.bin/babel-node",
     "watch-forever": "forever start ./node_modules/.bin/nodemon src/index.js --delay 3 --exec ./node_modules/.bin/babel-node  --watch src --watch ../winterlove-client/public/index.html",
-    "webpack-watch": "node ./build/serve-watch.js",
     "serve": "./node_modules/.bin/babel-node src/index.js",
     "test": "./node_modules/.bin/babel-node node_modules/mocha/bin/_mocha --recursive -R spec --check-leaks"
+  },
+  "nodemonConfig": {
+    "execMap": {
+      "js": "node --harmony"
+    },
+    "ignore": ["test/*", "docs/*", "templates/*", ".git", "node_modules/**/node_modules"],
+    "delay": "2500",
+    "watch": [
+      "src",
+      "../winterlove-client/public/index.html"
+    ]
   },
   "keywords": [
     "javascript",
@@ -28,6 +38,7 @@
     "babel-preset-stage-1": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
+    "chai": "^4.1.0",
     "eslint": "^4.8.0",
     "eslint-config-vue": "^2.0.2",
     "eslint-plugin-html": "^3.2.2",
@@ -36,7 +47,7 @@
     "nodemon": "^1.12.1",
     "webpack": "^3.6.0",
     "webpack-merge": "^4.1.0",
-    "chai": "^4.1.0"
+    "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
     "bell": "^8.7.0",

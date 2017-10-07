@@ -1,20 +1,5 @@
 /* global global*/
-/**
- * @typedef {object} Hapi
- * @property {function} Server
- */
-/**
- * @typedef {function} Server
- * @property {function} views
- * @property {function} register
- * @property {function} start
- * @property {function} select
- * @property {function} expose
- * @property {function} connection
- * @property {function} handler
- * @property {function} continue
- * @property {object} plugins
- */
+
 import Hapi from 'hapi'
 import Inert from 'inert'
 import App from './plugins/app'
@@ -34,11 +19,6 @@ import HapiSwagger from 'hapi-swagger'
 import packageJson from '../package.json'
 import config from './config'
 import {register, start} from './lib/server-initializer'
-
-/**
- * New server
- * @type {Server}
- */
 const server = new Hapi.Server()
 
 /**
