@@ -16,6 +16,7 @@ import View from './plugins/view'
 import File from './plugins/file'
 import Models from './plugins/models'
 import HapiSwagger from 'hapi-swagger'
+import good from 'good'
 import packageJson from '../package.json'
 import config from './config'
 import {register, start} from './lib/server-initializer'
@@ -76,6 +77,8 @@ const registerPluginsAndStart = async function(){
     },
     grouping: 'tags',
   })
+
+  await register(server, good, config.log)
 
   return await start(server)
 }

@@ -30,6 +30,7 @@ const plugin = (globalServer) => {
   plugin.register.attributes = {
     name: 'routes',
     version: '0.0.2',
+    dependencies: ['app', 'controllers', 'auth'],
   }
   return plugin
 }

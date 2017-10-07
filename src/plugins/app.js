@@ -54,6 +54,7 @@ plugin.register.attributes = {
   version: '0.0.3',
   // to set connection in this plugins connections options must false
   connections: false,
+  dependencies: 'inert',
 }
 
 export default plugin

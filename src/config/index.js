@@ -80,6 +80,16 @@ const config = {
       root,
     },
   },
+  log: {
+    ops: {
+      interval: 1000,
+    },
+    reporters: {
+      consoleReporter: [{
+        module: 'good-console',
+      }],
+    },
+  },
 }
 
 export default config

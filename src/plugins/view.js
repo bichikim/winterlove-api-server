@@ -29,6 +29,7 @@ const plugin = (globalServer) => {
   plugin.register.attributes = {
     name: 'view',
     version: '0.0.2',
+    dependencies: ['app', 'vision'],
   }
   return plugin
 }

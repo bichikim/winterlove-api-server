@@ -13,7 +13,13 @@
     "execMap": {
       "js": "node --harmony"
     },
-    "ignore": ["test/*", "docs/*", "templates/*", ".git", "node_modules/**/node_modules"],
+    "ignore": [
+      "test/*",
+      "docs/*",
+      "templates/*",
+      ".git",
+      "node_modules/**/node_modules"
+    ],
     "delay": "2500",
     "watch": [
       "src",
@@ -44,10 +50,7 @@
     "eslint-plugin-html": "^3.2.2",
     "eslint-plugin-vue": "^3.5.1",
     "mocha": "^4.0.1",
-    "nodemon": "^1.12.1",
-    "webpack": "^3.6.0",
-    "webpack-merge": "^4.1.0",
-    "webpack-node-externals": "^1.6.0"
+    "nodemon": "^1.12.1"
   },
   "dependencies": {
     "bell": "^8.7.0",
@@ -55,6 +58,8 @@
     "boom": "^5.2.0",
     "crumb": "^6.0.3",
     "del": "^3.0.0",
+    "good": "^7.3.0",
+    "good-console": "^6.4.0",
     "handlebars": "^4.0.10",
     "hapi": "^16.4.3",
     "hapi-auth-jwt2": "^7.3.0",

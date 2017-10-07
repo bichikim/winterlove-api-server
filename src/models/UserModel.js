@@ -5,6 +5,7 @@
 import passwordHash from 'password-hash'
 import jwt from 'jsonwebtoken'
 import config from '../config'
+import {encodeBase64ID} from '../lib/base64ID'
 
 /**
  *
@@ -79,12 +80,13 @@ export default class UserModel{
    * @param {string}expiresIn
    * @return {*}
    */
-  getToken(role = [], expiresIn = '18h'){
-    const {email} = this
+  getToken(role = [], expiresIn = '20m'){
+    const {_id} = this
     const {key} = config.auth
+    const id = encodeBase64ID(_id)
     return jwt.sign({
-      email,
-      role: ['basics', ...role],
+      id,
+      roles: ['basics', ...role],
     }, key, {expiresIn})
   }
 

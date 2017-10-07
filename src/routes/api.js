@@ -40,8 +40,8 @@ export default (server) => {
           },
           plugins: {
             crumb: false,
+            roles: ['basics'],
           },
-          auth: false,
         },
         handler: {
           controller: {

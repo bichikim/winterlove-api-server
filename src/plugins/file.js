@@ -1,14 +1,9 @@
 import config from '../config'
-import File from '../models/FileModel'
 import _ from 'lodash'
 import del from 'del'
 import path from 'path'
 import uploadFiles from '../lib/uploadFiles'
 import toBeArray from '../lib/toBeArray'
-const saveFileToDB = (fileInfo) => {
-  const promises = _.map(fileInfo, (item) => (File({...item}).save()))
-  return Promise.all(promises)
-}
 const plugin = {
   /**
    * todo in progress
@@ -34,8 +29,7 @@ const plugin = {
         }
         const uploadFilesAndDB = async function(files, email){
           const result = await uploadFiles({files, email, filesPath})
-          const filesInfo = toBeArray(result)
-          return saveFileToDB(filesInfo)
+          return toBeArray(result)
         }
         return uploadFilesAndDB(files, email)
       },
@@ -48,8 +42,6 @@ const plugin = {
        */
       delete({fileNames, email}){
         const deleteOne = async function(fileName){
-          const document = await File.findOne({fileName, email})
-          await document.remove()
           return await del(path.join(filesPath, fileName))
         }
         return Promise.all(_.map(fileNames, deleteOne))

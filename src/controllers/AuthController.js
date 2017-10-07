@@ -7,7 +7,8 @@
  * @property {function} boolean
  */
 import Controller from './Controller'
-import User from '../models/UserModel'
+import models from '../models/'
+const {User} = models
 import Boom from 'boom'
 
 /**
@@ -50,6 +51,7 @@ export default class AuthController extends Controller{
   signUp(request, reply){
     const {name, email, password, gender = 'man'} = request.payload
     const newUser = User({name, password, email, gender})
+    console.log(newUser)
     newUser.save().then((documents) => {
       reply({...documents.getInfo(), accessToken: documents.getToken()})
     }).catch((error) => {
