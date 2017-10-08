@@ -1,4 +1,5 @@
 import config from '../config'
+import fs from 'fs'
 
 const plugin = {
   /**
@@ -12,7 +13,24 @@ const plugin = {
     const {root} = config.path.client
     const setTls = (options) => {
       const {key, cert} = config.tls
-      Object.assign(options, {tls: {key, cert}})
+      if(!key || !cert){
+        throw new Error(`[plugins app setTls] to use protocol https It needs key and cert. key: ${key} cert : ${cert}`)
+      }
+      let myKey, myCert
+      try{
+        myKey = fs.readdirSync(key)
+      }catch(error){
+        throw new Error(`[plugins app setTls] can not read key. key: ${key}`)
+      }
+      try{
+        myCert = fs.readdirSync(cert)
+      }catch(error){
+        throw new Error(`[plugins app setTls] can not read cert. cert: ${cert}`)
+      }
+      Object.assign(options, {tls: {
+        key: myKey,
+        cert: myCert,
+      }})
     }
     {
       const {host, port, labels, cors, protocol} = config.server
