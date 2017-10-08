@@ -35,7 +35,7 @@ export default class AuthController extends Controller{
           Object.assign(data, {accessToken: documents.getToken()})
         }
         reply(data)
-      } else {
+      }else{
         reply(Boom.forbidden('Password incorrect'))
       }
     }).catch((error) => {
