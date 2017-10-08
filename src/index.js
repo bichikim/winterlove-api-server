@@ -14,7 +14,6 @@ import Auth from './plugins/auth'
 import Socket from './plugins/socket'
 import View from './plugins/view'
 import File from './plugins/file'
-import Models from './plugins/models'
 import HapiSwagger from 'hapi-swagger'
 import good from 'good'
 import packageJson from '../package.json'
@@ -62,7 +61,6 @@ const registerPluginsAndStart = async function(){
   await register(server, Auth)
   // It needs App, Controllers and Auth
   await register(server, Routes)
-  await register(server, Models)
   await register(server, File)
   // It needs App and Auth
   await register(server, Socket)

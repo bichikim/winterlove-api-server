@@ -3,7 +3,7 @@ const getRegister = (plugin, server) => {
   let attributes
   if(register){
     attributes = register.attributes
-  } else {
+  }else{
     attributes = plugin.attributes
   }
   if(attributes){

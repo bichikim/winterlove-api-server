@@ -88,7 +88,7 @@ export default class Event{
     let sockets
     if(nameSpace !== '/'){
       sockets = io.of(`/${nameSpace}`).sockets
-    } else {
+    }else{
       sockets = io.sockets
     }
     const {connected} = sockets.connected
