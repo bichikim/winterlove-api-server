@@ -9,7 +9,7 @@ const app = {
    * @param {object}options
    * @param {function}next
    */
-  register(server, options, next) {
+  register(server, options, next){
     const {labels} = config.server
     const errorCode = {
       unauthorized: 401,
@@ -28,20 +28,20 @@ const app = {
        */
       (request, reply) => {
         const {source, variety} = request.response
-        if (request.response.isBoom) {
+        if(request.response.isBoom){
           // Console.log(request.response.output.statusCode)
           const {statusCode} = request.response.output
-          switch (statusCode) {
-            /* A case errorCode.unknownPage:
+          switch(statusCode){
+          /* A case errorCode.unknownPage:
             return reply.view('index', {crumb: server.plugins.crumb.generate(request, reply)})*/
-            case errorCode.unauthorized:
-              return reply.continue()
+          case errorCode.unauthorized:
+            return reply.continue()
             // No default
           }
         }
 
         // Add composers in response object if it is plain response (not file or else) and source is object
-        if (variety === 'plain' && _.isObject(source)) {
+        if(variety === 'plain' && _.isObject(source)){
           Object.assign(source, composers())
         }
 

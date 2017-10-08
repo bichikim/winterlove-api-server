@@ -45,19 +45,19 @@ export default (server) => {
       if(_.isString(name) && _.isString(method)){
         controllerName = name
         methodName = method
-      } else {
+      }else{
         throw new Error(`[ controllers ] It seems name: ${name} or method: ${method} is not a string `)
       }
       // method@controller name
-    } else if(_.isString(options)){
+    }else if(_.isString(options)){
       const [method, controller] = options.split('@')
       if(_.isString(controller) && _.isString(method)){
         controllerName = controller
         methodName = method
-      } else {
+      }else{
         throw new Error(`[ controllers ] It is not like method@controller. the current options is ${options}`)
       }
-    } else {
+    }else{
       throw new Error(
         `[ controllers ] It needs correct options {method: \'\', controller: \'\'} or method@controller.
          the current options is ${options}`
@@ -72,7 +72,7 @@ export default (server) => {
     const controller = controllers[controllerName]
     if(_.isObject(controller)){
       handle = controller[methodName]
-    } else {
+    }else{
       throw new Error(`[ controllers ] It needs a correct controller name. the current options is ${options}`)
     }
 

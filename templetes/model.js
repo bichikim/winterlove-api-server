@@ -1,9 +1,7 @@
-import createMongooseModel from '../lib/create-mongoose-model'
-
 /**
  *
  */
-class UserModel{
+export default class UserModel{
   static db = 'db-name'
   static schema = {
     id: {
@@ -20,5 +18,3 @@ class UserModel{
     //
   }
 }
-
-export default createMongooseModel(UserModel)

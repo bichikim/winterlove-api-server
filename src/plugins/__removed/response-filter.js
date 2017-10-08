@@ -7,7 +7,7 @@ const app = {
    * @param {object}options
    * @param {function}next
    */
-  register(server, options, next) {
+  register(server, options, next){
     const {labels} = config.server
     const webServer = server.select(labels)
 
@@ -22,29 +22,29 @@ const app = {
        */
       (request, reply) => {
         const {source, variety} = request.response
-        if (!source) {
+        if(!source){
           return reply.continue()
         }
         const {data} = source
-        if (!data) {
+        if(!data){
           return reply.continue()
         }
-        if (!request.route.settings.plugins) {
+        if(!request.route.settings.plugins){
           return reply.continue()
         }
         const {responseFilter} = request.route.settings.plugins
-        if (!responseFilter || !variety === 'plain') {
+        if(!responseFilter || !variety === 'plain'){
           return reply.continue()
         }
         const {response} = responseFilter
-        if (!response) {
+        if(!response){
           return reply.continue()
         }
         const {only, except} = response
-        if (_.isArray(only)) {
+        if(_.isArray(only)){
           request.response.source.data = _.pick(_.clone(data), only)
           return reply.continue()
-        } else if (_.isArray(except)) {
+        }else if(_.isArray(except)){
           request.response.source.data = _.omit(_.clone(data), except)
           return reply.continue()
         }

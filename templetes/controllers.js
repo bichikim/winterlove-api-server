@@ -1,5 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import Controller from './Controller'
+import models from '../models/'
 
 /**
  * @class
