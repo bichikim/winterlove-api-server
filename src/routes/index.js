@@ -21,7 +21,7 @@ export default (server) => {
         return routes.routes
       },
       map: (name, path) => {
-        const nameJs = path.split('//').pop()
+        const nameJs = path.split('/').pop()
         const [routeName] = nameJs.split('.')
         return routeName
       },
